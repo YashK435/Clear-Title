@@ -36,7 +36,7 @@ contract LandRegistry {
     address public surveyor;
     address public disputeOfficer;
 
-    uint256 public constant ROLE_TIMELOCK = 48 hours;
+    uint256 public constant ROLE_TIMELOCK = 1 minutes;
 
     struct RoleProposal {
         address proposedRegistrar;
