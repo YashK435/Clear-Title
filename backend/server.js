@@ -1,13 +1,7 @@
 // ══════════════════════════════════════════════════════════════
 //  ClearTitle — IPFS Upload Proxy Server
-//  Keeps Pinata JWT off the frontend completely.
-//
-//  Setup:
-//    npm install
-//    cp .env.example .env   → fill in PINATA_JWT
-//    node server.js
-//
-//  Frontend sets:  const PINATA_PROXY_URL = "http://localhost:3001/api/ipfs-upload";
+//  FIX: Accept application/octet-stream as fallback for PDFs
+//       (some browsers send this for .pdf files)
 // ══════════════════════════════════════════════════════════════
 
 const express    = require("express");
@@ -16,31 +10,27 @@ const fetch      = require("node-fetch");
 const FormData   = require("form-data");
 const rateLimit  = require("express-rate-limit");
 const cors       = require("cors");
+const path       = require("path");
 require("dotenv").config();
 
 const app    = express();
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10 MB max
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
 // ── CORS ──────────────────────────────────────────────────────
-// Allow your frontend origin. Change "*" to your deployed domain in production.
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || "*",
-  methods: ["POST", "OPTIONS"],
+  methods: ["POST", "OPTIONS", "GET"],
 }));
 
 app.use(express.json());
 
 // ── Rate limiting ─────────────────────────────────────────────
-// 20 uploads per wallet address per hour
 const uploadLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
+  windowMs: 60 * 60 * 1000,
   max: 20,
   keyGenerator: (req) => {
-    // Rate-limit by wallet address sent in header, fall back to IP
     const wallet = req.headers["x-wallet-address"];
-    if (wallet && /^0x[a-fA-F0-9]{40}$/.test(wallet)) {
-      return wallet.toLowerCase();
-    }
+    if (wallet && /^0x[a-fA-F0-9]{40}$/.test(wallet)) return wallet.toLowerCase();
     return req.ip;
   },
   message: { error: "Too many uploads from this wallet. Try again in an hour." },
@@ -53,40 +43,71 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok", service: "ClearTitle IPFS Proxy" });
 });
 
+// ── FIX: Detect actual file type from extension + buffer ──────
+function resolveMediaType(file) {
+  const name = (file.originalname || "").toLowerCase();
+  const ext  = path.extname(name);
+
+  // If browser gave a real type and it's allowed, use it
+  const allowed = [
+    "application/pdf",
+    "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"
+  ];
+  if (allowed.includes(file.mimetype)) return file.mimetype;
+
+  // FIX: browser sent octet-stream — infer from extension
+  const extMap = {
+    ".pdf":  "application/pdf",
+    ".jpg":  "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png":  "image/png",
+    ".gif":  "image/gif",
+    ".webp": "image/webp",
+  };
+  if (extMap[ext]) return extMap[ext];
+
+  // FIX: sniff magic bytes from buffer for PDF (%PDF-)
+  if (file.buffer && file.buffer.slice(0, 4).toString() === "%PDF") {
+    return "application/pdf";
+  }
+
+  return null; // not allowed
+}
+
 // ── IPFS Upload endpoint ──────────────────────────────────────
 app.post(
   "/api/ipfs-upload",
   uploadLimiter,
   upload.single("file"),
   async (req, res) => {
-    // Validate JWT is configured
     const jwt = process.env.PINATA_JWT;
     if (!jwt) {
       console.error("PINATA_JWT not set in environment");
       return res.status(500).json({ error: "IPFS service not configured on server." });
     }
 
-    // Validate file was sent
     if (!req.file) {
-      return res.status(400).json({ error: "No file provided. Send file as multipart/form-data field named 'file'." });
+      return res.status(400).json({ error: "No file provided." });
     }
 
-    // Validate wallet address header (optional but logged)
     const wallet = req.headers["x-wallet-address"] || "unknown";
-    console.log(`[${new Date().toISOString()}] Upload from wallet: ${wallet} | file: ${req.file.originalname} | size: ${req.file.size}`);
 
-    // Validate file type — only PDF and images
-    const allowed = ["application/pdf", "image/jpeg", "image/png", "image/gif", "image/webp"];
-    if (!allowed.includes(req.file.mimetype)) {
-      return res.status(400).json({ error: `File type '${req.file.mimetype}' not allowed. Use PDF or image files.` });
+    // FIX: resolve actual MIME type
+    const resolvedType = resolveMediaType(req.file);
+    if (!resolvedType) {
+      console.warn(`Rejected file: ${req.file.originalname} | reported type: ${req.file.mimetype}`);
+      return res.status(400).json({
+        error: `File type '${req.file.mimetype}' not allowed. Use PDF or image files. (Detected from: ${req.file.originalname})`
+      });
     }
+
+    console.log(`[${new Date().toISOString()}] Upload | wallet: ${wallet} | file: ${req.file.originalname} | type: ${resolvedType} | size: ${req.file.size}`);
 
     try {
-      // Build multipart form for Pinata
       const pinataForm = new FormData();
       pinataForm.append("file", req.file.buffer, {
         filename:    req.file.originalname,
-        contentType: req.file.mimetype,
+        contentType: resolvedType,
       });
       pinataForm.append("pinataMetadata", JSON.stringify({
         name: req.file.originalname,
@@ -98,7 +119,6 @@ app.post(
       }));
       pinataForm.append("pinataOptions", JSON.stringify({ cidVersion: 0 }));
 
-      // Call Pinata
       const pinataRes = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
         method:  "POST",
         headers: {
@@ -118,10 +138,11 @@ app.post(
       console.log(`[${new Date().toISOString()}] Pinned: ${data.IpfsHash}`);
 
       return res.json({
-        hash:    data.IpfsHash,
-        url:     `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`,
-        size:    data.PinSize,
-        gateway: `https://ipfs.io/ipfs/${data.IpfsHash}`,
+        IpfsHash: data.IpfsHash,  // keep original key for compatibility
+        hash:     data.IpfsHash,
+        url:      `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`,
+        size:     data.PinSize,
+        gateway:  `https://ipfs.io/ipfs/${data.IpfsHash}`,
       });
 
     } catch (err) {
@@ -131,12 +152,10 @@ app.post(
   }
 );
 
-// ── 404 handler ───────────────────────────────────────────────
 app.use((req, res) => {
   res.status(404).json({ error: "Endpoint not found." });
 });
 
-// ── Start ─────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`ClearTitle IPFS Proxy running on http://localhost:${PORT}`);
