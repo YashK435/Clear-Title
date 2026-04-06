@@ -44,13 +44,13 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans',sans-serif;f
 
 /* ── GOVT TOP BAR ── */
 .gov-topbar{background:var(--navy-deeper);color:#fff;padding:5px 0;font-size:11px;border-bottom:3px solid var(--saffron)}
-.gov-topbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.gov-topbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .gov-topbar-left{display:flex;align-items:center;gap:10px}
 .gov-emblem{width:28px;height:28px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .gov-emblem svg{width:20px;height:20px}
 .gov-topbar-title{font-family:'Noto Serif',serif;font-size:11px;line-height:1.4;opacity:.95}
 .gov-topbar-title strong{font-weight:700;font-size:12px}
-.gov-topbar-right{display:flex;align-items:center;gap:16px;font-size:10px;opacity:.8}
+.gov-topbar-right{display:flex;align-items:center;gap:16px;font-size:10px;opacity:.8;flex-wrap:wrap}
 .gov-topbar-right a{color:#fff;text-decoration:none}
 .gov-topbar-right a:hover{text-decoration:underline}
 
@@ -64,15 +64,14 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans',sans-serif;f
 
 /* ── MAIN HEADER ── */
 header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
-.header-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;height:72px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:.5rem;padding-bottom:.5rem}
 .logo-area{display:flex;align-items:center;gap:14px}
 .logo-seal{width:52px;height:52px;background:#fff;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo-seal svg{width:36px;height:36px}
-.logo-text{}
 .logo-text .title{font-family:'Noto Serif',serif;font-size:1.35rem;font-weight:700;letter-spacing:.3px;line-height:1.1}
 .logo-text .title span{color:#fbbf24}
 .logo-text .subtitle{font-size:10px;opacity:.75;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
-.header-right{display:flex;align-items:center;gap:12px}
+.header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .wallet-btn{display:flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:3px;color:#fff;font-family:'Source Code Pro',monospace;font-size:.78rem;cursor:pointer;transition:all .2s}
 .wallet-btn:hover{background:rgba(255,255,255,0.2)}
 .wallet-btn.connected{background:rgba(27,122,52,0.3);border-color:rgba(27,122,52,0.6)}
@@ -87,8 +86,7 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .sync-dot.stale{background:#fcd34d;animation:pulse .8s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ── LANDING PAGE ── */
-#connect-screen{display:none}
+/* ── HERO ── */
 .hero{background:linear-gradient(135deg,var(--navy-deeper) 0%,var(--navy) 60%,#1a4da0 100%);color:#fff;padding:3rem 1.5rem;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
 .hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
@@ -108,7 +106,7 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .feature-item{display:flex;align-items:center;gap:10px;font-size:.82rem;opacity:.85}
 .feature-icon{width:20px;height:20px;background:rgba(251,191,36,0.2);border:1px solid rgba(251,191,36,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:#fbbf24}
 
-/* ── NEWS / ANNOUNCEMENTS ── */
+/* ── PORTAL BODY ── */
 .portal-body{max-width:1280px;margin:0 auto;padding:1.5rem}
 .three-col{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
 .section-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden}
@@ -122,9 +120,7 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .news-item:last-child{border-bottom:none}
 .news-date{background:var(--navy);color:#fff;padding:4px 8px;border-radius:2px;font-size:.65rem;font-family:'Source Code Pro',monospace;white-space:nowrap;flex-shrink:0;height:fit-content;margin-top:2px}
 .news-date.new-date{background:var(--saffron)}
-.news-content{}
 .news-title{font-size:.82rem;font-weight:600;color:var(--navy);line-height:1.4;margin-bottom:3px}
-.news-title:hover{text-decoration:underline;cursor:pointer}
 .news-meta{font-size:.7rem;color:var(--text3)}
 .new-badge{display:inline-block;background:var(--saffron);color:#fff;font-size:.6rem;font-weight:700;padding:1px 5px;border-radius:2px;margin-left:6px;vertical-align:middle}
 .circular-item{padding:8px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:.8rem}
@@ -139,7 +135,7 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .ql-arrow{margin-left:auto;color:var(--text3);font-size:10px}
 
 /* ── NAV TABS ── */
-.nav-tabs{display:flex;gap:0;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.nav-tabs{display:flex;gap:0;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;flex-wrap:wrap}
 .nav-tab{padding:10px 20px;font-family:'Noto Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;color:var(--text2);border:none;background:transparent;border-right:1px solid var(--border)}
 .nav-tab:last-child{border-right:none}
 .nav-tab:hover{background:#f0f4f8;color:var(--navy)}
@@ -149,111 +145,120 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .dash-header{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;border-left:4px solid var(--navy)}
 .dash-header-left .dash-title{font-family:'Noto Serif',serif;font-size:1.15rem;font-weight:700;color:var(--navy)}
 .dash-header-left .dash-sub{font-size:.78rem;color:var(--text3);margin-top:3px}
-.dash-header-right{display:flex;align-items:center;gap:12px}
 .breadcrumb{font-size:.72rem;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:6px}
 .breadcrumb span{color:var(--navy);font-weight:600}
 
 /* ── STATS ROW ── */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;border-top:3px solid var(--navy)}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;border-top:3px solid var(--navy);min-width:0}
 .stat-card.orange{border-top-color:var(--saffron)}
 .stat-card.green{border-top-color:var(--green-gov)}
 .stat-card.red{border-top-color:var(--red-gov)}
 .stat-label{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:.6rem}
 .stat-value{font-family:'Noto Serif',serif;font-size:1.8rem;font-weight:700;color:var(--text);line-height:1}
+.stat-value.addr{font-family:'Source Code Pro',monospace;font-size:.72rem;color:var(--navy);word-break:break-all;line-height:1.5}
 .stat-sub{font-size:.7rem;color:var(--text3);margin-top:5px;font-family:'Source Code Pro',monospace}
 
 /* ── NOTICE BOARD ── */
 .notice-board{background:var(--gold-pale);border:1px solid #d4a017;border-radius:4px;padding:1rem 1.25rem;margin-bottom:1.5rem}
 .notice-title{font-size:.72rem;font-weight:700;color:#854d0e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem}
-.notice-item{font-size:.8rem;color:#713f12;padding:4px 0;border-bottom:1px dashed #d4a017;display:flex;align-items:center;gap:8px}
+.notice-item{font-size:.8rem;color:#713f12;padding:4px 0;border-bottom:1px dashed #d4a017;display:flex;align-items:flex-start;gap:8px}
 .notice-item:last-child{border-bottom:none}
-.notice-dot{width:5px;height:5px;border-radius:50%;background:#e8611a;flex-shrink:0}
+.notice-dot{width:5px;height:5px;border-radius:50%;background:#e8611a;flex-shrink:0;margin-top:5px}
 
 /* ── PANEL ── */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;margin-bottom:1.5rem}
 .panel-title{font-family:'Noto Serif',serif;font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .form-grid .full{grid-column:1/-1}
-.field{display:flex;flex-direction:column;gap:5px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
 .field label{font-size:.72rem;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
-.field input,.field textarea,.field select{background:#f8fafc;border:1px solid var(--border);border-radius:3px;padding:9px 12px;color:var(--text);font-family:'Noto Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .15s}
+.field input,.field textarea,.field select{background:#f8fafc;border:1px solid var(--border);border-radius:3px;padding:9px 12px;color:var(--text);font-family:'Noto Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .15s;width:100%;min-width:0}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 2px rgba(13,59,142,0.1)}
 .field select option{background:#fff}
 .form-hint{font-size:.68rem;color:var(--text3);margin-top:3px}
-.form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)}
+.form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border);flex-wrap:wrap}
 .req-star{color:var(--red-gov)}
 
 /* ── BUTTONS ── */
-.btn-primary{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:var(--navy);color:#fff;border:none;border-radius:3px;font-family:'Noto Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-primary{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:var(--navy);color:#fff;border:none;border-radius:3px;font-family:'Noto Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-primary:hover{background:var(--navy-dark)}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed}
-.btn-saffron{background:var(--saffron);color:#fff;border:none;padding:9px 20px;border-radius:3px;font-family:'Noto Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+.btn-saffron{background:var(--saffron);color:#fff;border:none;padding:9px 20px;border-radius:3px;font-family:'Noto Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 .btn-saffron:hover{background:#d4520f}
-.btn-outline{padding:8px 16px;background:transparent;border:1px solid var(--border-dark);border-radius:3px;color:var(--text2);font-family:'Noto Sans',sans-serif;font-size:.8rem;cursor:pointer;transition:all .15s}
+.btn-outline{padding:8px 16px;background:transparent;border:1px solid var(--border-dark);border-radius:3px;color:var(--text2);font-family:'Noto Sans',sans-serif;font-size:.8rem;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-outline:hover{border-color:var(--navy);color:var(--navy);background:#f0f4f8}
 .btn-sm{padding:6px 12px;font-size:.75rem}
-.btn-green{background:var(--green-gov);color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif}
+.btn-green{background:var(--green-gov);color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif;white-space:nowrap}
 .btn-green:hover{background:#155f28}
-.btn-red{background:var(--red-gov);color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif}
+.btn-red{background:var(--red-gov);color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif;white-space:nowrap}
 .btn-red:hover{background:#991b1b}
-.btn-orange{background:var(--saffron);color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;font-family:'Noto Sans',sans-serif}
+.btn-orange{background:var(--saffron);color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;font-family:'Noto Sans',sans-serif;white-space:nowrap}
 .btn-orange:hover{background:#d4520f}
-.btn-purple{background:#6d28d9;color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif}
+.btn-purple{background:#6d28d9;color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif;white-space:nowrap}
 .btn-purple:hover{background:#5b21b6}
-.btn-cyan{background:#0e7490;color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif}
+.btn-cyan{background:#0e7490;color:#fff;border:none;padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;flex:1;font-family:'Noto Sans',sans-serif;white-space:nowrap}
 .btn-cyan:hover{background:#0c6277}
-.btn-ghost{background:#f1f5f9;color:var(--text2);border:1px solid var(--border);padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;flex:1;font-family:'Noto Sans',sans-serif}
+.btn-ghost{background:#f1f5f9;color:var(--text2);border:1px solid var(--border);padding:8px 14px;border-radius:3px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;flex:1;font-family:'Noto Sans',sans-serif;white-space:nowrap}
 .btn-ghost:hover{background:#e2e8f0}
 
 /* ── FILTER BAR ── */
 .filter-bar{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
-.filter-btn{padding:5px 12px;border-radius:2px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:.72rem;cursor:pointer;transition:all .15s}
+.filter-btn{padding:5px 12px;border-radius:2px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:.72rem;cursor:pointer;transition:all .15s;white-space:nowrap}
 .filter-btn:hover{border-color:var(--navy);color:var(--navy)}
 .filter-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
 
 /* ── PROPERTY CARDS ── */
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem}
-.prop-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;display:flex;flex-direction:column;gap:.875rem;transition:box-shadow .15s;border-left:4px solid var(--border)}
+.prop-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;display:flex;flex-direction:column;gap:.875rem;transition:box-shadow .15s;border-left:4px solid var(--border);min-width:0;overflow:hidden}
 .prop-card:hover{box-shadow:var(--shadow-md)}
 .prop-card.status-verified{border-left-color:var(--green-gov)}
 .prop-card.status-pending{border-left-color:var(--gold)}
 .prop-card.status-rejected{border-left-color:var(--red-gov);background:#fffbfb}
 .prop-card.status-disputed{border-left-color:var(--saffron)}
 .prop-card.status-underreview{border-left-color:#7c3aed}
-.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
-.card-ref{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--text3);background:var(--bg);padding:2px 7px;border-radius:2px;border:1px solid var(--border)}
-.card-location{font-family:'Noto Serif',serif;font-size:.95rem;font-weight:700;color:var(--navy);flex:1;line-height:1.3}
-.status-stamp{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:2px;font-size:.68rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border:1px solid;white-space:nowrap}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;min-width:0}
+.card-head-left{min-width:0;flex:1}
+.card-ref{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--text3);background:var(--bg);padding:2px 7px;border-radius:2px;border:1px solid var(--border);display:inline-block;margin-bottom:4px}
+.card-location{font-family:'Noto Serif',serif;font-size:.92rem;font-weight:700;color:var(--navy);line-height:1.3;word-break:break-word;overflow-wrap:break-word}
+.status-stamp{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:2px;font-size:.68rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border:1px solid;white-space:nowrap;flex-shrink:0}
 .stamp-pending{background:var(--gold-pale);color:#854d0e;border-color:#d4a017}
 .stamp-verified{background:var(--green-pale);color:#155f28;border-color:#16a34a}
 .stamp-rejected{background:var(--red-pale);color:#991b1b;border-color:#dc2626}
 .stamp-disputed{background:var(--saffron-pale);color:#9a3412;border-color:#ea580c}
 .stamp-underreview{background:#f3e8ff;color:#5b21b6;border-color:#7c3aed}
-.card-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:.75rem}
-.meta-item{}
+
+/* ── CARD META — FIXED OVERFLOW ── */
+.card-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:.75rem;min-width:0}
+.meta-item{min-width:0;overflow:hidden}
 .meta-key{font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:2px}
-.meta-val{font-family:'Source Code Pro',monospace;font-size:.78rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.approval-track{display:flex;align-items:center;gap:5px}
-.approval-step{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:7px 10px;text-align:center}
-.approval-step .step-label{font-size:.6rem;color:var(--text3);font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.meta-val{font-family:'Source Code Pro',monospace;font-size:.75rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;max-width:100%}
+
+/* ── APPROVAL TRACK ── */
+.approval-track{display:flex;align-items:center;gap:5px;width:100%}
+.approval-step{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:6px 8px;text-align:center;min-width:0}
+.approval-step .step-label{font-size:.6rem;color:var(--text3);font-weight:600;letter-spacing:.4px;text-transform:uppercase;display:block}
 .approval-step .step-icon{font-size:.9rem;display:block;margin-top:2px}
 .approval-step.done{border-color:#16a34a;background:var(--green-pale)}
 .approval-step.pending{border-color:#d4a017;background:var(--gold-pale)}
-.step-arrow{color:var(--text3);font-size:.75rem}
-.rejection-banner{background:var(--red-pale);border:1px solid #fca5a5;border-radius:3px;padding:.75rem}
+.step-arrow{color:var(--text3);font-size:.75rem;flex-shrink:0}
+
+/* ── REJECTION BANNER ── */
+.rejection-banner{background:var(--red-pale);border:1px solid #fca5a5;border-radius:3px;padding:.75rem;min-width:0}
 .rej-label{font-size:.62rem;color:var(--red-gov);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.rej-reason{font-size:.8rem;color:var(--text);line-height:1.5}
-.rej-actions{margin-top:7px;display:flex;gap:7px}
+.rej-reason{font-size:.8rem;color:var(--text);line-height:1.5;word-break:break-word}
+.rej-actions{margin-top:7px;display:flex;gap:7px;flex-wrap:wrap}
+
+/* ── CARD ACTIONS ── */
 .card-actions{display:flex;gap:7px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:.875rem;margin-top:.125rem}
-.transfer-notice{background:#eff6ff;border:1px solid #bfdbfe;border-radius:3px;padding:8px 12px;font-size:.78rem;color:#1d4ed8;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.expiry-warning{background:var(--saffron-pale);border:1px solid #fed7aa;border-radius:3px;padding:8px 12px;font-size:.78rem;color:#9a3412}
-.dispute-notes-box{background:var(--saffron-pale);border:1px solid #fed7aa;border-radius:3px;padding:8px 12px;font-size:.78rem;color:#9a3412}
+.transfer-notice{background:#eff6ff;border:1px solid #bfdbfe;border-radius:3px;padding:8px 12px;font-size:.78rem;color:#1d4ed8;display:flex;align-items:flex-start;gap:7px;flex-wrap:wrap;word-break:break-word;line-height:1.5}
+.expiry-warning{background:var(--saffron-pale);border:1px solid #fed7aa;border-radius:3px;padding:8px 12px;font-size:.78rem;color:#9a3412;word-break:break-word}
+.dispute-notes-box{background:var(--saffron-pale);border:1px solid #fed7aa;border-radius:3px;padding:8px 12px;font-size:.78rem;color:#9a3412;word-break:break-word}
 .empty-state{grid-column:1/-1;text-align:center;padding:2.5rem;color:var(--text3);border:1px dashed var(--border);border-radius:4px;background:var(--bg2)}
 .empty-icon{font-size:2rem;margin-bottom:.75rem;opacity:.4}
 
 /* ── ROLE HEADER ── */
-.role-header{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-left:4px solid var(--navy)}
+.role-header{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-left:4px solid var(--navy);flex-wrap:wrap}
 .role-header.surveyor{border-left-color:var(--gold)}
 .role-header.registrar{border-left-color:var(--green-gov)}
 .role-header.dispute-role{border-left-color:#7c3aed}
@@ -265,21 +270,35 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 /* ── MAP ── */
 #property-map{height:300px;border-radius:3px;overflow:hidden;border:1px solid var(--border)}
 .map-controls{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
-.map-btn{padding:7px 14px;background:var(--surface);border:1px solid var(--border-dark);border-radius:3px;color:var(--text2);font-size:.78rem;cursor:pointer;transition:all .15s}
+.map-btn{padding:7px 14px;background:var(--surface);border:1px solid var(--border-dark);border-radius:3px;color:var(--text2);font-size:.78rem;cursor:pointer;transition:all .15s;white-space:nowrap}
 .map-btn:hover,.map-btn.active{border-color:var(--navy);color:var(--navy);background:#f0f4f8}
 .map-btn.active{background:var(--navy);color:#fff}
 .map-info{margin-top:7px;font-size:.75rem;color:var(--text2);font-family:'Source Code Pro',monospace;padding:7px 10px;background:var(--bg2);border-radius:3px;border:1px solid var(--border)}
 .area-mismatch-warn{background:var(--red-pale);border:1px solid #fca5a5;border-radius:3px;padding:8px 12px;font-size:.78rem;color:var(--red-gov);margin-top:7px;display:none}
+
+/* ── PARENT POLYGON INFO ── */
+.parent-polygon-info{background:#fff8ec;border:1px solid #d4a017;border-radius:3px;padding:8px 12px;font-size:.75rem;color:#854d0e;display:none;align-items:flex-start;gap:8px;margin-top:7px;line-height:1.5;word-break:break-word}
+.parent-polygon-info.visible{display:flex}
+.out-of-bounds-warn{background:var(--red-pale);border:1px solid #fca5a5;border-radius:3px;padding:8px 12px;font-size:.78rem;color:var(--red-gov);margin-top:7px;display:none}
+.out-of-bounds-warn.visible{display:block}
+.map-legend{display:flex;gap:12px;margin-top:7px;flex-wrap:wrap;padding:6px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;display:none}
+.map-legend.visible{display:flex}
+.map-legend-item{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--text2)}
+.map-legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.parent-select-wrap{position:relative}
+.parent-loading-badge{font-size:.68rem;color:var(--text3);margin-top:4px;display:block;font-family:'Source Code Pro',monospace}
+
+/* ── OVERLAP ALERT ── */
 .overlap-alert{background:var(--red-pale);border:1px solid #fca5a5;border-radius:3px;padding:8px 12px;font-size:.78rem;color:var(--red-gov);display:none;margin-bottom:8px}
 
 /* ── DOC SLOTS ── */
 .doc-slots{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
-.doc-slot{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:.875rem;display:flex;flex-direction:column;gap:5px;transition:border-color .15s}
+.doc-slot{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:.875rem;display:flex;flex-direction:column;gap:5px;transition:border-color .15s;min-width:0}
 .doc-slot.uploaded{border-color:var(--green-gov);background:var(--green-pale)}
-.doc-slot-label{font-size:.68rem;color:var(--text2);font-weight:700;letter-spacing:.3px;text-transform:uppercase;display:flex;align-items:center;gap:5px}
+.doc-slot-label{font-size:.68rem;color:var(--text2);font-weight:700;letter-spacing:.3px;text-transform:uppercase;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .doc-slot-btn{padding:5px 10px;background:#fff;border:1px dashed var(--border-dark);border-radius:3px;color:var(--text2);font-size:.72rem;cursor:pointer;transition:all .15s;text-align:center}
 .doc-slot-btn:hover{border-color:var(--navy);color:var(--navy)}
-.doc-slot-hash{font-family:'Source Code Pro',monospace;font-size:.65rem;color:var(--green-gov);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc-slot-hash{font-family:'Source Code Pro',monospace;font-size:.65rem;color:var(--green-gov);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .upload-progress{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:10px;display:none}
 .progress-bar-wrap{height:4px;background:var(--border);border-radius:2px;margin:5px 0}
 .progress-bar{height:100%;border-radius:2px;background:var(--navy);transition:width .3s}
@@ -287,34 +306,32 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 
 /* ── REGISTRAR DOC PANEL ── */
 .doc-review-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.875rem}
-.doc-review-card{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:8px 10px}
+.doc-review-card{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:8px 10px;min-width:0}
 .doc-review-card.has-doc{border-color:#16a34a;background:var(--green-pale)}
 .doc-review-card.no-doc{border-color:#fca5a5;background:var(--red-pale);opacity:.8}
 .doc-review-label{font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;font-weight:600}
-.doc-review-link{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--navy);text-decoration:none;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc-review-link{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--navy);text-decoration:none;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .doc-review-missing{font-size:.72rem;color:var(--red-gov);font-style:italic}
 
+/* ── WITNESS FIELDS ── */
+.witness-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
+
 /* ── VALUE COMPARE ── */
-.value-compare{display:flex;gap:7px;margin-bottom:.5rem}
-.val-box{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:8px 10px}
+.value-compare{display:flex;gap:7px;margin-bottom:.5rem;flex-wrap:wrap}
+.val-box{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:8px 10px}
 .val-box-label{font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;font-weight:600}
 .val-box-value{font-family:'Source Code Pro',monospace;font-size:.82rem;color:var(--text)}
 .val-box.warn{border-color:#ea580c;background:var(--saffron-pale)}
 .val-box.warn .val-box-value{color:#9a3412}
 
-/* ── WITNESS FIELDS ── */
-.witness-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
-
 /* ── LEDGER ── */
 .ledger-search{display:flex;gap:8px;margin-bottom:1.25rem}
-.ledger-search input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:9px 12px;color:var(--text);font-family:'Noto Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .15s}
+.ledger-search input{flex:1;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:9px 12px;color:var(--text);font-family:'Noto Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .15s}
 .ledger-search input:focus{border-color:var(--navy)}
-.ledger-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.1rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .15s;border-left:3px solid var(--green-gov)}
+.ledger-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.1rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .15s;border-left:3px solid var(--green-gov);min-width:0;overflow:hidden}
 .ledger-card:hover{border-color:var(--navy)}
-.chain-item{display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--text2);font-family:'Source Code Pro',monospace;padding:3px 0}
-.chain-dot{width:6px;height:6px;border-radius:50%;background:var(--navy);flex-shrink:0}
-.chain-dot.origin{background:var(--gold)}
-.chain-dot.current{background:var(--green-gov)}
+.chain-item{display:flex;align-items:flex-start;gap:7px;font-size:.72rem;color:var(--text2);font-family:'Source Code Pro',monospace;padding:3px 0;word-break:break-all}
+.chain-dot{width:6px;height:6px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:4px}
 
 /* ── ADMIN ── */
 .admin-panel{background:var(--red-pale);border:1px solid #fca5a5;border-radius:4px;padding:1.25rem}
@@ -323,7 +340,7 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .timelock-notice .tl-desc{font-size:.78rem;color:#713f12}
 .timelock-countdown{font-family:'Source Code Pro',monospace;font-size:.82rem;color:#854d0e;margin-top:5px}
 
-/* ── TRANSFER ── */
+/* ── INCOMING ── */
 .incoming-card{background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:1rem;margin-bottom:1rem}
 
 /* ── MODAL ── */
@@ -331,13 +348,13 @@ header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saffron)}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.75rem;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)}
 .modal-wide{max-width:720px}
 .modal-title{font-family:'Noto Serif',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy)}
-.modal-actions{display:flex;gap:8px;margin-top:1.25rem;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--border)}
+.modal-actions{display:flex;gap:8px;margin-top:1.25rem;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--border);flex-wrap:wrap}
 
 /* ── HISTORY ── */
-.history-item{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--border)}
+.history-item{display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid var(--border)}
 .history-item:last-child{border-bottom:none}
-.history-dot{width:7px;height:7px;border-radius:50%;background:var(--navy);flex-shrink:0}
-.history-addr{font-family:'Source Code Pro',monospace;font-size:.72rem;color:var(--text2);flex:1}
+.history-dot{width:7px;height:7px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:3px}
+.history-addr{font-family:'Source Code Pro',monospace;font-size:.72rem;color:var(--text2);flex:1;word-break:break-all}
 .history-badge{font-size:.62rem;padding:2px 6px;background:#eff6ff;border-radius:2px;color:var(--navy);border:1px solid #bfdbfe;white-space:nowrap}
 
 /* ── FOOTER ── */
@@ -350,11 +367,11 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:5px}
 .footer-col ul li a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:.72rem;transition:color .15s}
 .footer-col ul li a:hover{color:#fff}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1rem;display:flex;align-items:center;justify-content:space-between;font-size:.68rem;opacity:.5}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1rem;display:flex;align-items:center;justify-content:space-between;font-size:.68rem;opacity:.5;flex-wrap:wrap;gap:.5rem}
 
 /* ── TOAST ── */
-#toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.toast{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:10px 16px;font-size:.82rem;max-width:320px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-md);animation:slide-in .25s ease;pointer-events:auto}
+#toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:340px;width:calc(100% - 3rem)}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:10px 16px;font-size:.82rem;display:flex;align-items:flex-start;gap:8px;box-shadow:var(--shadow-md);animation:slide-in .25s ease;pointer-events:auto;word-break:break-word}
 .toast.success{border-left:3px solid var(--green-gov)}
 .toast.error{border-left:3px solid var(--red-gov)}
 .toast.info{border-left:3px solid var(--navy)}
@@ -363,25 +380,37 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ── IPFS LINK ── */
-.ipfs-link{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--navy);text-decoration:none;word-break:break-all}
+.ipfs-link{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--navy);text-decoration:none;word-break:break-all;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ipfs-link:hover{text-decoration:underline}
 
-/* ── INLINE CONFLICT ── */
-#conflict-list .conflict-row{font-size:.75rem;color:#9a3412;background:var(--saffron-pale);border:1px solid #fed7aa;border-radius:3px;padding:6px 10px;margin-top:4px}
+/* ── CONFLICT LIST ── */
+#conflict-list .conflict-row{font-size:.75rem;color:#9a3412;background:var(--saffron-pale);border:1px solid #fed7aa;border-radius:3px;padding:6px 10px;margin-top:4px;word-break:break-word}
 
-/* ── RESUBMIT FIELD ── */
+/* ── RESUBMIT ── */
 #resubmit-field{display:none}
 
+/* ── WITNESSES ── */
+.witnesses-box{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:8px 10px}
+.witnesses-label{font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;font-weight:600}
+.witnesses-content{font-size:.72rem;color:var(--text2);line-height:1.7;word-break:break-all}
+
+/* ── COORDS PILL ── */
+.coords-pill{font-size:.68rem;color:var(--text3);font-family:'Source Code Pro',monospace;background:var(--bg2);padding:4px 8px;border-radius:3px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:5px}
+
 /* ── RESPONSIVE ── */
-@media(max-width:768px){
+@media(max-width:900px){
   .hero-inner{grid-template-columns:1fr}
   .hero-right{display:none}
   .three-col{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
   .form-grid,.doc-slots,.doc-review-grid,.witness-row{grid-template-columns:1fr}
   .cards-grid{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr 1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
   .nav-tabs{flex-wrap:wrap}
-  .header-inner{height:auto;padding:.75rem 1rem}
+  .card-meta{grid-template-columns:1fr 1fr}
+  .portal-body{padding:1rem}
 }
 </style>
 </head>
@@ -412,7 +441,6 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
     </div>
     <div class="gov-topbar-right">
       <a href="#">Skip to Main Content</a>
-      <a href="#">Screen Reader Access</a>
       <a href="#">A-</a><a href="#">A</a><a href="#">A+</a>
       <a href="#">हिंदी</a>
       <a href="#">मराठी</a>
@@ -430,8 +458,7 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
         📋 Circular No. 47/2025 — Digital verification mandatory for transfers above ₹50 lakh &nbsp;&nbsp;|&nbsp;&nbsp;
         ⚠️ System maintenance scheduled every Sunday 2 AM – 4 AM IST &nbsp;&nbsp;|&nbsp;&nbsp;
         📅 Last date for pending property mutation applications: 30 June 2025 &nbsp;&nbsp;|&nbsp;&nbsp;
-        🆕 NOC from Society now accepted as supporting document for residential flat registration &nbsp;&nbsp;|&nbsp;&nbsp;
-        📢 Grievance redressal portal updated — submit complaints at pgportal.gov.in
+        🆕 NOC from Society now accepted as supporting document for residential flat registration
       </span>
     </div>
   </div>
@@ -473,7 +500,6 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
 
 <!-- LANDING / HOME PAGE -->
 <div id="home-page">
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
       <div class="hero-left">
@@ -495,15 +521,12 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
       <div class="hero-right">
         <h3>🔐 Citizen Login</h3>
         <p style="font-size:.78rem;opacity:.75;margin-bottom:1rem;line-height:1.7">Connect your MetaMask wallet to access the portal. Your wallet address serves as your Digital Identity (DID) on this system.</p>
-        <button class="connect-btn" onclick="connectWallet()">
-          🦊 Connect MetaMask Wallet
-        </button>
-        <p class="login-note">New to MetaMask? <a href="https://metamask.io" target="_blank" style="color:#fbbf24">Download here</a><br>Your wallet = your identity. No username or password needed.<br>Read-only ledger available without login below.</p>
+        <button class="connect-btn" onclick="connectWallet()">🦊 Connect MetaMask Wallet</button>
+        <p class="login-note">New to MetaMask? <a href="https://metamask.io" target="_blank" style="color:#fbbf24">Download here</a><br>Your wallet = your identity. No username or password needed.</p>
         <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.15)">
           <p style="font-size:.72rem;opacity:.6;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.5px">Also available as</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:4px 10px;border-radius:2px;font-size:.7rem">📱 Mobile App</span>
-            <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:4px 10px;border-radius:2px;font-size:.7rem">🖥️ Service Centre</span>
             <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:4px 10px;border-radius:2px;font-size:.7rem">📞 1800-121-4567</span>
           </div>
         </div>
@@ -511,97 +534,40 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
     </div>
   </div>
 
-  <!-- NEWS + CIRCULARS -->
   <div class="portal-body">
     <div class="three-col">
-      <!-- News & Announcements -->
       <div>
         <div class="section-box" style="margin-bottom:1rem">
-          <div class="section-box-head">
-            <h3>📢 Announcements & News</h3>
-            <a href="#">View All</a>
-          </div>
+          <div class="section-box-head"><h3>📢 Announcements & News</h3><a href="#">View All</a></div>
           <div class="news-list">
             <div class="news-item">
               <div class="news-date new-date">NEW</div>
-              <div class="news-content">
-                <div class="news-title">Blockchain property verification now mandatory for all commercial transfers above ₹1 crore <span class="new-badge">NEW</span></div>
-                <div class="news-meta">Revenue Department | 02 Apr 2025</div>
-              </div>
+              <div><div class="news-title">Blockchain property verification now mandatory for all commercial transfers above ₹1 crore <span class="new-badge">NEW</span></div><div class="news-meta">Revenue Department | 02 Apr 2025</div></div>
             </div>
             <div class="news-item">
               <div class="news-date">MAR 25</div>
-              <div class="news-content">
-                <div class="news-title">Extension of deadline for property mutation applications — now 30 June 2025</div>
-                <div class="news-meta">District Collector Office | 25 Mar 2025</div>
-              </div>
+              <div><div class="news-title">Extension of deadline for property mutation applications — now 30 June 2025</div><div class="news-meta">District Collector Office | 25 Mar 2025</div></div>
             </div>
             <div class="news-item">
               <div class="news-date">MAR 18</div>
-              <div class="news-content">
-                <div class="news-title">New guidelines for agricultural land digitisation under PM-SVAMITVA scheme</div>
-                <div class="news-meta">Maharashtra Revenue Department | 18 Mar 2025</div>
-              </div>
+              <div><div class="news-title">New guidelines for agricultural land digitisation under PM-SVAMITVA scheme</div><div class="news-meta">Maharashtra Revenue Department | 18 Mar 2025</div></div>
             </div>
             <div class="news-item">
               <div class="news-date">MAR 10</div>
-              <div class="news-content">
-                <div class="news-title">Digital Satbara (7/12) extract now accepted as valid ownership proof on ClearTitle portal</div>
-                <div class="news-meta">Revenue Department | 10 Mar 2025</div>
-              </div>
-            </div>
-            <div class="news-item">
-              <div class="news-date">FEB 28</div>
-              <div class="news-content">
-                <div class="news-title">ClearTitle portal processes 50,000th verified transaction — CM congratulates team</div>
-                <div class="news-meta">Press Release | 28 Feb 2025</div>
-              </div>
+              <div><div class="news-title">Digital Satbara (7/12) extract now accepted as valid ownership proof on ClearTitle portal</div><div class="news-meta">Revenue Department | 10 Mar 2025</div></div>
             </div>
           </div>
         </div>
-
-        <!-- Circulars -->
         <div class="section-box">
-          <div class="section-box-head">
-            <h3>📋 Recent Circulars / Orders</h3>
-            <a href="#">View All</a>
-          </div>
+          <div class="section-box-head"><h3>📋 Recent Circulars / Orders</h3><a href="#">View All</a></div>
           <div>
-            <div class="circular-item">
-              <span class="circ-icon">📄</span>
-              <div class="circ-text">
-                Circular No. 47/2025 — Mandatory blockchain verification for high-value transfers
-                <span>Revenue Department | 01 Apr 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span>
-              </div>
-            </div>
-            <div class="circular-item">
-              <span class="circ-icon">📄</span>
-              <div class="circ-text">
-                Circular No. 42/2025 — Updated stamp duty rates for urban properties FY 2025-26
-                <span>Finance Department | 15 Mar 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span>
-              </div>
-            </div>
-            <div class="circular-item">
-              <span class="circ-icon">📄</span>
-              <div class="circ-text">
-                Order No. 18/2025 — New guidelines for agricultural land boundary survey
-                <span>Survey Department | 05 Mar 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span>
-              </div>
-            </div>
-            <div class="circular-item">
-              <span class="circ-icon">📄</span>
-              <div class="circ-text">
-                Circular No. 31/2025 — Acceptance of Aadhaar-linked e-signatures on property documents
-                <span>Revenue Department | 20 Feb 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span>
-              </div>
-            </div>
+            <div class="circular-item"><span class="circ-icon">📄</span><div class="circ-text">Circular No. 47/2025 — Mandatory blockchain verification for high-value transfers<span>Revenue Department | 01 Apr 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span></div></div>
+            <div class="circular-item"><span class="circ-icon">📄</span><div class="circ-text">Circular No. 42/2025 — Updated stamp duty rates for urban properties FY 2025-26<span>Finance Department | 15 Mar 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span></div></div>
+            <div class="circular-item"><span class="circ-icon">📄</span><div class="circ-text">Order No. 18/2025 — New guidelines for agricultural land boundary survey<span>Survey Department | 05 Mar 2025 | <a href="#" style="color:var(--navy)">Download PDF</a></span></div></div>
           </div>
         </div>
       </div>
-
-      <!-- Right Column -->
       <div>
-        <!-- Quick Links -->
         <div class="section-box" style="margin-bottom:1rem">
           <div class="section-box-head"><h3>🔗 Quick Links</h3></div>
           <div class="quick-links">
@@ -611,27 +577,21 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
             <div class="quick-link-item" onclick="connectWallet()">⚠️ Raise Dispute<span class="ql-arrow">›</span></div>
             <div class="quick-link-item">📞 Contact Helpdesk<span class="ql-arrow">›</span></div>
             <div class="quick-link-item">❓ User Manual / FAQ<span class="ql-arrow">›</span></div>
-            <div class="quick-link-item">📊 Annual Report 2024-25<span class="ql-arrow">›</span></div>
           </div>
         </div>
-
-        <!-- Important Notice -->
         <div style="background:var(--red-pale);border:1px solid #fca5a5;border-radius:4px;padding:1rem;margin-bottom:1rem;border-left:3px solid var(--red-gov)">
           <div style="font-size:.72rem;font-weight:700;color:var(--red-gov);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">⚠️ Important Notice</div>
-          <p style="font-size:.78rem;color:#7f1d1d;line-height:1.7">Beware of fraudulent websites impersonating this portal. The only official URL is <strong>cleartitle.maharashtra.gov.in</strong>. Report fraud to <strong>1930</strong> (Cyber Crime Helpline).</p>
+          <p style="font-size:.78rem;color:#7f1d1d;line-height:1.7">Beware of fraudulent websites impersonating this portal. The only official URL is <strong>cleartitle.maharashtra.gov.in</strong>.</p>
         </div>
-
-        <!-- Helpline -->
         <div style="background:var(--navy);color:#fff;border-radius:4px;padding:1rem;text-align:center">
           <div style="font-size:.68rem;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.25rem">Toll-Free Helpline</div>
           <div style="font-family:'Noto Serif',serif;font-size:1.5rem;font-weight:700;color:#fbbf24">1800-121-4567</div>
           <div style="font-size:.7rem;opacity:.7;margin-top:.25rem">Mon–Sat, 9:00 AM – 6:00 PM</div>
-          <div style="margin-top:.75rem;font-size:.72rem;opacity:.8">📧 support@cleartitle.mh.gov.in</div>
         </div>
       </div>
     </div>
 
-    <!-- PUBLIC LEDGER (read-only, no wallet needed) -->
+    <!-- PUBLIC LEDGER -->
     <div id="public-ledger-section" class="section-box" style="margin-bottom:1.5rem">
       <div class="section-box-head">
         <h3>🔗 Public Property Ledger — Verified Records</h3>
@@ -674,7 +634,7 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
         <div class="stats-row">
           <div class="stat-card">
             <div class="stat-label">Digital Identity</div>
-            <div class="stat-value" style="font-size:.8rem;font-family:'Source Code Pro',monospace;color:var(--navy)" id="citizen-addr">—</div>
+            <div class="stat-value addr" id="citizen-addr">—</div>
             <div class="stat-sub">Wallet Address</div>
           </div>
           <div class="stat-card">
@@ -726,46 +686,48 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
 
           <!-- Document Slots -->
           <div style="margin-bottom:1.5rem">
-            <div class="field" style="margin-bottom:.75rem"><label style="font-size:.78rem;color:var(--navy);font-weight:700">📄 Property Documents <span style="color:var(--text3);font-weight:400;text-transform:none">(Upload required documents before submitting)</span></label></div>
+            <div class="field" style="margin-bottom:.75rem">
+              <label style="font-size:.78rem;color:var(--navy);font-weight:700">📄 Property Documents <span style="color:var(--text3);font-weight:400;text-transform:none">(Upload required documents before submitting)</span></label>
+            </div>
             <div class="doc-slots">
               <div class="doc-slot" id="slot-saleDeed">
-                <div class="doc-slot-label">Sale Deed / Ownership Doc <span class="req-star">★ Required</span></div>
+                <div class="doc-slot-label">Sale Deed / Ownership Doc <span class="req-star">★</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('saleDeed')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-saleDeed" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('saleDeed',this)">
                 <div class="doc-slot-hash" id="hash-saleDeed" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-idProof">
-                <div class="doc-slot-label">Identity Proof (Aadhaar/PAN) <span class="req-star">★ Required</span></div>
+                <div class="doc-slot-label">Identity Proof (Aadhaar/PAN) <span class="req-star">★</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('idProof')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-idProof" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('idProof',this)">
                 <div class="doc-slot-hash" id="hash-idProof" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-taxReceipt">
-                <div class="doc-slot-label">Property Tax Receipt <span class="req-star">★ Required</span></div>
+                <div class="doc-slot-label">Property Tax Receipt <span class="req-star">★</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('taxReceipt')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-taxReceipt" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('taxReceipt',this)">
                 <div class="doc-slot-hash" id="hash-taxReceipt" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-encumbrance">
-                <div class="doc-slot-label">Encumbrance Certificate <span style="color:var(--text3);font-size:.62rem">Optional</span></div>
+                <div class="doc-slot-label">Encumbrance Certificate <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('encumbrance')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-encumbrance" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('encumbrance',this)">
                 <div class="doc-slot-hash" id="hash-encumbrance" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-surveyMap">
-                <div class="doc-slot-label">Survey Map / Layout Plan <span style="color:var(--text3);font-size:.62rem">Optional</span></div>
+                <div class="doc-slot-label">Survey Map / Layout Plan <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('surveyMap')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-surveyMap" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('surveyMap',this)">
                 <div class="doc-slot-hash" id="hash-surveyMap" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-oc">
-                <div class="doc-slot-label">Occupancy Certificate <span style="color:var(--text3);font-size:.62rem">Optional</span></div>
+                <div class="doc-slot-label">Occupancy Certificate <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('oc')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-oc" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('oc',this)">
                 <div class="doc-slot-hash" id="hash-oc" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-noc">
-                <div class="doc-slot-label">NOC from Society <span style="color:var(--text3);font-size:.62rem">Optional</span></div>
+                <div class="doc-slot-label">NOC from Society <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
                 <button class="doc-slot-btn" onclick="triggerDocUpload('noc')">📁 Upload PDF / Image</button>
                 <input type="file" id="file-noc" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('noc',this)">
                 <div class="doc-slot-hash" id="hash-noc" style="display:none"></div>
@@ -805,11 +767,19 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
               <label>Unit Identifier</label>
               <input type="text" id="reg-unit-id" placeholder="e.g. Flat 4B, Floor 2"/>
             </div>
+
+            <!-- PARENT PROPERTY — DROPDOWN (replaces number input) -->
             <div class="field" id="parent-id-field" style="display:none">
-              <label>Parent Property ID (building)</label>
-              <input type="number" id="reg-parent-id" placeholder="e.g. 5" min="1"/>
-              <span class="form-hint">Verified property ID of the parent building</span>
+              <label>Parent Building / Plot <span class="req-star">★</span></label>
+              <div class="parent-select-wrap">
+                <select id="reg-parent-id" onchange="onParentPropertySelected()">
+                  <option value="">— select parent property —</option>
+                </select>
+                <span class="parent-loading-badge" id="parent-loading-badge"></span>
+              </div>
+              <span class="form-hint">Select the verified parent property this unit belongs to. Its boundary will appear on the map below.</span>
             </div>
+
             <div class="field">
               <label>Area (sq ft) <span class="req-star">★</span> <span id="calc-area-note" style="color:var(--navy);font-style:italic;font-size:.68rem;font-weight:400"></span></label>
               <input type="number" id="reg-area" placeholder="e.g. 1200" min="1" oninput="checkAreaMismatch()"/>
@@ -844,10 +814,24 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
             <div class="map-controls">
               <button class="map-btn active" id="btn-draw" onclick="setMapMode('draw')">✏️ Draw Polygon</button>
               <button class="map-btn" id="btn-pin" onclick="setMapMode('pin')">📍 Drop Pin</button>
-              <button class="map-btn" onclick="clearMapDrawing()">🗑 Clear</button>
+              <button class="map-btn" onclick="clearMapDrawing()">🗑 Clear Drawing</button>
               <button class="map-btn" onclick="locateMe()">📡 My Location</button>
             </div>
             <div class="map-info" id="map-info">Click on map to draw your property boundary polygon. Minimum 3 points required.</div>
+            <!-- Parent polygon info banner -->
+            <div class="parent-polygon-info" id="parent-polygon-info">
+              <span style="flex-shrink:0">🟧</span>
+              <span id="parent-polygon-text">Parent boundary loaded. Draw your plot inside the highlighted area.</span>
+            </div>
+            <!-- Out-of-bounds warning -->
+            <div class="out-of-bounds-warn" id="out-of-bounds-warn">
+              ⚠️ Your drawn polygon extends <strong>outside</strong> the parent property boundary. The Surveyor will flag this. Please adjust your boundary points or confirm this is intentional.
+            </div>
+            <!-- Map Legend -->
+            <div class="map-legend" id="map-legend">
+              <div class="map-legend-item"><div class="map-legend-dot" style="background:#e8611a;opacity:.7;border:2px solid #e8611a"></div><span>Parent boundary</span></div>
+              <div class="map-legend-item"><div class="map-legend-dot" style="background:#0d3b8e;opacity:.5;border:2px solid #0d3b8e"></div><span>Your plot</span></div>
+            </div>
           </div>
 
           <div class="form-actions">
@@ -880,14 +864,8 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
           </div>
           <div id="tx-value-compare" style="display:none;margin-top:.75rem">
             <div class="value-compare">
-              <div class="val-box">
-                <div class="val-box-label">Original declared value</div>
-                <div class="val-box-value" id="tx-orig-value">—</div>
-              </div>
-              <div class="val-box" id="tx-new-val-box">
-                <div class="val-box-label">Agreed sale value</div>
-                <div class="val-box-value" id="tx-new-value">—</div>
-              </div>
+              <div class="val-box"><div class="val-box-label">Original declared value</div><div class="val-box-value" id="tx-orig-value">—</div></div>
+              <div class="val-box" id="tx-new-val-box"><div class="val-box-label">Agreed sale value</div><div class="val-box-value" id="tx-new-value">—</div></div>
             </div>
           </div>
           <div class="form-actions">
@@ -899,17 +877,10 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
       <!-- LEDGER TAB -->
       <div id="ctab-ledger" style="display:none">
         <div class="section-box">
-          <div class="section-box-head">
-            <h3>🔗 Public Blockchain Ledger — Verified Properties</h3>
-            <button class="btn-outline btn-sm" style="color:#fff;border-color:rgba(255,255,255,.4)" onclick="loadLedger('ledger-cards')">↻ Refresh</button>
-          </div>
+          <div class="section-box-head"><h3>🔗 Public Blockchain Ledger</h3><button class="btn-outline btn-sm" style="color:#fff;border-color:rgba(255,255,255,.4)" onclick="loadLedger('ledger-cards')">↻ Refresh</button></div>
           <div style="padding:1rem">
-            <div class="ledger-search">
-              <input type="text" id="ledger-search-input" placeholder="Search by Property Reference No. or location..." oninput="filterLedger()"/>
-            </div>
-            <div class="cards-grid" id="ledger-cards">
-              <div class="empty-state"><div class="empty-icon">🔍</div><p>Loading blockchain ledger...</p></div>
-            </div>
+            <div class="ledger-search"><input type="text" id="ledger-search-input" placeholder="Search by Property Reference No. or location..." oninput="filterLedger()"/></div>
+            <div class="cards-grid" id="ledger-cards"><div class="empty-state"><div class="empty-icon">🔍</div><p>Loading blockchain ledger...</p></div></div>
           </div>
         </div>
       </div>
@@ -924,21 +895,13 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
       </div>
       <div id="stab-queue">
         <div class="role-header surveyor">
-          <div>
-            <div class="role-header-title">📐 Surveyor Dashboard</div>
-            <div class="role-header-desc">Verify property boundaries, detect boundary overlaps, confirm area match against submitted documents.</div>
-          </div>
+          <div><div class="role-header-title">📐 Surveyor Dashboard</div><div class="role-header-desc">Verify property boundaries, detect overlap conflicts, confirm area match against submitted documents.</div></div>
           <div style="display:flex;align-items:center;gap:10px">
-            <div style="text-align:right">
-              <div class="stat-label">Pending Survey</div>
-              <div class="queue-count" id="surveyor-queue">0</div>
-            </div>
+            <div style="text-align:right"><div class="stat-label">Pending Survey</div><div class="queue-count" id="surveyor-queue">0</div></div>
             <button class="btn-outline btn-sm" onclick="loadSurveyorData()">↻ Refresh</button>
           </div>
         </div>
-        <div class="cards-grid" id="surveyor-cards">
-          <div class="empty-state"><div class="empty-icon">📐</div><p>No properties pending survey verification.</p></div>
-        </div>
+        <div class="cards-grid" id="surveyor-cards"><div class="empty-state"><div class="empty-icon">📐</div><p>No properties pending survey verification.</p></div></div>
       </div>
       <div id="stab-ledger" style="display:none">
         <div class="ledger-search"><input type="text" id="surveyor-ledger-search" placeholder="Search..." oninput="filterLedger('surveyor-ledger-cards','surveyor-ledger-search')"/></div>
@@ -956,15 +919,9 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
       </div>
       <div id="rtab-registrations">
         <div class="role-header registrar">
-          <div>
-            <div class="role-header-title">📋 Registrar Dashboard</div>
-            <div class="role-header-desc">Review documents, ownership chain, declared values and rejection history before final approval.</div>
-          </div>
+          <div><div class="role-header-title">📋 Registrar Dashboard</div><div class="role-header-desc">Review documents, ownership chain, declared values and rejection history before final approval.</div></div>
           <div style="display:flex;align-items:center;gap:10px">
-            <div style="text-align:right">
-              <div class="stat-label">Pending Approval</div>
-              <div class="queue-count" id="registrar-queue">0</div>
-            </div>
+            <div style="text-align:right"><div class="stat-label">Pending Approval</div><div class="queue-count" id="registrar-queue">0</div></div>
             <button class="btn-outline btn-sm" onclick="loadRegistrarData()">↻ Refresh</button>
           </div>
         </div>
@@ -989,15 +946,9 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
       </div>
       <div id="dtab-disputes">
         <div class="role-header dispute-role">
-          <div>
-            <div class="role-header-title">⚖️ Dispute Officer Dashboard</div>
-            <div class="role-header-desc">Review disputed and under-review properties. Make binding decisions with on-chain notes.</div>
-          </div>
+          <div><div class="role-header-title">⚖️ Dispute Officer Dashboard</div><div class="role-header-desc">Review disputed and under-review properties. Make binding decisions with on-chain notes.</div></div>
           <div style="display:flex;align-items:center;gap:10px">
-            <div style="text-align:right">
-              <div class="stat-label">Active Disputes</div>
-              <div class="queue-count" id="dispute-queue">0</div>
-            </div>
+            <div style="text-align:right"><div class="stat-label">Active Disputes</div><div class="queue-count" id="dispute-queue">0</div></div>
             <button class="btn-outline btn-sm" onclick="loadDisputeData()">↻ Refresh</button>
           </div>
         </div>
@@ -1019,45 +970,40 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
       </div>
       <div id="atab-roles">
         <div class="role-header admin-role">
-          <div>
-            <div class="role-header-title" style="color:var(--red-gov)">⚡ System Administrator</div>
-            <div class="role-header-desc">Propose role changes with mandatory 48-hour timelock security delay.</div>
-          </div>
+          <div><div class="role-header-title" style="color:var(--red-gov)">⚡ System Administrator</div><div class="role-header-desc">Propose role changes with mandatory 48-hour timelock security delay.</div></div>
         </div>
         <div id="admin-timelock-notice" class="timelock-notice" style="display:none">
           <div class="tl-title">⏳ Role Change Proposal Pending</div>
           <div class="tl-desc">A role change proposal is awaiting the mandatory 48-hour security timelock.</div>
           <div class="timelock-countdown" id="tl-countdown">—</div>
-          <div style="display:flex;gap:8px;margin-top:10px">
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
             <button class="btn-green btn-sm" onclick="confirmRoles()" id="btn-confirm-roles" style="flex:0 0 auto;padding:7px 14px" disabled>Confirm Role Change</button>
             <button class="btn-red btn-sm" onclick="cancelRoleProposal()" style="flex:0 0 auto;padding:7px 14px">Cancel Proposal</button>
           </div>
         </div>
         <div class="panel">
           <div class="panel-title">🔑 Propose Role Change</div>
-          <p style="font-size:.78rem;color:var(--text3);margin-bottom:1rem">Role changes require a 48-hour waiting period after proposal before they can be confirmed. You can cancel any time before confirmation.</p>
+          <p style="font-size:.78rem;color:var(--text3);margin-bottom:1rem">Role changes require a 48-hour waiting period after proposal before they can be confirmed.</p>
           <div class="admin-panel">
             <div class="form-grid">
               <div class="field"><label>Registrar Address</label><input type="text" id="admin-registrar" placeholder="0x..."/></div>
               <div class="field"><label>Surveyor Address</label><input type="text" id="admin-surveyor" placeholder="0x..."/></div>
               <div class="field full"><label>Dispute Officer Address</label><input type="text" id="admin-dispute" placeholder="0x..."/></div>
             </div>
-            <div class="form-actions">
-              <button class="btn-red" onclick="proposeRoles()">🔑 Propose Role Change</button>
-            </div>
+            <div class="form-actions"><button class="btn-red" onclick="proposeRoles()">🔑 Propose Role Change</button></div>
           </div>
         </div>
         <div class="panel">
           <div class="panel-title">👥 Current Role Assignments</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div class="field"><label>Registrar</label><div id="admin-curr-registrar" style="font-family:'Source Code Pro',monospace;font-size:.8rem;padding:9px 12px;background:var(--bg2);border-radius:3px;border:1px solid var(--border)">Loading...</div></div>
-            <div class="field"><label>Surveyor</label><div id="admin-curr-surveyor" style="font-family:'Source Code Pro',monospace;font-size:.8rem;padding:9px 12px;background:var(--bg2);border-radius:3px;border:1px solid var(--border)">Loading...</div></div>
-            <div class="field"><label>Dispute Officer</label><div id="admin-curr-dispute" style="font-family:'Source Code Pro',monospace;font-size:.8rem;padding:9px 12px;background:var(--bg2);border-radius:3px;border:1px solid var(--border)">Loading...</div></div>
+            <div class="field"><label>Registrar</label><div id="admin-curr-registrar" style="font-family:'Source Code Pro',monospace;font-size:.78rem;padding:9px 12px;background:var(--bg2);border-radius:3px;border:1px solid var(--border);word-break:break-all">Loading...</div></div>
+            <div class="field"><label>Surveyor</label><div id="admin-curr-surveyor" style="font-family:'Source Code Pro',monospace;font-size:.78rem;padding:9px 12px;background:var(--bg2);border-radius:3px;border:1px solid var(--border);word-break:break-all">Loading...</div></div>
+            <div class="field"><label>Dispute Officer</label><div id="admin-curr-dispute" style="font-family:'Source Code Pro',monospace;font-size:.78rem;padding:9px 12px;background:var(--bg2);border-radius:3px;border:1px solid var(--border);word-break:break-all">Loading...</div></div>
           </div>
         </div>
       </div>
       <div id="atab-all" style="display:none">
-        <div style="margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center">
+        <div style="margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
           <div style="font-family:'Noto Serif',serif;font-size:1rem;font-weight:700;color:var(--navy)">All Registered Properties</div>
           <button class="btn-outline btn-sm" onclick="loadAdminData()">↻ Refresh</button>
         </div>
@@ -1081,40 +1027,13 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
         <p>Official blockchain-based property registration portal of the Government of Maharashtra, Revenue Department. Powered by Ethereum and IPFS.</p>
         <p style="margin-top:.75rem;font-size:.68rem;opacity:.5">Site designed & developed by NIC Maharashtra State Centre</p>
       </div>
-      <div class="footer-col">
-        <h5>Services</h5>
-        <ul>
-          <li><a href="#">Property Registration</a></li>
-          <li><a href="#">Ownership Transfer</a></li>
-          <li><a href="#">View 7/12 Extract</a></li>
-          <li><a href="#">Mutation Status</a></li>
-          <li><a href="#">Encumbrance Check</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Help & Support</h5>
-        <ul>
-          <li><a href="#">User Manual</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact Helpdesk</a></li>
-          <li><a href="#">Grievance Portal</a></li>
-          <li><a href="#">RTI</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Government</h5>
-        <ul>
-          <li><a href="#">Maharashtra Govt.</a></li>
-          <li><a href="#">Revenue Department</a></li>
-          <li><a href="#">NIC</a></li>
-          <li><a href="#">Digital India</a></li>
-          <li><a href="#">Terms of Use</a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h5>Services</h5><ul><li><a href="#">Property Registration</a></li><li><a href="#">Ownership Transfer</a></li><li><a href="#">View 7/12 Extract</a></li><li><a href="#">Mutation Status</a></li></ul></div>
+      <div class="footer-col"><h5>Help & Support</h5><ul><li><a href="#">User Manual</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact Helpdesk</a></li><li><a href="#">Grievance Portal</a></li></ul></div>
+      <div class="footer-col"><h5>Government</h5><ul><li><a href="#">Maharashtra Govt.</a></li><li><a href="#">Revenue Department</a></li><li><a href="#">Digital India</a></li><li><a href="#">Terms of Use</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <span>© 2025 Government of Maharashtra. All rights reserved. | Last Updated: April 2025</span>
-      <span>Visitors: 4,28,642 | Best viewed in Chrome 100+ at 1280×800 resolution</span>
+      <span>Visitors: 4,28,642</span>
     </div>
   </div>
 </footer>
@@ -1175,7 +1094,7 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
     <div class="modal-title">🗺️ Boundary Verification — Ref #<span id="map-modal-id"></span></div>
     <div class="overlap-alert" id="overlap-alert"></div>
     <div id="surveyor-map" style="height:380px;border-radius:3px;border:1px solid var(--border);overflow:hidden"></div>
-    <div id="map-modal-info" style="margin-top:8px;font-size:.75rem;color:var(--text2);font-family:'Source Code Pro',monospace;padding:7px 10px;background:var(--bg2);border-radius:3px;border:1px solid var(--border)"></div>
+    <div id="map-modal-info" style="margin-top:8px;font-size:.75rem;color:var(--text2);font-family:'Source Code Pro',monospace;padding:7px 10px;background:var(--bg2);border-radius:3px;border:1px solid var(--border);word-break:break-all"></div>
     <div id="conflict-list" style="margin-top:6px"></div>
     <div class="modal-actions"><button class="btn-outline" onclick="closeMapModal()">Close</button></div>
   </div>
@@ -1206,19 +1125,17 @@ let rejectModalPropId = null, rejectModalRole = null, disputeModalPropId = null;
 const docHashes = {};
 let leafletMap = null, drawingPoints = [], polygonLayer = null, pinMarker = null;
 let mapMode = "draw", calculatedArea = null, surveyorMapInst = null;
+// Parent polygon state
+let parentPolygonLayer = null;
+let parentTurfPolygon  = null;
+let parentPropertyData = null;
 
-// ── READ-ONLY PROVIDER (no wallet needed) ─
+// ── READ-ONLY PROVIDER ─────────────────────
 function getReadProvider() {
-  // Use public Ethereum RPC for read-only access
-  const rpcUrls = [
-    "https://rpc.sepolia.org",
-    "https://eth-sepolia.public.blastapi.io",
-    "https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
-  ];
-  return new ethers.providers.JsonRpcProvider(rpcUrls[0]);
+  return new ethers.providers.JsonRpcProvider("https://rpc.sepolia.org");
 }
 
-// ── IPFS FETCH WITH GATEWAY FALLBACK ─────
+// ── IPFS FETCH ─────────────────────────────
 async function fetchFromIPFS(ipfsHash, timeoutMs = 8000) {
   const gateways = [
     `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
@@ -1234,7 +1151,7 @@ async function fetchFromIPFS(ipfsHash, timeoutMs = 8000) {
   throw new Error("All IPFS gateways failed");
 }
 
-// ── WALLET ────────────────────────────────
+// ── WALLET ─────────────────────────────────
 async function connectWallet() {
   if (!window.ethereum) { toast("MetaMask not detected. Please install MetaMask.", "error"); return; }
   try {
@@ -1299,13 +1216,12 @@ function scrollToLedger() {
   document.getElementById("public-ledger-section").scrollIntoView({ behavior: "smooth" });
 }
 
-// ── SYNC ──────────────────────────────────
+// ── SYNC ─────────────────────────────────
 function setSynced(ok) {
   document.getElementById("sync-dot").className = `sync-dot${ok ? "" : " stale"}`;
   document.getElementById("sync-label").textContent = ok ? "Synced" : "Refresh needed";
 }
 
-// ── REF NUMBER FORMAT ─────────────────────
 function formatRef(id) {
   return `MH/KLY/${new Date().getFullYear()}/${String(id).padStart(5,"0")}`;
 }
@@ -1382,7 +1298,7 @@ async function getAllProperties(useReadOnly = false) {
   return props;
 }
 
-// ── PUBLIC LEDGER (no wallet) ─────────────
+// ── PUBLIC LEDGER ──────────────────────────
 async function loadPublicLedger() {
   const c = document.getElementById("public-ledger-cards");
   c.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:8px">Loading blockchain records...</p></div>`;
@@ -1394,17 +1310,12 @@ async function loadPublicLedger() {
     c.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load blockchain records. Check network.</p></div>`;
   }
 }
-function filterPublicLedger() {
-  renderPublicLedger();
-}
+function filterPublicLedger() { renderPublicLedger(); }
 function renderPublicLedger() {
   const c = document.getElementById("public-ledger-cards");
   const q = document.getElementById("public-ledger-search").value.toLowerCase();
   const filtered = publicLedgerProps.filter(p => !q || String(p.id).includes(q) || p.location.toLowerCase().includes(q));
-  if (!filtered.length) {
-    c.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No verified properties found.</p></div>`;
-    return;
-  }
+  if (!filtered.length) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No verified properties found.</p></div>`; return; }
   c.innerHTML = filtered.map(p => buildLedgerCard(p)).join("");
 }
 
@@ -1418,23 +1329,16 @@ async function loadCitizenData() {
     document.getElementById("citizen-count").textContent    = allCitizenProps.length;
     document.getElementById("citizen-verified").textContent = allCitizenProps.filter(p => p.status === 1).length;
     document.getElementById("citizen-pending").textContent  = allCitizenProps.filter(p => p.status === 0).length;
-
-    // Notice board
     const pending = allCitizenProps.filter(p => p.status === 0);
     const rejected = allCitizenProps.filter(p => p.status === 2);
     let notices = [];
-    pending.forEach(p => {
-      const step = p.surveyorApproved ? "Awaiting Registrar approval" : "Awaiting Surveyor verification";
-      notices.push(`Ref ${formatRef(p.id)} — ${step}`);
-    });
-    rejected.forEach(p => notices.push(`Ref ${formatRef(p.id)} — Rejected. Reason: ${p.rejectionReason.slice(0,60)}...`));
+    pending.forEach(p => { const step = p.surveyorApproved ? "Awaiting Registrar approval" : "Awaiting Surveyor verification"; notices.push(`Ref ${formatRef(p.id)} — ${step}`); });
+    rejected.forEach(p => notices.push(`Ref ${formatRef(p.id)} — Rejected. Reason: ${p.rejectionReason.slice(0,60)}…`));
     const nb = document.getElementById("citizen-notice-board");
     if (notices.length) {
       nb.style.display = "block";
-      document.getElementById("citizen-notices").innerHTML = notices.map(n =>
-        `<div class="notice-item"><div class="notice-dot"></div>${n}</div>`).join("");
+      document.getElementById("citizen-notices").innerHTML = notices.map(n => `<div class="notice-item"><div class="notice-dot"></div>${n}</div>`).join("");
     } else { nb.style.display = "none"; }
-
     const incSec = document.getElementById("incoming-section");
     if (incoming.length) {
       incSec.style.display = "block";
@@ -1571,9 +1475,7 @@ async function loadLedger(containerId = "ledger-cards") {
     setSynced(true);
   } catch(e) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Error loading ledger.</p></div>`; }
 }
-function filterLedger(containerId = "ledger-cards", searchId = "ledger-search-input") {
-  renderLedger(containerId, searchId);
-}
+function filterLedger(containerId = "ledger-cards", searchId = "ledger-search-input") { renderLedger(containerId, searchId); }
 function renderLedger(containerId = "ledger-cards", searchId = "ledger-search-input") {
   const c = document.getElementById(containerId);
   if (!c) return;
@@ -1585,21 +1487,21 @@ function renderLedger(containerId = "ledger-cards", searchId = "ledger-search-in
 }
 function buildLedgerCard(p) {
   return `<div class="ledger-card">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem">
-      <div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;min-width:0">
+      <div style="min-width:0;flex:1">
         <div style="font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--text3);margin-bottom:4px">${formatRef(p.id)}</div>
-        <div style="font-family:'Noto Serif',serif;font-size:.92rem;font-weight:700;color:var(--navy)">${escHtml(p.location)}</div>
+        <div style="font-family:'Noto Serif',serif;font-size:.92rem;font-weight:700;color:var(--navy);word-break:break-word">${escHtml(p.location)}</div>
       </div>
-      <div class="status-stamp stamp-verified">✅ Verified</div>
+      <div class="status-stamp stamp-verified" style="flex-shrink:0">✅ Verified</div>
     </div>
     <div class="card-meta">
       <div class="meta-item"><div class="meta-key">Area</div><div class="meta-val">${p.area.toLocaleString()} sq ft</div></div>
-      <div class="meta-item"><div class="meta-key">Declared Value</div><div class="meta-val">₹${p.declaredValue.toLocaleString("en-IN")}</div></div>
+      <div class="meta-item"><div class="meta-key">Value</div><div class="meta-val">₹${p.declaredValue.toLocaleString("en-IN")}</div></div>
     </div>
-    ${p.latitude!==0||p.longitude!==0?`<div style="font-size:.68rem;color:var(--text3);font-family:'Source Code Pro',monospace">📍 ${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</div>`:""}
+    ${p.latitude!==0||p.longitude!==0?`<div class="coords-pill">📍 ${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</div>`:""}
     <div>
       <div class="meta-key" style="margin-bottom:5px">Ownership Chain</div>
-      <div id="lchain-${p.id}"><div class="chain-item"><span class="chain-dot"></span><span style="color:var(--text3)">Loading...</span></div></div>
+      <div id="lchain-${p.id}"><div class="chain-item"><span class="chain-dot"></span><span style="color:var(--text3)">Loading…</span></div></div>
     </div>
   </div>`;
 }
@@ -1618,30 +1520,31 @@ function buildCard(p, ctx) {
   const cardCls = S_CLASSES[p.status] || "";
   const isRejected = p.status === 2;
 
-  const survStep = `<div class="approval-step ${p.surveyorApproved?"done":"pending"}"><div class="step-label">Surveyor</div><span class="step-icon">${p.surveyorApproved?"✅":"⏳"}</span></div>`;
-  const regStep  = `<div class="approval-step ${p.registrarApproved?"done":"pending"}"><div class="step-label">Registrar</div><span class="step-icon">${p.registrarApproved?"✅":"⏳"}</span></div>`;
+  const survStep = `<div class="approval-step ${p.surveyorApproved?"done":"pending"}"><span class="step-label">Surveyor</span><span class="step-icon">${p.surveyorApproved?"✅":"⏳"}</span></div>`;
+  const regStep  = `<div class="approval-step ${p.registrarApproved?"done":"pending"}"><span class="step-label">Registrar</span><span class="step-icon">${p.registrarApproved?"✅":"⏳"}</span></div>`;
 
   let extra = "";
 
-  // Rejection banner (shown for ALL roles, including registrar)
   if (p.rejectionReason && (isRejected || ctx === "registrar")) {
     const resubBtn = ctx === "citizen"
       ? `<div class="rej-actions"><button class="btn-outline btn-sm" onclick="prefillResubmit(${p.id})">🔁 Resubmit with fixes</button></div>` : "";
     extra += `<div class="rejection-banner"><div class="rej-label">${isRejected?"Rejection Reason":"Previous Rejection History"}</div><div class="rej-reason">${escHtml(p.rejectionReason)}</div>${resubBtn}</div>`;
   }
-  if (p.unitIdentifier) extra += `<div style="font-size:.72rem;color:var(--text2);background:var(--bg2);padding:5px 9px;border-radius:3px;border:1px solid var(--border)">🏢 Unit: ${escHtml(p.unitIdentifier)}${p.parentPropertyId?` | Parent ${formatRef(p.parentPropertyId)}`:""}</div>`;
+  if (p.unitIdentifier) extra += `<div style="font-size:.72rem;color:var(--text2);background:var(--bg2);padding:5px 9px;border-radius:3px;border:1px solid var(--border);word-break:break-word">🏢 Unit: ${escHtml(p.unitIdentifier)}${p.parentPropertyId?` | Parent ${formatRef(p.parentPropertyId)}`:""}</div>`;
   if (p.resubmittedFrom > 0) extra += `<div style="font-size:.72rem;color:var(--text2);background:var(--bg2);padding:5px 9px;border-radius:3px;border:1px solid var(--border)">🔁 Resubmission of ${formatRef(p.resubmittedFrom)}</div>`;
+
   if (p.txActive) {
     const now = Math.floor(Date.now()/1000);
     const expired = p.txExpiry > 0 && now > p.txExpiry;
     extra += `<div class="${expired?"expiry-warning":"transfer-notice"}">
       ${expired?"⚠️ Transfer EXPIRED":"🔄 Transfer pending"} →
-      <span style="font-family:'Source Code Pro',monospace">${p.txBuyer.slice(0,8)}...${p.txBuyer.slice(-4)}</span>
+      <span style="font-family:'Source Code Pro',monospace;font-size:.72rem">${p.txBuyer.slice(0,10)}…${p.txBuyer.slice(-4)}</span>
       | ${p.txRegApproved?"✅ Registrar approved":"⏳ Awaiting registrar"}
       ${p.txAgreedValue>0?`| ₹${p.txAgreedValue.toLocaleString("en-IN")}`:""}
     </div>`;
   }
-  if (p.latitude!==0||p.longitude!==0) extra += `<div style="font-size:.68rem;color:var(--text3);font-family:'Source Code Pro',monospace;background:var(--bg2);padding:4px 8px;border-radius:3px;border:1px solid var(--border)">📍 ${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</div>`;
+
+  if (p.latitude!==0||p.longitude!==0) extra += `<div class="coords-pill">📍 ${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</div>`;
   if ((p.status===3||p.status===4)&&p.disputeNotes) extra += `<div class="dispute-notes-box">⚖️ ${DR_LABELS[p.disputeResult]}: ${escHtml(p.disputeNotes)}</div>`;
 
   // Registrar doc panel
@@ -1666,13 +1569,13 @@ function buildCard(p, ctx) {
     actions = `<div class="card-actions">
       <button class="btn-green" onclick="surveyorApprove(${p.id})">✅ Approve Survey</button>
       <button class="btn-red" onclick="openRejectModal(${p.id},'surveyor')">❌ Reject</button>
-      <button class="btn-outline btn-sm" onclick="openSurveyorMap(${p.id},${p.latitude},${p.longitude},'${escAttr(p.location)}',${p.area},'${escAttr(p.ipfsHash)}')">🗺️ View Map</button>
+      <button class="btn-ghost" onclick="openSurveyorMap(${p.id},${p.latitude},${p.longitude},'${escAttr(p.location)}',${p.area},'${escAttr(p.ipfsHash)}')">🗺️ View Map</button>
     </div>`;
   } else if (ctx==="registrar") {
     actions = `<div class="card-actions">
       <button class="btn-green" onclick="registrarApprove(${p.id})">✅ Approve & Register</button>
       <button class="btn-red" onclick="openRejectModal(${p.id},'registrar')">❌ Reject</button>
-      <button class="btn-outline btn-sm" onclick="showHistory(${p.id})">📜 History</button>
+      <button class="btn-ghost" onclick="showHistory(${p.id})">📜 History</button>
     </div>`;
   } else if (ctx==="registrar-transfer") {
     actions = `<div class="card-actions">
@@ -1690,26 +1593,27 @@ function buildCard(p, ctx) {
   } else if (ctx==="dispute") {
     actions = `<div class="card-actions">
       <button class="btn-purple" onclick="openDisputeModal(${p.id})">⚖️ Resolve Dispute</button>
-      <button class="btn-outline btn-sm" onclick="showHistory(${p.id})">📜 History</button>
+      <button class="btn-ghost" onclick="showHistory(${p.id})">📜 History</button>
     </div>`;
   }
 
+  // IPFS display
   const ipfsDisplay = p.ipfsHash
-    ? `<a class="ipfs-link" href="https://gateway.pinata.cloud/ipfs/${p.ipfsHash}" target="_blank">${p.ipfsHash.slice(0,14)}...${p.ipfsHash.slice(-6)}</a>`
-    : '<span style="color:var(--text3)">None</span>';
+    ? `<a class="ipfs-link" href="https://gateway.pinata.cloud/ipfs/${p.ipfsHash}" target="_blank" title="${p.ipfsHash}">${p.ipfsHash.slice(0,14)}…${p.ipfsHash.slice(-6)}</a>`
+    : '<span style="color:var(--text3);font-size:.72rem">None</span>';
 
   return `<div class="prop-card ${cardCls}">
     <div class="card-head">
-      <div>
+      <div class="card-head-left">
         <div class="card-ref">${formatRef(p.id)}</div>
-        <div class="card-location" style="margin-top:5px">${escHtml(p.location)}</div>
+        <div class="card-location">${escHtml(p.location)}</div>
       </div>
       <div class="status-stamp ${sCls}">${sIcon} ${sLabel}</div>
     </div>
     <div class="card-meta">
       <div class="meta-item"><div class="meta-key">Area</div><div class="meta-val">${p.area.toLocaleString()} sq ft</div></div>
-      <div class="meta-item"><div class="meta-key">Owner</div><div class="meta-val">${p.owner.slice(0,8)}...${p.owner.slice(-4)}</div></div>
-      ${p.declaredValue>0?`<div class="meta-item"><div class="meta-key">Declared Value</div><div class="meta-val">₹${p.declaredValue.toLocaleString("en-IN")}</div></div>`:""}
+      <div class="meta-item"><div class="meta-key">Owner</div><div class="meta-val" title="${p.owner}">${p.owner.slice(0,8)}…${p.owner.slice(-4)}</div></div>
+      ${p.declaredValue>0?`<div class="meta-item"><div class="meta-key">Value</div><div class="meta-val">₹${p.declaredValue.toLocaleString("en-IN")}</div></div>`:""}
       <div class="meta-item" style="grid-column:1/-1"><div class="meta-key">IPFS Manifest</div><div class="meta-val">${ipfsDisplay}</div></div>
     </div>
     <div>
@@ -1724,8 +1628,14 @@ function buildCard(p, ctx) {
 function buildRegistrarDocPanel(p) {
   const panelId = "docpanel-" + p.id;
   setTimeout(() => fetchAndRenderManifest(p.id, p.ipfsHash, panelId), 0);
-  return `<div><div class="meta-key" style="margin-bottom:5px">📄 Submitted Documents</div><div class="doc-review-grid" id="${panelId}"><div class="doc-review-card"><div class="doc-review-label">Loading documents...</div></div></div></div>`;
+  return `<div>
+    <div class="meta-key" style="margin-bottom:6px">📄 Submitted Documents</div>
+    <div class="doc-review-grid" id="${panelId}">
+      <div class="doc-review-card" style="grid-column:1/-1"><div class="doc-review-label">Loading documents…</div></div>
+    </div>
+  </div>`;
 }
+
 async function fetchAndRenderManifest(propId, ipfsHash, panelId) {
   const el = document.getElementById(panelId);
   if (!el || !ipfsHash || ipfsHash.length < 10) return;
@@ -1743,16 +1653,28 @@ async function fetchAndRenderManifest(propId, ipfsHash, panelId) {
     let html = slots.map(s => {
       const hash = manifest[s.key];
       return hash
-        ? `<div class="doc-review-card has-doc"><div class="doc-review-label">${s.label}${s.req?' <span style="color:var(--red-gov)">★</span>':''}</div><a class="doc-review-link" href="https://gateway.pinata.cloud/ipfs/${hash}" target="_blank">${hash.slice(0,14)}...${hash.slice(-6)}</a></div>`
-        : `<div class="doc-review-card no-doc"><div class="doc-review-label">${s.label}${s.req?' <span style="color:var(--red-gov)">★</span>':''}</div><div class="doc-review-missing">${s.req?"Missing — required":"Not provided"}</div></div>`;
+        ? `<div class="doc-review-card has-doc">
+            <div class="doc-review-label">${s.label}${s.req?' <span style="color:var(--red-gov)">★</span>':''}</div>
+            <a class="doc-review-link" href="https://gateway.pinata.cloud/ipfs/${hash}" target="_blank" title="${hash}">${hash.slice(0,14)}…${hash.slice(-6)}</a>
+          </div>`
+        : `<div class="doc-review-card no-doc">
+            <div class="doc-review-label">${s.label}${s.req?' <span style="color:var(--red-gov)">★</span>':''}</div>
+            <div class="doc-review-missing">${s.req?"Missing — required":"Not provided"}</div>
+          </div>`;
     }).join("");
     if (manifest.witnesses) {
       const w = manifest.witnesses;
-      html += `<div class="doc-review-card has-doc" style="grid-column:1/-1"><div class="doc-review-label">Witnesses</div><div style="font-size:.72rem;color:var(--text2)">${w.w1name?`W1: ${escHtml(w.w1name)} — ${w.w1addr||"—"}`:"W1: not provided"}<br>${w.w2name?`W2: ${escHtml(w.w2name)} — ${w.w2addr||"—"}`:"W2: not provided"}</div></div>`;
+      html += `<div class="doc-review-card has-doc" style="grid-column:1/-1">
+        <div class="doc-review-label">Witnesses</div>
+        <div class="witnesses-content">
+          ${w.w1name?`<strong>W1:</strong> ${escHtml(w.w1name)} — <span style="font-family:'Source Code Pro',monospace;font-size:.65rem">${w.w1addr||"—"}</span>`:"W1: not provided"}<br>
+          ${w.w2name?`<strong>W2:</strong> ${escHtml(w.w2name)} — <span style="font-family:'Source Code Pro',monospace;font-size:.65rem">${w.w2addr||"—"}</span>`:"W2: not provided"}
+        </div>
+      </div>`;
     }
     el.innerHTML = html;
   } catch(_) {
-    el.innerHTML = `<div class="doc-review-card" style="grid-column:1/-1"><div class="doc-review-label">Manifest unavailable</div><a class="doc-review-link" href="https://gateway.pinata.cloud/ipfs/${ipfsHash}" target="_blank">${ipfsHash}</a></div>`;
+    el.innerHTML = `<div class="doc-review-card" style="grid-column:1/-1"><div class="doc-review-label">Manifest unavailable</div><a class="doc-review-link" href="https://gateway.pinata.cloud/ipfs/${ipfsHash}" target="_blank" title="${ipfsHash}">${ipfsHash.slice(0,20)}…</a></div>`;
   }
 }
 
@@ -1761,6 +1683,120 @@ function toggleUnitFields() {
   const isUnit = document.getElementById("reg-type").value === "unit";
   document.getElementById("unit-id-field").style.display   = isUnit ? "block" : "none";
   document.getElementById("parent-id-field").style.display = isUnit ? "block" : "none";
+  if (isUnit) {
+    populateParentDropdown();
+    if (!leafletMap) { setTimeout(initRegMap, 150); }
+    else             { setTimeout(() => leafletMap.invalidateSize(), 100); }
+  } else {
+    clearParentPolygon();
+  }
+}
+
+// ── PARENT DROPDOWN ───────────────────────
+async function populateParentDropdown() {
+  const sel   = document.getElementById("reg-parent-id");
+  const badge = document.getElementById("parent-loading-badge");
+  sel.innerHTML = '<option value="">— loading verified properties… —</option>';
+  badge.textContent = "⏳ Loading…";
+  try {
+    const all = await getAllProperties();
+    const parents = all.filter(p => p.status === 1 && p.parentPropertyId === 0);
+    badge.textContent = "";
+    if (!parents.length) {
+      sel.innerHTML = '<option value="">— no verified parent properties found —</option>';
+      return;
+    }
+    sel.innerHTML =
+      '<option value="">— select parent property —</option>' +
+      parents.map(p =>
+        `<option value="${p.id}" data-area="${p.area}" data-location="${escAttr(p.location)}" data-ipfs="${escAttr(p.ipfsHash)}">
+          ${formatRef(p.id)} — ${p.location.slice(0,55)}${p.location.length>55?"…":""} (${p.area.toLocaleString()} sq ft)
+        </option>`
+      ).join("");
+  } catch(e) {
+    badge.textContent = "⚠️ Error";
+    sel.innerHTML = '<option value="">— error loading properties —</option>';
+    toast("Could not load parent properties: " + e.message, "error");
+  }
+}
+
+// ── PARENT POLYGON OVERLAY ────────────────
+async function onParentPropertySelected() {
+  clearParentPolygon();
+  const sel = document.getElementById("reg-parent-id");
+  const opt = sel.selectedOptions[0];
+  if (!opt || !opt.value) return;
+
+  const ipfsHash = opt.dataset.ipfs;
+  const area     = opt.dataset.area;
+  const location = opt.dataset.location;
+  const badge    = document.getElementById("parent-loading-badge");
+
+  if (!ipfsHash || ipfsHash.length < 10) return;
+
+  badge.textContent = "⏳ Loading boundary…";
+  try {
+    const manifest = await fetchFromIPFS(ipfsHash, 8000);
+    if (manifest.polygonPoints && manifest.polygonPoints.length >= 3) {
+      const pts = manifest.polygonPoints;
+      if (!leafletMap) await new Promise(r => setTimeout(r, 300));
+
+      parentPolygonLayer = L.polygon(pts, {
+        color: "#e8611a", fillColor: "#e8611a", fillOpacity: 0.1,
+        weight: 2.5, dashArray: "7 5"
+      }).addTo(leafletMap);
+
+      parentPolygonLayer.bindPopup(
+        `<b>Parent: ${formatRef(parseInt(opt.value))}</b><br>${escHtml(location)}<br>${parseInt(area).toLocaleString()} sq ft`
+      );
+
+      leafletMap.fitBounds(L.polygon(pts).getBounds(), { padding: [35, 35] });
+
+      try {
+        const coords = pts.map(p => [p[1], p[0]]); coords.push(coords[0]);
+        parentTurfPolygon = turf.polygon([coords]);
+      } catch(_) { parentTurfPolygon = null; }
+
+      parentPropertyData = { id: parseInt(opt.value), location, area, pts };
+
+      // Show info banner
+      const info = document.getElementById("parent-polygon-info");
+      document.getElementById("parent-polygon-text").innerHTML =
+        `<strong>${formatRef(parseInt(opt.value))}</strong> — ${escHtml(location.slice(0,50))} — ${parseInt(area).toLocaleString()} sq ft. Draw your sub-plot <strong>inside</strong> the orange dashed boundary.`;
+      info.classList.add("visible");
+      document.getElementById("map-legend").classList.add("visible");
+
+      badge.textContent = "✅ Boundary loaded";
+      setTimeout(() => { badge.textContent = ""; }, 2500);
+    } else {
+      badge.textContent = "";
+      toast("Parent has no saved polygon. Proceeding without overlay.", "info");
+    }
+  } catch(e) {
+    badge.textContent = "⚠️ Could not load boundary";
+    toast("Could not load parent boundary: " + e.message, "error");
+  }
+}
+
+function clearParentPolygon() {
+  if (parentPolygonLayer && leafletMap) { leafletMap.removeLayer(parentPolygonLayer); parentPolygonLayer = null; }
+  parentTurfPolygon  = null;
+  parentPropertyData = null;
+  document.getElementById("parent-polygon-info")?.classList.remove("visible");
+  document.getElementById("out-of-bounds-warn")?.classList.remove("visible");
+  document.getElementById("map-legend")?.classList.remove("visible");
+}
+
+function checkSubplotContainment() {
+  const warn = document.getElementById("out-of-bounds-warn");
+  if (!warn || !parentTurfPolygon || drawingPoints.length < 3) { warn?.classList.remove("visible"); return; }
+  try {
+    const coords = drawingPoints.map(p => [p[1], p[0]]); coords.push(coords[0]);
+    const drawn = turf.polygon([coords]);
+    turf.booleanWithin(drawn, parentTurfPolygon)
+      ? warn.classList.remove("visible")
+      : warn.classList.add("visible");
+  } catch(_) { warn.classList.remove("visible"); }
 }
 
 // ── MAP ───────────────────────────────────
@@ -1802,6 +1838,7 @@ function refreshPolygon() {
       document.getElementById("map-info").textContent = `✅ Polygon: ${areaSqFt.toLocaleString()} sq ft — ${drawingPoints.length} points`;
       checkAreaMismatch();
     } catch(_) {}
+    checkSubplotContainment();
   }
 }
 function checkAreaMismatch() {
@@ -1821,16 +1858,19 @@ function setMapMode(mode) {
   mapMode = mode;
   document.getElementById("btn-draw").classList.toggle("active", mode==="draw");
   document.getElementById("btn-pin").classList.toggle("active",  mode==="pin");
-  document.getElementById("map-info").textContent = mode==="draw" ? "Click on map to draw boundary polygon." : "Click on map to drop a location pin.";
+  document.getElementById("map-info").textContent = mode==="draw"
+    ? "Click on map to draw boundary polygon."
+    : "Click on map to drop a location pin.";
 }
 function clearMapDrawing() {
   drawingPoints = [];
-  if (polygonLayer) { leafletMap.removeLayer(polygonLayer); polygonLayer=null; }
-  if (pinMarker)    { leafletMap.removeLayer(pinMarker); pinMarker=null; }
+  if (polygonLayer) { leafletMap.removeLayer(polygonLayer); polygonLayer = null; }
+  if (pinMarker)    { leafletMap.removeLayer(pinMarker); pinMarker = null; }
   calculatedArea = null;
   document.getElementById("calc-area-note").textContent = "";
   document.getElementById("area-mismatch-warn").style.display = "none";
-  document.getElementById("map-info").textContent = "Drawing cleared.";
+  document.getElementById("out-of-bounds-warn")?.classList.remove("visible");
+  document.getElementById("map-info").textContent = "Drawing cleared. Click to start again.";
 }
 function locateMe() {
   if (!navigator.geolocation) { toast("Geolocation not supported","error"); return; }
@@ -1860,7 +1900,7 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
       const manifest = await fetchFromIPFS(ipfsHash, 6000);
       if (manifest.polygonPoints && manifest.polygonPoints.length >= 3) {
         const pts = manifest.polygonPoints;
-        L.polygon(pts, {color:"#0d3b8e",fillColor:"#0d3b8e",fillOpacity:.2,weight:2.5}).addTo(surveyorMapInst).bindPopup(`<b>Ref ${formatRef(id)}</b> — Application`);
+        L.polygon(pts, {color:"#0d3b8e",fillColor:"#0d3b8e",fillOpacity:.2,weight:2.5}).addTo(surveyorMapInst).bindPopup(`<b>Ref ${formatRef(id)}</b>`);
         surveyorMapInst.fitBounds(L.polygon(pts).getBounds(), {padding:[30,30]});
         try { const c = pts.map(p=>[p[1],p[0]]); c.push(c[0]); subjectTurf = turf.polygon([c]); } catch(_) {}
       }
@@ -1870,7 +1910,7 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
   const conflicts = [];
   try {
     const all = await getAllProperties();
-    for (const vp of all.filter(p => p.status===1 && p.id!==id && (Math.abs(p.latitude-lat)<0.05||Math.abs(p.longitude-lng)<0.05))) {
+    for (const vp of all.filter(p => p.status===1 && p.id!==id)) {
       let vpTurf=null, vpPts=null;
       if (vp.ipfsHash && vp.ipfsHash.length>10) {
         try { const m2 = await fetchFromIPFS(vp.ipfsHash, 5000); if (m2.polygonPoints?.length>=3) { vpPts=m2.polygonPoints; try{const vc=vpPts.map(p=>[p[1],p[0]]);vc.push(vc[0]);vpTurf=turf.polygon([vc]);}catch(_){} } } catch(_) {}
@@ -1915,7 +1955,7 @@ async function handleDocUpload(k, input) {
     document.getElementById("slot-"+k).classList.add("uploaded");
     const hEl = document.getElementById("hash-"+k);
     hEl.style.display = "block";
-    hEl.textContent = `✅ ${hash.slice(0,16)}...${hash.slice(-6)}`;
+    hEl.textContent = `✅ ${hash.slice(0,16)}…${hash.slice(-6)}`;
     toast(`✅ ${k} uploaded to IPFS`, "success");
   }
 }
@@ -1923,7 +1963,7 @@ async function uploadFileToIPFS(file) {
   const prog = document.getElementById("upload-progress");
   const bar  = document.getElementById("progress-bar");
   prog.style.display = "block";
-  document.getElementById("progress-label").textContent = `Uploading ${file.name}...`;
+  document.getElementById("progress-label").textContent = `Uploading ${file.name}…`;
   bar.style.width = "20%";
   try {
     let hash;
@@ -1941,7 +1981,7 @@ async function uploadFileToIPFS(file) {
       if (!res.ok) throw new Error(res.statusText);
       hash = (await res.json()).IpfsHash;
     } else {
-      throw new Error("No IPFS configuration found. Set PINATA_PROXY_URL or PINATA_JWT_DEV.");
+      throw new Error("No IPFS configuration found.");
     }
     bar.style.width = "100%";
     setTimeout(() => { prog.style.display="none"; bar.style.width="0%"; }, 500);
@@ -1974,7 +2014,7 @@ async function buildAndUploadManifest() {
     createdAt: new Date().toISOString(),
   };
   const blob = new Blob([JSON.stringify(manifest)], {type:"application/json"});
-  toast("Uploading document manifest to IPFS...", "info", 2000);
+  toast("Uploading document manifest to IPFS…", "info", 2000);
   return await uploadFileToIPFS(new File([blob], "cleartitle-manifest.json"));
 }
 
@@ -1987,12 +2027,14 @@ async function registerProperty() {
   const lng      = parseFloat(document.getElementById("reg-lng").value) || 0;
   const value    = parseInt(document.getElementById("reg-value").value) || 0;
   const type     = document.getElementById("reg-type").value;
-  const parentId = type==="unit" ? (parseInt(document.getElementById("reg-parent-id").value)||0) : 0;
+  const parentSel = document.getElementById("reg-parent-id");
+  const parentId = type==="unit" ? (parseInt(parentSel.value)||0) : 0;
   const resubFrom= parseInt(document.getElementById("reg-resubmit-from").value)||0;
   if (!loc)           { toast("Location is required.","error"); return; }
   if (!area||area<=0) { toast("Area must be greater than 0.","error"); return; }
   if (!value||value<=0){ toast("Declared value is required.","error"); return; }
   if (type==="unit"&&!unitId) { toast("Unit identifier required for flat/unit.","error"); return; }
+  if (type==="unit"&&!parentId) { toast("Please select a parent property.","error"); return; }
   if (calculatedArea && Math.abs(area-calculatedArea)/calculatedArea*100 > 10) { toast("Area mismatch too large. Reconcile before submitting.","error"); return; }
   const manifestHash = await buildAndUploadManifest();
   if (!manifestHash) return;
@@ -2003,7 +2045,7 @@ async function registerProperty() {
   );
 }
 function clearRegForm() {
-  ["reg-location","reg-area","reg-lat","reg-lng","reg-value","reg-unit-id","reg-parent-id","reg-resubmit-from","wit1-name","wit1-addr","wit2-name","wit2-addr"].forEach(id => { const el=document.getElementById(id); if(el) el.value=""; });
+  ["reg-location","reg-area","reg-lat","reg-lng","reg-value","reg-unit-id","reg-resubmit-from","wit1-name","wit1-addr","wit2-name","wit2-addr"].forEach(id => { const el=document.getElementById(id); if(el) el.value=""; });
   Object.keys(docHashes).forEach(k => delete docHashes[k]);
   ["saleDeed","idProof","taxReceipt","encumbrance","surveyMap","oc","noc"].forEach(k => {
     const s=document.getElementById("slot-"+k); const h=document.getElementById("hash-"+k);
@@ -2091,12 +2133,12 @@ function closeHistoryModal() { document.getElementById("history-modal").style.di
 
 // ── TX WRAPPER ────────────────────────────
 async function txWrapper(fn, successMsg, callback) {
-  const t = toast("Sending transaction...", "info", 0);
+  const t = toast("Sending transaction…", "info", 0);
   setSynced(false);
   try {
     const tx = await fn();
     t.remove();
-    const t2 = toast("Waiting for confirmation...", "info", 0);
+    const t2 = toast("Waiting for confirmation…", "info", 0);
     await tx.wait();
     t2.remove();
     toast(successMsg, "success");
@@ -2116,17 +2158,17 @@ function toast(msg, type="info", duration=4000) {
   const icons = {success:"✅",error:"❌",info:"ℹ️"};
   const el = document.createElement("div");
   el.className = `toast ${type}`;
-  el.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+  el.innerHTML = `<span style="flex-shrink:0">${icons[type]}</span><span>${msg}</span>`;
   document.getElementById("toast-container").appendChild(el);
-  if (duration>0) setTimeout(()=>el.remove(), duration);
+  if (duration>0) setTimeout(()=>{ try{el.remove();}catch(_){} }, duration);
   return el;
 }
 
 // ── UTILS ─────────────────────────────────
 function escHtml(s)  { return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function escAttr(s)  { return String(s||"").replace(/'/g,"\\'").replace(/"/g,'\\"').slice(0,80); }
+function escAttr(s)  { return String(s||"").replace(/'/g,"\\'").replace(/"/g,'\\"').slice(0,100); }
 
-// ── INIT — load public ledger without wallet ─
+// ── INIT ──────────────────────────────────
 window.addEventListener("load", () => {
   loadPublicLedger();
 });

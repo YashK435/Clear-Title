@@ -48,14 +48,14 @@ function resolveMediaType(file) {
   const name = (file.originalname || "").toLowerCase();
   const ext  = path.extname(name);
 
-  // If browser gave a real type and it's allowed, use it
   const allowed = [
     "application/pdf",
-    "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"
+    "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp",
+    "application/json",   // ← ADD THIS
+    "text/plain"          // ← ADD THIS (safety net)
   ];
   if (allowed.includes(file.mimetype)) return file.mimetype;
 
-  // FIX: browser sent octet-stream — infer from extension
   const extMap = {
     ".pdf":  "application/pdf",
     ".jpg":  "image/jpeg",
@@ -63,15 +63,15 @@ function resolveMediaType(file) {
     ".png":  "image/png",
     ".gif":  "image/gif",
     ".webp": "image/webp",
+    ".json": "application/json",   // ← ADD THIS
   };
   if (extMap[ext]) return extMap[ext];
 
-  // FIX: sniff magic bytes from buffer for PDF (%PDF-)
   if (file.buffer && file.buffer.slice(0, 4).toString() === "%PDF") {
     return "application/pdf";
   }
 
-  return null; // not allowed
+  return null;
 }
 
 // ── IPFS Upload endpoint ──────────────────────────────────────
