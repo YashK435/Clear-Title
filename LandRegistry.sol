@@ -3,32 +3,19 @@ pragma solidity ^0.8.0;
 
 // ══════════════════════════════════════════════════════════════
 //  ClearTitle — Blockchain Land Registry
-//  Version 2.0  |  All phases applied
+//  Version 3.0
 //
-//  Phase 1 fixes:
-//    [1] Dispute can be raised by ANY wallet (not just owner)
-//    [2] ReentrancyGuard on acceptTransfer
-//    [3] PartialFix → UnderReview status (not a dead-end)
-//    [4] Role-change timelock (48 h propose → confirm)
-//    [5] raiseDispute atomically cancels pending transfer
-//
-//  Phase 2 fixes:
-//    [6]  cancelTransfer — seller can cancel before acceptance
-//    [7]  Transfer expiry timestamp (30-day deadline)
-//    [8]  Rejection reasons stored on-chain
-//    [9]  parentPropertyId + unitIdentifier (flats/multi-unit)
-//    [10] resubmittedFrom — links resubmission to old rejected ID
-//
-//  Phase 4 fixes (contract-side):
-//    [16] Approver address + timestamp in every approval event
-//    [17] declaredValueINR field
-//    [18] Commit-reveal for transfer initiation
+//  Changes from v2:
+//    [A] Commit-reveal transfer removed — single initiateTransfer()
+//    [B] agreedSaleValueINR added to transfer (registrar cross-check)
+//    [C] TransferRecord struct stores buyer + agreedValue + expiry cleanly
+//    [D] All other v2 fixes retained (reentrancy, timelock, disputes, etc.)
 // ══════════════════════════════════════════════════════════════
 
 contract LandRegistry {
 
     // ─────────────────────────────────────────────
-    //  REENTRANCY GUARD  [Fix #2]
+    //  REENTRANCY GUARD
     // ─────────────────────────────────────────────
     uint256 private _reentrancyStatus;
     uint256 private constant _NOT_ENTERED = 1;
@@ -49,7 +36,6 @@ contract LandRegistry {
     address public surveyor;
     address public disputeOfficer;
 
-    // [Fix #4] — Role-change timelock
     uint256 public constant ROLE_TIMELOCK = 48 hours;
 
     struct RoleProposal {
@@ -70,14 +56,14 @@ contract LandRegistry {
         Verified,     // 1
         Rejected,     // 2
         Disputed,     // 3
-        UnderReview   // 4  [Fix #3] — replaces PartialFix dead-end
+        UnderReview   // 4
     }
 
     enum DisputeResult {
         None,        // 0
         Approved,    // 1
         Rejected,    // 2
-        PartialFix   // 3 — now transitions to UnderReview, not a dead-end
+        PartialFix   // 3
     }
 
     // ─────────────────────────────────────────────
@@ -87,67 +73,63 @@ contract LandRegistry {
         uint256 propertyId;
         address owner;
         uint256 areaSqFt;
-        uint256 declaredValueINR;        // [Fix #17]
+        uint256 declaredValueINR;
         Status  status;
         bool    isRegistered;
         bool    surveyorApproved;
         bool    registrarApproved;
-        bool    transferPendingRegistrar;
-        bool    registrarApprovedTransfer;
         DisputeResult disputeResult;
-        // [Fix #9] Multi-unit support
-        uint256 parentPropertyId;        // 0 = standalone land parcel
-        // [Fix #10] Resubmission link
-        uint256 resubmittedFrom;         // 0 = fresh registration
+        uint256 parentPropertyId;
+        uint256 resubmittedFrom;
     }
 
     struct PropertyMeta {
         string  location;
-        string  unitIdentifier;          // [Fix #9] e.g. "Flat 4B, Floor 2"
-        string  ipfsHash;
-        string  rejectionReason;         // [Fix #8]
+        string  unitIdentifier;
+        string  ipfsHash;          // points to structured manifest JSON on IPFS
+        string  rejectionReason;
         string  disputeNotes;
-        int256  latitude;
+        int256  latitude;          // stored as int256 * 1e6 to avoid floats
         int256  longitude;
     }
 
-    // [Fix #7] Transfer expiry
-    mapping(uint256 => uint256) public transferExpiry;
-    uint256 public constant TRANSFER_VALIDITY = 30 days;
+    // [A] Clean transfer record — no commit/reveal fields
+    struct TransferRecord {
+        address buyer;
+        uint256 agreedSaleValueINR;   // [B] seller-declared sale price
+        uint256 expiry;               // block.timestamp + 30 days
+        bool    registrarApproved;
+        bool    active;
+    }
 
-    // [Fix #18] Commit-reveal for transfer
-    mapping(uint256 => bytes32) public transferCommit;
-    mapping(uint256 => uint256) public commitBlock;
+    uint256 public constant TRANSFER_VALIDITY = 30 days;
 
     uint256 public propertyCount;
 
-    mapping(uint256 => PropertyCore) public core;
-    mapping(uint256 => PropertyMeta) public meta;
-    mapping(uint256 => address[])    public ownershipHistory;
-    mapping(uint256 => address)      public pendingBuyer;
-
-    // [Fix #1] Track who raised each dispute
-    mapping(uint256 => address)      public disputeRaisedBy;
+    mapping(uint256 => PropertyCore)   public core;
+    mapping(uint256 => PropertyMeta)   public meta;
+    mapping(uint256 => address[])      public ownershipHistory;
+    mapping(uint256 => TransferRecord) public transfers;   // [C]
+    mapping(uint256 => address)        public disputeRaisedBy;
 
     // ─────────────────────────────────────────────
     //  EVENTS
     // ─────────────────────────────────────────────
     event PropertyRegistered(uint256 id, address owner, uint256 resubmittedFrom);
-    event SurveyorApproved(uint256 id, address surveyorAddr, uint256 timestamp);   // [Fix #16]
-    event SurveyorRejected(uint256 id, address surveyorAddr, string reason);       // [Fix #8, #16]
-    event RegistrarApproved(uint256 id, address registrarAddr, uint256 timestamp); // [Fix #16]
-    event RegistrarRejected(uint256 id, address registrarAddr, string reason);     // [Fix #8, #16]
-    event Disputed(uint256 id, address raisedBy);                                  // [Fix #1]
+    event SurveyorApproved(uint256 id, address surveyorAddr, uint256 timestamp);
+    event SurveyorRejected(uint256 id, address surveyorAddr, string reason);
+    event RegistrarApproved(uint256 id, address registrarAddr, uint256 timestamp);
+    event RegistrarRejected(uint256 id, address registrarAddr, string reason);
+    event Disputed(uint256 id, address raisedBy);
     event DisputeResolved(uint256 id, DisputeResult result);
-    event DisputeReferred(uint256 id, string notes);                               // [Fix #3]
-    event TransferCommitted(uint256 id, bytes32 commitHash);                       // [Fix #18]
-    event TransferInitiated(uint256 id, address buyer, uint256 expiry);            // [Fix #7]
-    event TransferCancelled(uint256 id, address cancelledBy);                      // [Fix #6]
-    event TransferExpired(uint256 id);                                             // [Fix #7]
+    event DisputeReferred(uint256 id, string notes);
+    event TransferInitiated(uint256 id, address buyer, uint256 agreedSaleValueINR, uint256 expiry);
+    event TransferCancelled(uint256 id, address cancelledBy);
+    event TransferExpired(uint256 id);
     event TransferApprovedByRegistrar(uint256 id);
     event TransferRejectedByRegistrar(uint256 id);
-    event OwnershipTransferred(uint256 id, address from, address to);
-    event RoleChangeProposed(address registrar, address surveyor, address disputeOfficer, uint256 executeAfter); // [Fix #4]
+    event OwnershipTransferred(uint256 id, address from, address to, uint256 agreedSaleValueINR);
+    event RoleChangeProposed(address registrar, address surveyor, address disputeOfficer, uint256 executeAfter);
     event RolesUpdated(address registrar, address surveyor, address disputeOfficer);
     event RoleProposalCancelled();
 
@@ -172,10 +154,8 @@ contract LandRegistry {
     }
 
     // ─────────────────────────────────────────────
-    //  ROLES — TIMELOCK PATTERN  [Fix #4]
+    //  ROLES — TIMELOCK
     // ─────────────────────────────────────────────
-
-    /// @notice Admin proposes new roles. Must be confirmed after ROLE_TIMELOCK.
     function proposeRoles(
         address _registrar,
         address _surveyor,
@@ -202,24 +182,19 @@ contract LandRegistry {
         );
     }
 
-    /// @notice Confirm and apply proposed roles after timelock expires.
     function confirmRoles() public onlyAdmin {
         require(pendingRoleProposal.exists, "No pending proposal");
         require(
             block.timestamp >= pendingRoleProposal.proposedAt + ROLE_TIMELOCK,
             "Timelock not elapsed"
         );
-
         registrar      = pendingRoleProposal.proposedRegistrar;
         surveyor       = pendingRoleProposal.proposedSurveyor;
         disputeOfficer = pendingRoleProposal.proposedDisputeOfficer;
-
         delete pendingRoleProposal;
-
         emit RolesUpdated(registrar, surveyor, disputeOfficer);
     }
 
-    /// @notice Cancel a pending role proposal before it is confirmed.
     function cancelRoleProposal() public onlyAdmin {
         require(pendingRoleProposal.exists, "No pending proposal");
         delete pendingRoleProposal;
@@ -229,12 +204,6 @@ contract LandRegistry {
     // ─────────────────────────────────────────────
     //  REGISTER
     // ─────────────────────────────────────────────
-
-    /// @notice Register a new property.
-    /// @param _parentPropertyId  Pass 0 for a land parcel. Pass parent ID for a flat/unit.
-    /// @param _unitIdentifier    Empty string for land. "Flat 4B, Floor 2" for units.
-    /// @param _resubmittedFrom   Pass 0 for fresh registration. Pass old rejected ID to link.
-    /// @param _declaredValueINR  Declared market value in INR (for stamp duty cross-check).
     function registerProperty(
         string memory _location,
         string memory _unitIdentifier,
@@ -251,31 +220,29 @@ contract LandRegistry {
         require(bytes(_ipfsHash).length > 0, "IPFS hash required");
         require(_declaredValueINR > 0,        "Declared value required");
 
-        // [Fix #10] Validate resubmission link
         if (_resubmittedFrom != 0) {
-            require(core[_resubmittedFrom].propertyId != 0,              "Linked ID does not exist");
-            require(core[_resubmittedFrom].owner == msg.sender,           "Not owner of linked property");
-            require(core[_resubmittedFrom].status == Status.Rejected,     "Linked property not rejected");
+            require(core[_resubmittedFrom].propertyId != 0,          "Linked ID does not exist");
+            require(core[_resubmittedFrom].owner == msg.sender,       "Not owner of linked property");
+            require(core[_resubmittedFrom].status == Status.Rejected,  "Linked property not rejected");
         }
 
-        // [Fix #9] Validate parent property
         if (_parentPropertyId != 0) {
-            require(core[_parentPropertyId].propertyId != 0,             "Parent property does not exist");
-            require(core[_parentPropertyId].status == Status.Verified,   "Parent must be verified");
-            require(bytes(_unitIdentifier).length > 0,                   "Unit identifier required for sub-units");
+            require(core[_parentPropertyId].propertyId != 0,          "Parent does not exist");
+            require(core[_parentPropertyId].status == Status.Verified, "Parent must be verified");
+            require(bytes(_unitIdentifier).length > 0,                 "Unit identifier required");
         }
 
         propertyCount++;
         uint256 id = propertyCount;
 
-        core[id].propertyId        = id;
-        core[id].owner             = msg.sender;
-        core[id].areaSqFt          = _areaSqFt;
-        core[id].declaredValueINR  = _declaredValueINR;
-        core[id].status            = Status.Pending;
-        core[id].disputeResult     = DisputeResult.None;
-        core[id].parentPropertyId  = _parentPropertyId;
-        core[id].resubmittedFrom   = _resubmittedFrom;
+        core[id].propertyId       = id;
+        core[id].owner            = msg.sender;
+        core[id].areaSqFt         = _areaSqFt;
+        core[id].declaredValueINR = _declaredValueINR;
+        core[id].status           = Status.Pending;
+        core[id].disputeResult    = DisputeResult.None;
+        core[id].parentPropertyId = _parentPropertyId;
+        core[id].resubmittedFrom  = _resubmittedFrom;
 
         meta[id].location       = _location;
         meta[id].unitIdentifier = _unitIdentifier;
@@ -291,43 +258,39 @@ contract LandRegistry {
     // ─────────────────────────────────────────────
     //  SURVEYOR
     // ─────────────────────────────────────────────
-
     function approveBySurveyor(uint256 _id)
         public onlySurveyor propertyExists(_id)
     {
         require(core[_id].status == Status.Pending, "Not pending");
         require(!core[_id].surveyorApproved,         "Already approved");
         core[_id].surveyorApproved = true;
-        emit SurveyorApproved(_id, msg.sender, block.timestamp); // [Fix #16]
+        emit SurveyorApproved(_id, msg.sender, block.timestamp);
     }
 
-    /// @param _reason  Human-readable reason stored permanently on-chain. [Fix #8]
     function rejectBySurveyor(uint256 _id, string memory _reason)
         public onlySurveyor propertyExists(_id)
     {
         require(core[_id].status == Status.Pending, "Not pending");
         require(bytes(_reason).length > 0,           "Reason required");
-        core[_id].status           = Status.Rejected;
-        meta[_id].rejectionReason  = _reason;
-        emit SurveyorRejected(_id, msg.sender, _reason); // [Fix #8, #16]
+        core[_id].status          = Status.Rejected;
+        meta[_id].rejectionReason = _reason;
+        emit SurveyorRejected(_id, msg.sender, _reason);
     }
 
     // ─────────────────────────────────────────────
     //  REGISTRAR — REGISTRATION
     // ─────────────────────────────────────────────
-
     function approveByRegistrar(uint256 _id)
         public onlyRegistrar propertyExists(_id)
     {
-        require(core[_id].status == Status.Pending,  "Not pending");
-        require(core[_id].surveyorApproved,           "Surveyor must approve first");
+        require(core[_id].status == Status.Pending, "Not pending");
+        require(core[_id].surveyorApproved,          "Surveyor must approve first");
         core[_id].registrarApproved = true;
         core[_id].isRegistered      = true;
         core[_id].status            = Status.Verified;
-        emit RegistrarApproved(_id, msg.sender, block.timestamp); // [Fix #16]
+        emit RegistrarApproved(_id, msg.sender, block.timestamp);
     }
 
-    /// @param _reason  Human-readable reason stored permanently on-chain. [Fix #8]
     function rejectByRegistrar(uint256 _id, string memory _reason)
         public onlyRegistrar propertyExists(_id)
     {
@@ -335,154 +298,130 @@ contract LandRegistry {
         require(bytes(_reason).length > 0,           "Reason required");
         core[_id].status          = Status.Rejected;
         meta[_id].rejectionReason = _reason;
-        emit RegistrarRejected(_id, msg.sender, _reason); // [Fix #8, #16]
+        emit RegistrarRejected(_id, msg.sender, _reason);
     }
 
     // ─────────────────────────────────────────────
-    //  TRANSFER — COMMIT PHASE  [Fix #18]
+    //  TRANSFER — SINGLE STEP [A]
     // ─────────────────────────────────────────────
 
-    /// @notice Step 1 of commit-reveal. Seller commits keccak256(propertyId, buyerAddr, nonce).
-    ///         The buyer address is hidden until reveal, preventing mempool front-running.
-    function commitTransfer(uint256 _id, bytes32 _commitHash)
-        public propertyExists(_id)
-    {
-        require(core[_id].owner  == msg.sender,      "Not owner");
-        require(core[_id].status == Status.Verified,  "Not verified");
-        require(pendingBuyer[_id] == address(0),      "Transfer already active");
-        transferCommit[_id] = _commitHash;
-        commitBlock[_id]    = block.number;
-        emit TransferCommitted(_id, _commitHash);
-    }
-
-    /// @notice Step 2 of commit-reveal. Reveal buyer address and nonce after ≥1 block.
-    function initiateTransfer(uint256 _id, address _buyer, bytes32 _nonce)
-        public propertyExists(_id)
-    {
-        require(core[_id].owner  == msg.sender,       "Not owner");
+    /// @notice Seller directly initiates transfer. No commit-reveal.
+    /// @param _agreedSaleValueINR  Declared sale price — registrar uses this for cross-check.
+    function initiateTransfer(
+        uint256 _id,
+        address _buyer,
+        uint256 _agreedSaleValueINR
+    ) public propertyExists(_id) {
+        require(core[_id].owner == msg.sender,       "Not owner");
         require(core[_id].status == Status.Verified,  "Not verified");
         require(_buyer != address(0),                  "Invalid buyer");
         require(_buyer != msg.sender,                  "Cannot transfer to self");
-        require(pendingBuyer[_id] == address(0),       "Transfer already pending");
-        require(block.number > commitBlock[_id],       "Must wait 1 block after commit");
-
-        // Verify the revealed values match the commit hash
-        bytes32 expected = keccak256(abi.encodePacked(_id, _buyer, _nonce));
-        require(transferCommit[_id] == expected,       "Commit mismatch");
-
-        // Clear commit
-        delete transferCommit[_id];
-        delete commitBlock[_id];
+        require(!transfers[_id].active,                "Transfer already pending");
+        require(_agreedSaleValueINR > 0,               "Sale value required");
 
         uint256 expiry = block.timestamp + TRANSFER_VALIDITY;
-        pendingBuyer[_id]                   = _buyer;
-        core[_id].transferPendingRegistrar  = true;
-        core[_id].registrarApprovedTransfer = false;
-        transferExpiry[_id]                 = expiry;
 
-        emit TransferInitiated(_id, _buyer, expiry);
+        transfers[_id] = TransferRecord({
+            buyer:              _buyer,
+            agreedSaleValueINR: _agreedSaleValueINR,
+            expiry:             expiry,
+            registrarApproved:  false,
+            active:             true
+        });
+
+        emit TransferInitiated(_id, _buyer, _agreedSaleValueINR, expiry);
     }
 
     // ─────────────────────────────────────────────
     //  TRANSFER — REGISTRAR APPROVAL
     // ─────────────────────────────────────────────
-
     function approveTransferByRegistrar(uint256 _id)
         public onlyRegistrar propertyExists(_id)
     {
-        require(core[_id].transferPendingRegistrar,   "No pending transfer");
-        require(!core[_id].registrarApprovedTransfer, "Already approved");
-        require(block.timestamp <= transferExpiry[_id], "Transfer expired"); // [Fix #7]
-        core[_id].registrarApprovedTransfer = true;
+        require(transfers[_id].active,              "No pending transfer");
+        require(!transfers[_id].registrarApproved,  "Already approved");
+        require(block.timestamp <= transfers[_id].expiry, "Transfer expired");
+        transfers[_id].registrarApproved = true;
         emit TransferApprovedByRegistrar(_id);
     }
 
     function rejectTransferByRegistrar(uint256 _id)
         public onlyRegistrar propertyExists(_id)
     {
-        require(core[_id].transferPendingRegistrar, "No pending transfer");
-        _clearTransferState(_id);
+        require(transfers[_id].active, "No pending transfer");
+        _clearTransfer(_id);
         emit TransferRejectedByRegistrar(_id);
     }
 
     // ─────────────────────────────────────────────
     //  TRANSFER — BUYER ACCEPT
     // ─────────────────────────────────────────────
-
     function acceptTransfer(uint256 _id)
-        public nonReentrant propertyExists(_id) // [Fix #2]
+        public nonReentrant propertyExists(_id)
     {
-        require(msg.sender == pendingBuyer[_id],             "Not authorized buyer");
-        require(core[_id].registrarApprovedTransfer,          "Registrar approval pending");
-        require(block.timestamp <= transferExpiry[_id],       "Transfer expired"); // [Fix #7]
+        TransferRecord memory t = transfers[_id];
+        require(t.active,                        "No active transfer");
+        require(msg.sender == t.buyer,            "Not authorized buyer");
+        require(t.registrarApproved,              "Registrar approval pending");
+        require(block.timestamp <= t.expiry,      "Transfer expired");
 
-        address oldOwner    = core[_id].owner;
-        core[_id].owner     = msg.sender;
+        address oldOwner = core[_id].owner;
+        core[_id].owner  = msg.sender;
         ownershipHistory[_id].push(msg.sender);
-        _clearTransferState(_id);
+        uint256 saleValue = t.agreedSaleValueINR;
+        _clearTransfer(_id);
 
-        emit OwnershipTransferred(_id, oldOwner, msg.sender);
+        emit OwnershipTransferred(_id, oldOwner, msg.sender, saleValue);
     }
 
     // ─────────────────────────────────────────────
-    //  TRANSFER — SELLER CANCEL  [Fix #6]
+    //  TRANSFER — SELLER CANCEL
     // ─────────────────────────────────────────────
-
-    /// @notice Seller can cancel a pending transfer at any time before buyer accepts.
     function cancelTransfer(uint256 _id) public propertyExists(_id) {
-        require(core[_id].owner == msg.sender,          "Not owner");
-        require(core[_id].transferPendingRegistrar,     "No pending transfer");
-        _clearTransferState(_id);
+        require(core[_id].owner == msg.sender, "Not owner");
+        require(transfers[_id].active,          "No pending transfer");
+        _clearTransfer(_id);
         emit TransferCancelled(_id, msg.sender);
     }
 
     // ─────────────────────────────────────────────
-    //  TRANSFER — PUBLIC EXPIRY  [Fix #7]
+    //  TRANSFER — PUBLIC EXPIRY CLEANUP
     // ─────────────────────────────────────────────
-
-    /// @notice Anyone can call this to clean up a transfer that has passed its deadline.
     function expireTransfer(uint256 _id) public propertyExists(_id) {
-        require(core[_id].transferPendingRegistrar,         "No pending transfer");
-        require(block.timestamp > transferExpiry[_id],      "Not yet expired");
-        _clearTransferState(_id);
+        require(transfers[_id].active,                    "No pending transfer");
+        require(block.timestamp > transfers[_id].expiry,  "Not yet expired");
+        _clearTransfer(_id);
         emit TransferExpired(_id);
     }
 
-    /// @dev Internal helper — clears all transfer-related state in one place.
-    function _clearTransferState(uint256 _id) internal {
-        pendingBuyer[_id]                        = address(0);
-        core[_id].transferPendingRegistrar       = false;
-        core[_id].registrarApprovedTransfer      = false;
-        transferExpiry[_id]                      = 0;
+    function _clearTransfer(uint256 _id) internal {
+        delete transfers[_id];
     }
 
     // ─────────────────────────────────────────────
-    //  DISPUTE  [Fix #1, #3, #5]
+    //  DISPUTE
     // ─────────────────────────────────────────────
 
     /// @notice Any wallet can raise a dispute against a verified property.
-    ///         [Fix #1] — Removed owner-only restriction.
-    ///         [Fix #5] — Atomically cancels any pending transfer.
+    ///         Atomically cancels any pending transfer.
     function raiseDispute(uint256 _id) public propertyExists(_id) {
         require(
             core[_id].status == Status.Verified || core[_id].status == Status.UnderReview,
             "Can only dispute verified properties"
         );
+        core[_id].status     = Status.Disputed;
+        disputeRaisedBy[_id] = msg.sender;
 
-        core[_id].status       = Status.Disputed;
-        disputeRaisedBy[_id]   = msg.sender;
-
-        // [Fix #5] Cancel any live transfer atomically
-        if (core[_id].transferPendingRegistrar) {
-            _clearTransferState(_id);
-            emit TransferCancelled(_id, address(0)); // address(0) = system-cancelled
+        // Cancel any live transfer atomically
+        if (transfers[_id].active) {
+            _clearTransfer(_id);
+            emit TransferCancelled(_id, address(0));
         }
 
         emit Disputed(_id, msg.sender);
     }
 
-    /// @notice Dispute officer resolves a dispute.
-    ///         [Fix #3] PartialFix now transitions to UnderReview (not a dead-end).
+    /// @notice PartialFix transitions to UnderReview — not a dead-end.
     function resolveDispute(
         uint256       _id,
         DisputeResult _result,
@@ -505,7 +444,6 @@ contract LandRegistry {
             core[_id].isRegistered = false;
             meta[_id].rejectionReason = _notes;
         } else if (_result == DisputeResult.PartialFix) {
-            // [Fix #3] Transition to UnderReview — officer can revisit
             core[_id].status = Status.UnderReview;
             emit DisputeReferred(_id, _notes);
         }
@@ -514,13 +452,9 @@ contract LandRegistry {
     }
 
     // ─────────────────────────────────────────────
-    //  VIEW FUNCTIONS
+    //  VIEW FUNCTIONS — split to avoid stack-too-deep
     // ─────────────────────────────────────────────
 
-    // Split into two functions — 13 return values in one function causes
-    // "stack too deep" in the EVM. Seven values max per getter is safe.
-
-    /// @notice Returns ownership + status fields for a property.
     function getPropertyCore1(uint256 _id) public view returns (
         uint256 propertyId,
         address owner,
@@ -531,35 +465,19 @@ contract LandRegistry {
         bool    surveyorApproved
     ) {
         PropertyCore storage c = core[_id];
-        return (
-            c.propertyId,
-            c.owner,
-            c.areaSqFt,
-            c.declaredValueINR,
-            c.status,
-            c.isRegistered,
-            c.surveyorApproved
-        );
+        return (c.propertyId, c.owner, c.areaSqFt, c.declaredValueINR,
+                c.status, c.isRegistered, c.surveyorApproved);
     }
 
-    /// @notice Returns approval + transfer + dispute + hierarchy fields.
     function getPropertyCore2(uint256 _id) public view returns (
         bool    registrarApproved,
-        bool    transferPendingRegistrar,
-        bool    registrarApprovedTransfer,
         DisputeResult disputeResult,
         uint256 parentPropertyId,
         uint256 resubmittedFrom
     ) {
         PropertyCore storage c = core[_id];
-        return (
-            c.registrarApproved,
-            c.transferPendingRegistrar,
-            c.registrarApprovedTransfer,
-            c.disputeResult,
-            c.parentPropertyId,
-            c.resubmittedFrom
-        );
+        return (c.registrarApproved, c.disputeResult,
+                c.parentPropertyId, c.resubmittedFrom);
     }
 
     function getPropertyMeta(uint256 _id) public view returns (
@@ -572,27 +490,28 @@ contract LandRegistry {
         int256  longitude
     ) {
         PropertyMeta storage m = meta[_id];
-        return (
-            m.location,
-            m.unitIdentifier,
-            m.ipfsHash,
-            m.rejectionReason,
-            m.disputeNotes,
-            m.latitude,
-            m.longitude
-        );
+        return (m.location, m.unitIdentifier, m.ipfsHash,
+                m.rejectionReason, m.disputeNotes, m.latitude, m.longitude);
+    }
+
+    /// @notice Returns full transfer record for a property.
+    function getTransfer(uint256 _id) public view returns (
+        address buyer,
+        uint256 agreedSaleValueINR,
+        uint256 expiry,
+        bool    registrarApproved,
+        bool    active
+    ) {
+        TransferRecord storage t = transfers[_id];
+        return (t.buyer, t.agreedSaleValueINR, t.expiry, t.registrarApproved, t.active);
     }
 
     function getOwnershipHistory(uint256 _id) public view returns (address[] memory) {
         return ownershipHistory[_id];
     }
 
-    function getPendingBuyer(uint256 _id) public view returns (address) {
-        return pendingBuyer[_id];
-    }
-
-    function getTransferExpiry(uint256 _id) public view returns (uint256) {
-        return transferExpiry[_id];
+    function getDisputeRaisedBy(uint256 _id) public view returns (address) {
+        return disputeRaisedBy[_id];
     }
 
     function getPendingRoleProposal() public view returns (
@@ -604,17 +523,7 @@ contract LandRegistry {
         bool    exists
     ) {
         RoleProposal storage p = pendingRoleProposal;
-        return (
-            p.proposedRegistrar,
-            p.proposedSurveyor,
-            p.proposedDisputeOfficer,
-            p.proposedAt,
-            p.proposedAt + ROLE_TIMELOCK,
-            p.exists
-        );
-    }
-
-    function getDisputeRaisedBy(uint256 _id) public view returns (address) {
-        return disputeRaisedBy[_id];
+        return (p.proposedRegistrar, p.proposedSurveyor, p.proposedDisputeOfficer,
+                p.proposedAt, p.proposedAt + ROLE_TIMELOCK, p.exists);
     }
 }
