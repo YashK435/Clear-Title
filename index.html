@@ -39,7 +39,7 @@
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
 
-/* HEADER */
+/* ── HEADER ── */
 header{position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border);background:rgba(10,12,16,0.9);backdrop-filter:blur(20px);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.5px;display:flex;align-items:center;gap:10px}
 .logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
@@ -55,7 +55,13 @@ header{position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border);b
 .role-badge.admin{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
 .role-badge.dispute{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3)}
 
-/* CONNECT */
+/* ── SYNC INDICATOR [Fix #15] ── */
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px}
+.sync-dot.stale{background:var(--gold);animation:pulse-gold 1s ease-in-out infinite}
+@keyframes pulse-gold{0%,100%{opacity:1}50%{opacity:.4}}
+#sync-indicator{font-size:.72rem;color:var(--muted2);display:flex;align-items:center;font-family:'DM Mono',monospace}
+
+/* ── CONNECT ── */
 #connect-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 64px);text-align:center;gap:2rem}
 .connect-orb{width:120px;height:120px;background:linear-gradient(135deg,rgba(59,130,246,.2),rgba(6,182,212,.2));border:1px solid rgba(59,130,246,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:48px;animation:pulse-orb 3s ease-in-out infinite}
 @keyframes pulse-orb{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.3)}50%{box-shadow:0 0 0 30px rgba(59,130,246,0)}}
@@ -63,10 +69,10 @@ header{position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border);b
 .connect-title span{color:var(--accent)}
 .connect-sub{color:var(--muted2);font-size:1rem;max-width:420px;line-height:1.7}
 
-/* LAYOUT */
+/* ── LAYOUT ── */
 main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2rem}
 
-/* BUTTONS */
+/* ── BUTTONS ── */
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px}
 .btn-primary:hover{background:#2563eb;transform:translateY(-1px);box-shadow:0 8px 24px rgba(59,130,246,.4)}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
@@ -83,8 +89,16 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .btn-orange:hover{background:rgba(249,115,22,.15)}
 .btn-purple{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);color:var(--purple);padding:10px;border-radius:10px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;flex:1}
 .btn-purple:hover{background:rgba(168,85,247,.2)}
+.btn-ghost{background:rgba(107,114,128,.08);border:1px solid rgba(107,114,128,.2);color:var(--muted2);padding:10px;border-radius:10px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;flex:1}
+.btn-ghost:hover{background:rgba(107,114,128,.15);color:var(--text)}
 
-/* STATS */
+/* ── FILTER BAR [Fix #11] ── */
+.filter-bar{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border-bright);background:transparent;color:var(--muted2);font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:rgba(59,130,246,.15);border-color:var(--accent);color:var(--accent)}
+
+/* ── STATS ── */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:2.5rem}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .2s}
 .stat-card:hover{border-color:var(--border-bright)}
@@ -92,13 +106,13 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .stat-value{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;line-height:1}
 .stat-sub{font-size:.75rem;color:var(--muted2);margin-top:6px;font-family:'DM Mono',monospace}
 
-/* SECTION */
+/* ── SECTION ── */
 .section{margin-bottom:2.5rem}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
 .section-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;display:flex;align-items:center;gap:10px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
 
-/* PANEL / FORM */
+/* ── PANEL / FORM ── */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:1.75rem}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .form-grid .full{grid-column:1/-1}
@@ -109,13 +123,20 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .field select option{background:var(--surface2)}
 .form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:1.25rem}
 .form-hint{font-size:.75rem;color:var(--muted);margin-top:4px}
+.field-error{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(239,68,68,.1) !important}
 
-/* CARDS */
+/* ── CARDS ── */
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
 .prop-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;transition:all .2s;animation:card-in .4s ease both;position:relative;overflow:hidden}
 .prop-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .2s}
 .prop-card:hover{border-color:var(--border-bright);transform:translateY(-2px);box-shadow:var(--card-shadow)}
 .prop-card:hover::before{opacity:1}
+
+/* [Fix #11] Rejected card distinct treatment */
+.prop-card.rejected-card{opacity:.7;border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.03)}
+.prop-card.rejected-card::before{background:linear-gradient(90deg,var(--red),rgba(239,68,68,.3));opacity:1}
+.prop-card.rejected-card:hover{border-color:rgba(239,68,68,.4);transform:none}
+
 @keyframes card-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
 .card-id{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);background:var(--surface2);padding:3px 8px;border-radius:6px;border:1px solid var(--border)}
@@ -126,6 +147,14 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .pill-verified{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
 .pill-rejected{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
 .pill-disputed{background:rgba(249,115,22,.12);color:var(--orange);border:1px solid rgba(249,115,22,.25)}
+.pill-underreview{background:rgba(168,85,247,.12);color:var(--purple);border:1px solid rgba(168,85,247,.25)}
+
+/* [Fix #11] Rejection reason banner */
+.rejection-banner{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:10px 14px}
+.rejection-banner .rej-label{font-size:.65rem;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.rejection-banner .rej-reason{font-size:.82rem;color:var(--text);line-height:1.5}
+.rejection-banner .rej-actions{margin-top:8px;display:flex;gap:8px}
+
 .card-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 .meta-item{display:flex;flex-direction:column;gap:2px}
 .meta-key{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
@@ -142,31 +171,31 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .empty-state .empty-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
 .empty-state p{font-size:.9rem}
 
-/* ROLE HEADER */
+/* ── ROLE HEADER ── */
 .role-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .role-header-left{display:flex;flex-direction:column;gap:4px}
 .role-header-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800}
 .role-header-desc{font-size:.85rem;color:var(--muted2)}
 .queue-count{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800}
 
-/* HISTORY TIMELINE */
-.history-box{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px}
-.history-title{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.history-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
-.history-item:last-child{border-bottom:none}
-.history-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.history-addr{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted2);flex:1}
-.history-badge{font-size:.65rem;padding:2px 6px;background:rgba(59,130,246,.1);border-radius:4px;color:var(--accent);white-space:nowrap}
+/* ── TRANSFER NOTICES ── */
+.transfer-notice{background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.2);border-radius:10px;padding:10px 12px;font-size:.8rem;color:var(--accent2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.expiry-warning{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:10px 12px;font-size:.8rem;color:var(--orange)}
 
-/* TRANSFER NOTICE */
-.transfer-notice{background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.2);border-radius:10px;padding:10px 12px;font-size:.8rem;color:var(--accent2);display:flex;align-items:center;gap:8px}
-
-/* DISPUTE RESOLUTION FORM */
+/* ── DISPUTE FORM ── */
 .dispute-form{background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
-.dispute-form .field label{color:var(--purple)}
 .dispute-notes-box{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:10px 12px;font-size:.8rem;color:var(--orange)}
 
-/* MAP */
+/* ── TIMELOCK NOTICE ── */
+.timelock-notice{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:14px;margin-bottom:1rem}
+.timelock-notice .tl-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--gold);margin-bottom:4px}
+.timelock-notice .tl-desc{font-size:.8rem;color:var(--muted2)}
+.timelock-countdown{font-family:'DM Mono',monospace;font-size:.85rem;color:var(--gold);margin-top:6px}
+
+/* ── AREA MISMATCH WARNING [Fix #13] ── */
+.area-mismatch-warn{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:10px 14px;font-size:.82rem;color:var(--red);margin-top:8px;display:none}
+
+/* ── MAP ── */
 #map-container{position:relative}
 #property-map{height:320px;border-radius:14px;overflow:hidden;border:1px solid var(--border);z-index:1}
 .map-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
@@ -175,7 +204,10 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .map-btn.active{background:rgba(59,130,246,.12);border-color:var(--accent);color:var(--accent)}
 .map-info{margin-top:8px;font-size:.8rem;color:var(--muted2);font-family:'DM Mono',monospace;padding:8px 12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)}
 
-/* IPFS UPLOAD */
+/* ── OVERLAP ALERT [Fix #14] ── */
+.overlap-alert{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:10px 14px;font-size:.82rem;color:var(--red);display:none;margin-top:8px}
+
+/* ── IPFS UPLOAD ── */
 .upload-zone{border:2px dashed var(--border-bright);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2)}
 .upload-zone:hover{border-color:var(--accent);background:rgba(59,130,246,.04)}
 .upload-zone.dragover{border-color:var(--accent);background:rgba(59,130,246,.08)}
@@ -187,12 +219,19 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .progress-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
 .progress-label{font-size:.78rem;color:var(--muted2);font-family:'DM Mono',monospace}
 .ipfs-result{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:10px 14px;font-size:.8rem;color:var(--green);display:none;word-break:break-all}
-
-/* IPFS link */
 .ipfs-link{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--accent);text-decoration:none;word-break:break-all}
 .ipfs-link:hover{text-decoration:underline}
 
-/* TOAST */
+/* ── COMMIT-REVEAL UI [Fix #18] ── */
+.commit-reveal-panel{background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.commit-reveal-panel .cr-title{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:2px}
+.commit-reveal-panel .cr-desc{font-size:.76rem;color:var(--muted2);line-height:1.5}
+.commit-step{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.commit-step:last-child{border-bottom:none}
+.commit-step-num{width:24px;height:24px;border-radius:50%;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);color:var(--accent);font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Syne',sans-serif}
+.commit-step-num.done{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:var(--green)}
+
+/* ── TOAST ── */
 #toast-container{position:fixed;bottom:2rem;right:2rem;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;padding:12px 18px;font-size:.85rem;max-width:340px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:toast-in .3s ease;pointer-events:auto}
 .toast.success{border-color:rgba(16,185,129,.4)}
@@ -200,20 +239,26 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 .toast.info{border-color:rgba(59,130,246,.4)}
 @keyframes toast-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 
-/* SPINNER */
+/* ── SPINNER ── */
 .spinner{width:16px;height:16px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ADMIN */
+/* ── ADMIN ── */
 .admin-panel{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.2);border-radius:16px;padding:1.5rem}
-.divider{height:1px;background:var(--border);margin:.5rem 0}
 
-/* MODAL */
+/* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
 .modal{background:var(--surface);border:1px solid var(--border-bright);border-radius:20px;padding:2rem;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;animation:modal-in .25s ease}
 @keyframes modal-in{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 .modal-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
 .modal-actions{display:flex;gap:10px;margin-top:1.5rem;justify-content:flex-end}
+
+/* ── HISTORY ── */
+.history-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
+.history-item:last-child{border-bottom:none}
+.history-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.history-addr{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted2);flex:1}
+.history-badge{font-size:.65rem;padding:2px 6px;background:rgba(59,130,246,.1);border-radius:4px;color:var(--accent);white-space:nowrap}
 
 @media(max-width:640px){.form-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:1fr}.connect-title{font-size:2rem}header{padding:0 1rem}main{padding:1.5rem 1rem}}
 </style>
@@ -227,6 +272,10 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
     Clear<span>Title</span>
   </div>
   <div class="header-right">
+    <div id="sync-indicator" style="display:none">
+      <span class="sync-dot" id="sync-dot"></span>
+      <span id="sync-label">Synced</span>
+    </div>
     <span id="role-badge" class="role-badge" style="display:none"></span>
     <button class="wallet-btn" id="connect-btn" onclick="connectWallet()">
       <span>🔗</span>
@@ -242,7 +291,7 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
     <div class="connect-title">Clear<span>Title</span></div>
     <div class="connect-title" style="color:var(--muted2);font-size:1.4rem;margin-top:6px;letter-spacing:-1px;">Blockchain Land Registry</div>
   </div>
-  <p class="connect-sub">Tamper-proof, decentralized property ownership. Polygon mapping, IPFS documents, multi-role verification — all on Ethereum.</p>
+  <p class="connect-sub">Tamper-proof, decentralised property ownership. Polygon mapping, IPFS documents, multi-role verification — all on Ethereum.</p>
   <button class="btn-primary" onclick="connectWallet()" style="font-size:1rem;padding:14px 28px">
     <span>🦊</span> Connect MetaMask
   </button>
@@ -251,7 +300,7 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 <!-- DASHBOARD -->
 <main id="dashboard" style="display:none">
 
-  <!-- ══════════════ CITIZEN ══════════════ -->
+  <!-- ════════════ CITIZEN ════════════ -->
   <div id="view-citizen" style="display:none">
     <div class="stats-row">
       <div class="stat-card">
@@ -260,7 +309,7 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
         <div class="stat-sub">Your blockchain identity</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Properties Owned</div>
+        <div class="stat-label">Properties</div>
         <div class="stat-value" style="color:var(--accent)" id="citizen-count">0</div>
         <div class="stat-sub">Registered to your address</div>
       </div>
@@ -314,15 +363,46 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
             <label>Property Location / Address</label>
             <input type="text" id="reg-location" placeholder="e.g. Plot 42, Sector 7, Pune, Maharashtra 411001" />
           </div>
+
+          <!-- [Fix #9] Multi-unit fields -->
+          <div class="field">
+            <label>Property Type</label>
+            <select id="reg-type" onchange="toggleUnitFields()">
+              <option value="land">Land Parcel (standalone)</option>
+              <option value="unit">Flat / Unit (within a building)</option>
+            </select>
+          </div>
+          <div class="field" id="unit-id-field" style="display:none">
+            <label>Unit Identifier</label>
+            <input type="text" id="reg-unit-id" placeholder="e.g. Flat 4B, Floor 2" />
+          </div>
+          <div class="field" id="parent-id-field" style="display:none">
+            <label>Parent Property ID (building)</label>
+            <input type="number" id="reg-parent-id" placeholder="e.g. 5" min="1" />
+            <span class="form-hint">The verified property ID of the building this unit belongs to</span>
+          </div>
+
           <div class="field">
             <label>Area (sq ft) <span id="calc-area-note" style="color:var(--accent);font-style:italic"></span></label>
-            <input type="number" id="reg-area" placeholder="e.g. 1200" min="1" />
+            <input type="number" id="reg-area" placeholder="e.g. 1200" min="1" oninput="checkAreaMismatch()" />
             <span class="form-hint">Will auto-fill if you draw a polygon on the map below</span>
+            <!-- [Fix #13] Area mismatch warning -->
+            <div class="area-mismatch-warn" id="area-mismatch-warn">
+              ⚠️ Area mismatch detected. You entered <strong id="mismatch-user">—</strong> sq ft but the polygon measures <strong id="mismatch-calc">—</strong> sq ft (<span id="mismatch-pct">—</span>% difference). Please reconcile before submitting.
+            </div>
           </div>
+
+          <div class="field">
+            <label>Declared Value (₹ INR)</label>
+            <input type="number" id="reg-value" placeholder="e.g. 4500000" min="1" />
+            <span class="form-hint">Market value for stamp duty cross-check</span>
+          </div>
+
           <div class="field">
             <label>IPFS Document Hash</label>
             <input type="text" id="reg-ipfs" placeholder="Paste hash or upload above → auto-fills" />
           </div>
+
           <div class="field">
             <label>Latitude (decimal)</label>
             <input type="number" id="reg-lat" placeholder="e.g. 18.9712" step="any" />
@@ -331,13 +411,18 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
             <label>Longitude (decimal)</label>
             <input type="number" id="reg-lng" placeholder="e.g. 72.8955" step="any" />
           </div>
+
+          <!-- [Fix #10] Resubmission link -->
+          <div class="field full" id="resubmit-field" style="display:none">
+            <label>Resubmission — Linked Rejected Property ID</label>
+            <input type="number" id="reg-resubmit-from" placeholder="ID of rejected property this replaces" min="1" />
+            <span class="form-hint">Helps surveyors see your previous rejection and what changed</span>
+          </div>
         </div>
 
         <!-- MAP -->
         <div style="margin-top:1.25rem">
-          <div class="field">
-            <label>Mark Property Boundary on Map</label>
-          </div>
+          <div class="field"><label>Mark Property Boundary on Map</label></div>
           <div id="map-container">
             <div id="property-map"></div>
             <div class="map-controls">
@@ -351,19 +436,39 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
         </div>
 
         <div class="form-actions">
+          <button class="btn-ghost" onclick="enableResubmitMode()" style="margin-right:auto">🔁 Resubmitting after rejection?</button>
           <button class="btn-outline" onclick="clearRegForm()">Clear</button>
           <button class="btn-primary" onclick="registerProperty()">📝 Submit Registration</button>
         </div>
       </div>
     </div>
 
-    <!-- Transfer -->
+    <!-- Transfer — Commit-Reveal [Fix #18] -->
     <div class="section">
       <div class="section-header">
         <div class="section-title"><div class="dot" style="background:var(--accent2)"></div> Initiate Property Transfer</div>
       </div>
       <div class="panel">
-        <div class="form-grid">
+        <div class="commit-reveal-panel">
+          <div class="cr-title">🔐 Secure 2-Step Transfer</div>
+          <div class="cr-desc">To prevent front-running, transfers use a commit-reveal pattern. Step 1 hides the buyer address on-chain. Step 2 reveals it after 1 block.</div>
+          <div class="commit-step">
+            <div class="commit-step-num" id="cr-step1-num">1</div>
+            <div style="flex:1">
+              <div style="font-size:.82rem;font-weight:500;color:var(--text)">Commit — hide buyer address</div>
+              <div style="font-size:.75rem;color:var(--muted2)">A hash of your intent is submitted first</div>
+            </div>
+          </div>
+          <div class="commit-step">
+            <div class="commit-step-num" id="cr-step2-num">2</div>
+            <div style="flex:1">
+              <div style="font-size:.82rem;font-weight:500;color:var(--text)">Reveal — initiate transfer</div>
+              <div style="font-size:.75rem;color:var(--muted2)">After 1 block, reveal the buyer address</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top:1rem">
           <div class="field">
             <label>Property ID</label>
             <input type="number" id="tx-id" placeholder="e.g. 3" min="1" />
@@ -373,10 +478,14 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
             <input type="text" id="tx-buyer" placeholder="0x..." />
           </div>
         </div>
-        <div class="form-actions">
-          <button class="btn-primary" onclick="initiateTransfer()">🔄 Initiate Transfer</button>
+        <div id="tx-nonce-display" style="display:none;margin-top:10px;font-size:.78rem;color:var(--muted2);background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border)">
+          🔑 Nonce (save this): <span id="tx-nonce-val" style="font-family:'DM Mono',monospace;color:var(--accent)"></span>
         </div>
-        <p style="font-size:.78rem;color:var(--muted);margin-top:10px">ℹ️ Transfer will wait for Registrar approval before buyer can accept.</p>
+        <div class="form-actions">
+          <button class="btn-outline" id="btn-commit-transfer" onclick="commitTransferStep()">Step 1: Commit</button>
+          <button class="btn-primary" id="btn-reveal-transfer" onclick="revealTransferStep()" disabled>Step 2: Reveal & Initiate</button>
+        </div>
+        <p style="font-size:.78rem;color:var(--muted);margin-top:10px">ℹ️ Transfer expires 30 days after initiation. You can cancel anytime before buyer accepts.</p>
       </div>
     </div>
 
@@ -386,18 +495,26 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
         <div class="section-title"><div class="dot" style="background:var(--green)"></div> My Properties</div>
         <button class="btn-outline btn-sm" onclick="loadCitizenData()">↻ Refresh</button>
       </div>
+      <!-- [Fix #11] Filter bar -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setCitizenFilter('all',this)">All</button>
+        <button class="filter-btn" onclick="setCitizenFilter('verified',this)">✅ Verified</button>
+        <button class="filter-btn" onclick="setCitizenFilter('pending',this)">⏳ Pending</button>
+        <button class="filter-btn" onclick="setCitizenFilter('rejected',this)">❌ Rejected</button>
+        <button class="filter-btn" onclick="setCitizenFilter('disputed',this)">⚠️ Disputed</button>
+      </div>
       <div class="cards-grid" id="citizen-cards">
         <div class="empty-state"><div class="empty-icon">🏡</div><p>No properties yet. Register one above.</p></div>
       </div>
     </div>
   </div><!-- /citizen -->
 
-  <!-- ══════════════ SURVEYOR ══════════════ -->
+  <!-- ════════════ SURVEYOR ════════════ -->
   <div id="view-surveyor" style="display:none">
     <div class="role-header">
       <div class="role-header-left">
         <div class="role-header-title">📐 Surveyor Dashboard</div>
-        <div class="role-header-desc">Verify property boundaries, check area match, detect overlaps.</div>
+        <div class="role-header-desc">Verify property boundaries, detect overlaps, check area match.</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="text-align:right">
@@ -417,12 +534,12 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
     </div>
   </div>
 
-  <!-- ══════════════ REGISTRAR ══════════════ -->
+  <!-- ════════════ REGISTRAR ════════════ -->
   <div id="view-registrar" style="display:none">
     <div class="role-header">
       <div class="role-header-left">
         <div class="role-header-title">📋 Registrar Dashboard</div>
-        <div class="role-header-desc">Final approval for registrations + review all pending transfers.</div>
+        <div class="role-header-desc">Final approval for registrations + review pending transfers.</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="text-align:right">
@@ -432,32 +549,22 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
         <button class="btn-outline btn-sm" onclick="loadRegistrarData()">↻ Refresh</button>
       </div>
     </div>
-
     <div class="section">
-      <div class="section-header">
-        <div class="section-title"><div class="dot" style="background:var(--green)"></div> Registrations Awaiting Approval</div>
-      </div>
-      <div class="cards-grid" id="registrar-cards">
-        <div class="empty-state"><div class="empty-icon">📋</div><p>No pending registrations.</p></div>
-      </div>
+      <div class="section-header"><div class="section-title"><div class="dot" style="background:var(--green)"></div> Registrations Awaiting Approval</div></div>
+      <div class="cards-grid" id="registrar-cards"><div class="empty-state"><div class="empty-icon">📋</div><p>No pending registrations.</p></div></div>
     </div>
-
     <div class="section">
-      <div class="section-header">
-        <div class="section-title"><div class="dot" style="background:var(--accent2)"></div> Transfers Awaiting Registrar Approval</div>
-      </div>
-      <div class="cards-grid" id="registrar-transfer-cards">
-        <div class="empty-state"><div class="empty-icon">🔄</div><p>No pending transfers.</p></div>
-      </div>
+      <div class="section-header"><div class="section-title"><div class="dot" style="background:var(--accent2)"></div> Transfers Awaiting Approval</div></div>
+      <div class="cards-grid" id="registrar-transfer-cards"><div class="empty-state"><div class="empty-icon">🔄</div><p>No pending transfers.</p></div></div>
     </div>
   </div>
 
-  <!-- ══════════════ DISPUTE OFFICER ══════════════ -->
+  <!-- ════════════ DISPUTE OFFICER ════════════ -->
   <div id="view-dispute" style="display:none">
     <div class="role-header" style="background:rgba(168,85,247,.04);border-color:rgba(168,85,247,.2)">
       <div class="role-header-left">
         <div class="role-header-title" style="color:var(--purple)">⚖️ Dispute Officer Dashboard</div>
-        <div class="role-header-desc">Review disputed properties, examine documents and history, make binding decisions.</div>
+        <div class="role-header-desc">Review disputes and under-review properties. Make binding decisions.</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="text-align:right">
@@ -468,27 +575,35 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
       </div>
     </div>
     <div class="section">
-      <div class="section-header">
-        <div class="section-title"><div class="dot" style="background:var(--purple)"></div> Properties Under Dispute</div>
-      </div>
-      <div class="cards-grid" id="dispute-cards">
-        <div class="empty-state"><div class="empty-icon">⚖️</div><p>No active disputes. All clear!</p></div>
-      </div>
+      <div class="section-header"><div class="section-title"><div class="dot" style="background:var(--purple)"></div> Properties Under Dispute / Review</div></div>
+      <div class="cards-grid" id="dispute-cards"><div class="empty-state"><div class="empty-icon">⚖️</div><p>No active disputes.</p></div></div>
     </div>
   </div>
 
-  <!-- ══════════════ ADMIN ══════════════ -->
+  <!-- ════════════ ADMIN ════════════ -->
   <div id="view-admin" style="display:none">
     <div class="role-header" style="background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2)">
       <div class="role-header-left">
         <div class="role-header-title" style="color:var(--red)">⚡ Admin Panel</div>
-        <div class="role-header-desc">Assign Surveyor, Registrar, and Dispute Officer roles.</div>
+        <div class="role-header-desc">Propose role changes (48-hour timelock applies).</div>
+      </div>
+    </div>
+
+    <!-- Pending role proposal notice -->
+    <div id="admin-timelock-notice" class="timelock-notice" style="display:none">
+      <div class="tl-title">⏳ Role Change Pending</div>
+      <div class="tl-desc">A role change proposal is awaiting the 48-hour timelock.</div>
+      <div class="timelock-countdown" id="tl-countdown">—</div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn-green btn-sm" onclick="confirmRoles()" id="btn-confirm-roles" style="flex:0 0 auto;padding:8px 16px" disabled>Confirm Roles</button>
+        <button class="btn-red btn-sm" onclick="cancelRoleProposal()" style="flex:0 0 auto;padding:8px 16px">Cancel Proposal</button>
       </div>
     </div>
 
     <div class="section">
-      <div class="section-title" style="margin-bottom:1rem"><div class="dot" style="background:var(--red)"></div> Assign Roles</div>
+      <div class="section-title" style="margin-bottom:1rem"><div class="dot" style="background:var(--red)"></div> Propose Role Change</div>
       <div class="panel admin-panel">
+        <p style="font-size:.82rem;color:var(--muted2);margin-bottom:1rem">Role changes take effect 48 hours after proposal. You can cancel before confirmation.</p>
         <div class="form-grid">
           <div class="field">
             <label>Registrar Address</label>
@@ -504,7 +619,7 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
           </div>
         </div>
         <div class="form-actions">
-          <button class="btn-primary" style="background:var(--red)" onclick="setRoles()">🔑 Set Roles</button>
+          <button class="btn-primary" style="background:var(--red)" onclick="proposeRoles()">🔑 Propose Role Change</button>
         </div>
       </div>
     </div>
@@ -525,27 +640,42 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
         <div class="section-title"><div class="dot"></div> All Properties</div>
         <button class="btn-outline btn-sm" onclick="loadAdminData()">↻ Refresh</button>
       </div>
-      <div class="cards-grid" id="admin-cards">
-        <div class="empty-state"><div class="empty-icon">📊</div><p>Loading...</p></div>
-      </div>
+      <div class="cards-grid" id="admin-cards"><div class="empty-state"><div class="empty-icon">📊</div><p>Loading...</p></div></div>
     </div>
   </div>
 
 </main>
 
+<!-- REJECTION REASON MODALS (Surveyor + Registrar) -->
+<div class="modal-overlay" id="reject-modal" style="display:none" onclick="if(event.target===this)closeRejectModal()">
+  <div class="modal">
+    <div class="modal-title">❌ Reject Property #<span id="reject-modal-id"></span></div>
+    <div class="field">
+      <label>Rejection Reason (stored permanently on-chain)</label>
+      <textarea id="reject-reason-input" rows="4" placeholder="e.g. Boundary overlaps with property #3. Please revise polygon and resubmit."></textarea>
+    </div>
+    <div style="font-size:.78rem;color:var(--muted);background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border);margin-top:8px">
+      ⚠️ This reason will be visible to the property owner and stored on-chain permanently.
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeRejectModal()">Cancel</button>
+      <button class="btn-red" style="padding:10px 20px" onclick="submitRejection()">Confirm Rejection</button>
+    </div>
+  </div>
+</div>
+
 <!-- DISPUTE RESOLUTION MODAL -->
 <div class="modal-overlay" id="dispute-modal" style="display:none" onclick="if(event.target===this)closeDisputeModal()">
   <div class="modal">
     <div class="modal-title">⚖️ Resolve Dispute — Property #<span id="dispute-modal-id"></span></div>
-
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="field">
         <label>Decision</label>
         <select id="dispute-decision">
           <option value="">Select decision...</option>
-          <option value="1">✅ Approve — Restore to Verified (dispute resolved in owner's favour)</option>
-          <option value="2">❌ Reject — Mark property as invalid / flagged</option>
-          <option value="3">⚠️ Partial Fix — Hold for further review</option>
+          <option value="1">✅ Approve — Restore to Verified</option>
+          <option value="2">❌ Reject — Mark property as invalid</option>
+          <option value="3">⚠️ Partial Fix — Send to Under Review for further examination</option>
         </select>
       </div>
       <div class="field">
@@ -553,10 +683,9 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
         <textarea id="dispute-notes-input" rows="3" placeholder="e.g. Boundary confirmed with survey team. Ownership valid."></textarea>
       </div>
       <div style="font-size:.78rem;color:var(--muted);background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border)">
-        ⚠️ This decision is recorded permanently on the blockchain and cannot be undone.
+        ⚠️ This decision is recorded permanently on-chain. Partial Fix moves property to Under Review — you can revisit it.
       </div>
     </div>
-
     <div class="modal-actions">
       <button class="btn-outline" onclick="closeDisputeModal()">Cancel</button>
       <button class="btn-purple" style="padding:10px 20px" onclick="submitDisputeResolution()">Submit Resolution</button>
@@ -569,9 +698,7 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
   <div class="modal">
     <div class="modal-title">📜 Ownership History — Property #<span id="history-modal-id"></span></div>
     <div id="history-modal-content"></div>
-    <div class="modal-actions">
-      <button class="btn-outline" onclick="closeHistoryModal()">Close</button>
-    </div>
+    <div class="modal-actions"><button class="btn-outline" onclick="closeHistoryModal()">Close</button></div>
   </div>
 </div>
 
@@ -579,11 +706,11 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 <div class="modal-overlay" id="map-modal" style="display:none" onclick="if(event.target===this)closeMapModal()">
   <div class="modal" style="max-width:700px">
     <div class="modal-title">🗺️ Property Location — #<span id="map-modal-id"></span></div>
+    <!-- [Fix #14] Overlap alert -->
+    <div class="overlap-alert" id="overlap-alert">⚠️ Potential boundary overlap detected with existing verified properties. Check carefully before approving.</div>
     <div id="surveyor-map" style="height:350px;border-radius:12px;border:1px solid var(--border);overflow:hidden"></div>
     <div id="map-modal-info" style="margin-top:10px;font-size:.82rem;color:var(--muted2);font-family:'DM Mono',monospace;padding:8px 12px;background:var(--surface2);border-radius:8px"></div>
-    <div class="modal-actions">
-      <button class="btn-outline" onclick="closeMapModal()">Close</button>
-    </div>
+    <div class="modal-actions"><button class="btn-outline" onclick="closeMapModal()">Close</button></div>
   </div>
 </div>
 
@@ -591,769 +718,1322 @@ main{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:2.5rem 2
 
 <script>
 // ══════════════════════════════════════
-//  CONTRACT CONFIG
+//  CONTRACT CONFIG — UPDATE THIS ADDRESS after deploying v2
 // ══════════════════════════════════════
-const CONTRACT_ADDRESS = "0x987F7e9ac0438440030045FF278Ff6711908466c";
+const CONTRACT_ADDRESS = "0x23ea6f76DB60722ef4C9e5Aac318a68CbBB497b1";
 
-// Updated ABI matching the new contract
 const ABI = [
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum LandRegistry.DisputeResult",
-				"name": "result",
-				"type": "uint8"
-			}
-		],
-		"name": "DisputeResolved",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "Disputed",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "PropertyRegistered",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "RegistrarApproved",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "RegistrarRejected",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "registrar",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "surveyor",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "disputeOfficer",
-				"type": "address"
-			}
-		],
-		"name": "RolesUpdated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "SurveyorApproved",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "SurveyorRejected",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "TransferApprovedByRegistrar",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "buyer",
-				"type": "address"
-			}
-		],
-		"name": "TransferInitiated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "TransferRejectedByRegistrar",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "acceptTransfer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "admin",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "approveByRegistrar",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "approveBySurveyor",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "approveTransferByRegistrar",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "core",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "propertyId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "areaSqFt",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum LandRegistry.Status",
-				"name": "status",
-				"type": "uint8"
-			},
-			{
-				"internalType": "bool",
-				"name": "isRegistered",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "surveyorApproved",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "registrarApproved",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "transferPendingRegistrar",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "registrarApprovedTransfer",
-				"type": "bool"
-			},
-			{
-				"internalType": "enum LandRegistry.DisputeResult",
-				"name": "disputeResult",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "disputeOfficer",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "getOwnershipHistory",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "getPendingBuyer",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "getPropertyCore",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "propertyId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "areaSqFt",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum LandRegistry.Status",
-				"name": "status",
-				"type": "uint8"
-			},
-			{
-				"internalType": "bool",
-				"name": "isRegistered",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "surveyorApproved",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "registrarApproved",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "transferPendingRegistrar",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "registrarApprovedTransfer",
-				"type": "bool"
-			},
-			{
-				"internalType": "enum LandRegistry.DisputeResult",
-				"name": "disputeResult",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "getPropertyMeta",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "location",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ipfsHash",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "disputeNotes",
-				"type": "string"
-			},
-			{
-				"internalType": "int256",
-				"name": "latitude",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "longitude",
-				"type": "int256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_buyer",
-				"type": "address"
-			}
-		],
-		"name": "initiateTransfer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "meta",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "location",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ipfsHash",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "disputeNotes",
-				"type": "string"
-			},
-			{
-				"internalType": "int256",
-				"name": "latitude",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "longitude",
-				"type": "int256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "ownershipHistory",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "pendingBuyer",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "propertyCount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "raiseDispute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_location",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_areaSqFt",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_ipfsHash",
-				"type": "string"
-			},
-			{
-				"internalType": "int256",
-				"name": "_latitude",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "_longitude",
-				"type": "int256"
-			}
-		],
-		"name": "registerProperty",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "registrar",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "rejectByRegistrar",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "rejectBySurveyor",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "rejectTransferByRegistrar",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum LandRegistry.DisputeResult",
-				"name": "_result",
-				"type": "uint8"
-			},
-			{
-				"internalType": "string",
-				"name": "_notes",
-				"type": "string"
-			}
-		],
-		"name": "resolveDispute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_registrar",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_surveyor",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_disputeOfficer",
-				"type": "address"
-			}
-		],
-		"name": "setRoles",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "surveyor",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "acceptTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "approveByRegistrar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "approveBySurveyor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "approveTransferByRegistrar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "cancelRoleProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "_commitHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "commitTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "confirmRoles",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "expireTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "notes",
+        "type": "string"
+      }
+    ],
+    "name": "DisputeReferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum LandRegistry.DisputeResult",
+        "name": "result",
+        "type": "uint8"
+      }
+    ],
+    "name": "DisputeResolved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "raisedBy",
+        "type": "address"
+      }
+    ],
+    "name": "Disputed",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_buyer",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "_nonce",
+        "type": "bytes32"
+      }
+    ],
+    "name": "initiateTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "resubmittedFrom",
+        "type": "uint256"
+      }
+    ],
+    "name": "PropertyRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_registrar",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_surveyor",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_disputeOfficer",
+        "type": "address"
+      }
+    ],
+    "name": "proposeRoles",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "raiseDispute",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_location",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_unitIdentifier",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_areaSqFt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_latitude",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_longitude",
+        "type": "int256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_parentPropertyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_resubmittedFrom",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_declaredValueINR",
+        "type": "uint256"
+      }
+    ],
+    "name": "registerProperty",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "registrarAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "RegistrarApproved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "registrarAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "RegistrarRejected",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_reason",
+        "type": "string"
+      }
+    ],
+    "name": "rejectByRegistrar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_reason",
+        "type": "string"
+      }
+    ],
+    "name": "rejectBySurveyor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "rejectTransferByRegistrar",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum LandRegistry.DisputeResult",
+        "name": "_result",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "_notes",
+        "type": "string"
+      }
+    ],
+    "name": "resolveDispute",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "registrar",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "surveyor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "disputeOfficer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "executeAfter",
+        "type": "uint256"
+      }
+    ],
+    "name": "RoleChangeProposed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "RoleProposalCancelled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "registrar",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "surveyor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "disputeOfficer",
+        "type": "address"
+      }
+    ],
+    "name": "RolesUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "surveyorAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "SurveyorApproved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "surveyorAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "SurveyorRejected",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferApprovedByRegistrar",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "cancelledBy",
+        "type": "address"
+      }
+    ],
+    "name": "TransferCancelled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "commitHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "TransferCommitted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferExpired",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "expiry",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferInitiated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferRejectedByRegistrar",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "commitBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "core",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "propertyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "areaSqFt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "declaredValueINR",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum LandRegistry.Status",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "isRegistered",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "surveyorApproved",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "registrarApproved",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "transferPendingRegistrar",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "registrarApprovedTransfer",
+        "type": "bool"
+      },
+      {
+        "internalType": "enum LandRegistry.DisputeResult",
+        "name": "disputeResult",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "parentPropertyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "resubmittedFrom",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "disputeOfficer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "disputeRaisedBy",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDisputeRaisedBy",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOwnershipHistory",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPendingBuyer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPendingRoleProposal",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "proposedRegistrar",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "proposedSurveyor",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "proposedDisputeOfficer",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposedAt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "executeAfter",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPropertyCore1",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "propertyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "areaSqFt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "declaredValueINR",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum LandRegistry.Status",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "isRegistered",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "surveyorApproved",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPropertyCore2",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "registrarApproved",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "transferPendingRegistrar",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "registrarApprovedTransfer",
+        "type": "bool"
+      },
+      {
+        "internalType": "enum LandRegistry.DisputeResult",
+        "name": "disputeResult",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "parentPropertyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "resubmittedFrom",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPropertyMeta",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "unitIdentifier",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "rejectionReason",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "disputeNotes",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "latitude",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "longitude",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTransferExpiry",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "meta",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "unitIdentifier",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "rejectionReason",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "disputeNotes",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "latitude",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "longitude",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownershipHistory",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "pendingBuyer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pendingRoleProposal",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "proposedRegistrar",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "proposedSurveyor",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "proposedDisputeOfficer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "proposedBy",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposedAt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "propertyCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "registrar",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ROLE_TIMELOCK",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "surveyor",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "TRANSFER_VALIDITY",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferCommit",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferExpiry",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
 ];
+
+// ══════════════════════════════════════
+//  PINATA — use backend proxy in production [Fix #12]
+//  Set PINATA_PROXY_URL to your backend endpoint e.g. "/api/ipfs-upload"
+//  Leave empty to use direct Pinata (dev only — exposes JWT)
+// ══════════════════════════════════════
+const PINATA_PROXY_URL = "http://localhost:3001/api/ipfs-upload"; // set to your backend
+const PINATA_JWT_DEV   = ""; // only used if PINATA_PROXY_URL is empty
 
 // ══════════════════════════════════════
 //  STATE
@@ -1361,30 +2041,36 @@ const ABI = [
 let provider, signer, contract;
 let currentAccount = "";
 let role = "citizen";
-let disputeModalPropId = null;
+let disputeModalPropId  = null;
+let rejectModalPropId   = null;
+let rejectModalRole     = null; // "surveyor" | "registrar"
+let citizenFilter       = "all";
+let allCitizenProps     = [];
+
+// Commit-reveal state
+let pendingCommitId    = null;
+let pendingCommitNonce = null;
 
 // Map state
-let leafletMap = null;
+let leafletMap   = null;
 let drawingPoints = [];
 let polygonLayer = null;
-let pinMarker = null;
-let mapMode = "draw"; // "draw" | "pin"
+let pinMarker    = null;
+let mapMode      = "draw";
 let calculatedArea = null;
 
-// Pinata (IPFS) — using public demo key for prototype
-// Replace with your own Pinata JWT for production
-const PINATA_API = "https://api.pinata.cloud/pinning/pinFileToIPFS";
-const PINATA_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmZmRhMzgxMy1kMmE3LTQzYjUtOTU5NC1mMjAzYjk1NWY5NWYiLCJlbWFpbCI6Inlhc2hrYW1ibGU0MzVoZEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiM2UwZTY0NjA1M2I1YmJlY2M3ZmEiLCJzY29wZWRLZXlTZWNyZXQiOiJhNGY3MTdjODY4ZDk5ZGZmZDk4ODNmZjg2MDdkMDFjYzQ4NTVhNzY4ODdjNTgwYjNkZDUwYjYyOTFhM2YyNzI4IiwiZXhwIjoxODA2NTMzODgyfQ.Y919bfBUm3K_rgMShw0D1fn5KQ1okegDiwcSmJxxiTg"; // <-- set this
+// Sync state [Fix #15]
+let uiStateSynced = true;
 
 // ══════════════════════════════════════
-//  WALLET CONNECT
+//  WALLET
 // ══════════════════════════════════════
 async function connectWallet() {
-  if (!window.ethereum) { toast("MetaMask not detected. Please install it.", "error"); return; }
+  if (!window.ethereum) { toast("MetaMask not detected.", "error"); return; }
   try {
     await window.ethereum.request({ method: "eth_requestAccounts" });
     provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
+    signer   = provider.getSigner();
     contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
     currentAccount = (await signer.getAddress()).toLowerCase();
     updateWalletUI();
@@ -1393,7 +2079,7 @@ async function connectWallet() {
     window.ethereum.on("accountsChanged", async (accounts) => {
       if (!accounts.length) { location.reload(); return; }
       currentAccount = accounts[0].toLowerCase();
-      signer = provider.getSigner();
+      signer   = provider.getSigner();
       contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
       updateWalletUI();
       await detectRole();
@@ -1403,26 +2089,22 @@ async function connectWallet() {
 }
 
 function updateWalletUI() {
-  const btn = document.getElementById("connect-btn");
   document.getElementById("wallet-label").textContent = `${currentAccount.slice(0,6)}...${currentAccount.slice(-4)}`;
-  btn.classList.add("connected");
+  document.getElementById("connect-btn").classList.add("connected");
 }
 
 async function detectRole() {
   try {
-    const [adm, reg, surv, disp] = await Promise.all([
-      contract.admin(), contract.registrar(), contract.surveyor(), contract.disputeOfficer()
-    ]);
-    if      (currentAccount === adm.toLowerCase())  role = "admin";
-    else if (currentAccount === reg.toLowerCase())  role = "registrar";
-    else if (currentAccount === surv.toLowerCase()) role = "surveyor";
-    else if (currentAccount === disp.toLowerCase()) role = "dispute";
-    else                                             role = "citizen";
-
+    const [adm,reg,surv,disp] = await Promise.all([contract.admin(),contract.registrar(),contract.surveyor(),contract.disputeOfficer()]);
+    if      (currentAccount===adm.toLowerCase())  role="admin";
+    else if (currentAccount===reg.toLowerCase())  role="registrar";
+    else if (currentAccount===surv.toLowerCase()) role="surveyor";
+    else if (currentAccount===disp.toLowerCase()) role="dispute";
+    else                                           role="citizen";
     const badge = document.getElementById("role-badge");
     badge.style.display = "inline-flex";
     badge.className = `role-badge ${role}`;
-    const labels = {admin:"⚡ Admin", citizen:"👤 Citizen", surveyor:"📐 Surveyor", registrar:"📋 Registrar", dispute:"⚖️ Dispute Officer"};
+    const labels = {admin:"⚡ Admin",citizen:"👤 Citizen",surveyor:"📐 Surveyor",registrar:"📋 Registrar",dispute:"⚖️ Dispute Officer"};
     badge.textContent = labels[role];
   } catch(e) { console.error(e); }
 }
@@ -1430,16 +2112,25 @@ async function detectRole() {
 function showDashboard() {
   document.getElementById("connect-screen").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
-  ["citizen","surveyor","registrar","dispute","admin"].forEach(v => {
-    document.getElementById(`view-${v}`).style.display = "none";
-  });
+  document.getElementById("sync-indicator").style.display = "flex";
+  ["citizen","surveyor","registrar","dispute","admin"].forEach(v =>
+    document.getElementById(`view-${v}`).style.display = "none"
+  );
   document.getElementById(`view-${role}`).style.display = "block";
+  if (role==="citizen")    { loadCitizenData(); initRegMap(); }
+  else if (role==="surveyor")  loadSurveyorData();
+  else if (role==="registrar") loadRegistrarData();
+  else if (role==="dispute")   loadDisputeData();
+  else if (role==="admin")     loadAdminData();
+}
 
-  if (role === "citizen")    { loadCitizenData();    initRegMap(); }
-  else if (role === "surveyor")  loadSurveyorData();
-  else if (role === "registrar") loadRegistrarData();
-  else if (role === "dispute")   loadDisputeData();
-  else if (role === "admin")     loadAdminData();
+// ══════════════════════════════════════
+//  SYNC INDICATOR [Fix #15]
+// ══════════════════════════════════════
+function setSynced(synced) {
+  uiStateSynced = synced;
+  document.getElementById("sync-dot").className = `sync-dot${synced?"":" stale"}`;
+  document.getElementById("sync-label").textContent = synced ? "Synced" : "Possibly stale — refresh";
 }
 
 // ══════════════════════════════════════
@@ -1448,33 +2139,42 @@ function showDashboard() {
 async function getAllProperties() {
   const count = (await contract.propertyCount()).toNumber();
   const props = [];
-  for (let i = 1; i <= count; i++) {
-    const [c, m, buyer] = await Promise.all([
-      contract.getPropertyCore(i),
+  for (let i=1;i<=count;i++) {
+    const [c1,c2,m,buyer,expiry] = await Promise.all([
+      contract.getPropertyCore1(i),
+      contract.getPropertyCore2(i),
       contract.getPropertyMeta(i),
       contract.getPendingBuyer(i),
+      contract.getTransferExpiry(i),
     ]);
     props.push({
-      id:                        c[0].toNumber(),
-      owner:                     c[1].toLowerCase(),
-      area:                      c[2].toNumber(),
-      status:                    c[3],
-      isRegistered:              c[4],
-      surveyorApproved:          c[5],
-      registrarApproved:         c[6],
-      transferPendingRegistrar:  c[7],
-      registrarApprovedTransfer: c[8],
-      disputeResult:             c[9],
+      id:                        c1[0].toNumber(),
+      owner:                     c1[1].toLowerCase(),
+      area:                      c1[2].toNumber(),
+      declaredValue:             c1[3].toNumber(),
+      status:                    c1[4],
+      isRegistered:              c1[5],
+      surveyorApproved:          c1[6],
+      registrarApproved:         c2[0],
+      transferPendingRegistrar:  c2[1],
+      registrarApprovedTransfer: c2[2],
+      disputeResult:             c2[3],
+      parentPropertyId:          c2[4].toNumber(),
+      resubmittedFrom:           c2[5].toNumber(),
       location:                  m[0],
-      ipfsHash:                  m[1],
-      disputeNotes:              m[2],
-      latitude:                  m[3].toNumber() / 1e6,
-      longitude:                 m[4].toNumber() / 1e6,
+      unitIdentifier:            m[1],
+      ipfsHash:                  m[2],
+      rejectionReason:           m[3],
+      disputeNotes:              m[4],
+      latitude:                  m[5].toNumber() / 1e6,
+      longitude:                 m[6].toNumber() / 1e6,
       pendingBuyer:              buyer.toLowerCase(),
+      transferExpiry:            expiry.toNumber(),
     });
   }
   return props;
 }
+
 // ══════════════════════════════════════
 //  CITIZEN
 // ══════════════════════════════════════
@@ -1482,30 +2182,44 @@ async function loadCitizenData() {
   document.getElementById("citizen-addr").textContent = currentAccount;
   try {
     const all = await getAllProperties();
-    const mine     = all.filter(p => p.owner === currentAccount);
+    allCitizenProps = all.filter(p => p.owner === currentAccount);
     const incoming = all.filter(p =>
       p.pendingBuyer === currentAccount &&
       p.pendingBuyer !== "0x0000000000000000000000000000000000000000" &&
       p.registrarApprovedTransfer
     );
-
-    document.getElementById("citizen-count").textContent    = mine.length;
-    document.getElementById("citizen-verified").textContent = mine.filter(p=>p.status===1).length;
-    document.getElementById("citizen-pending").textContent  = mine.filter(p=>p.status===0).length;
-
+    document.getElementById("citizen-count").textContent    = allCitizenProps.length;
+    document.getElementById("citizen-verified").textContent = allCitizenProps.filter(p=>p.status===1).length;
+    document.getElementById("citizen-pending").textContent  = allCitizenProps.filter(p=>p.status===0).length;
     const incSec = document.getElementById("incoming-section");
     if (incoming.length > 0) {
       incSec.style.display = "block";
-      document.getElementById("incoming-cards").innerHTML = incoming.map(p => buildCard(p,"incoming")).join("");
+      document.getElementById("incoming-cards").innerHTML = incoming.map(p=>buildCard(p,"incoming")).join("");
     } else {
       incSec.style.display = "none";
     }
+    renderCitizenCards();
+    setSynced(true);
+  } catch(e) { toast("Error loading: "+(e.reason||e.message),"error"); setSynced(false); }
+}
 
-    const c = document.getElementById("citizen-cards");
-    c.innerHTML = mine.length === 0
-      ? `<div class="empty-state"><div class="empty-icon">🏡</div><p>No properties yet. Register one above.</p></div>`
-      : mine.map(p => buildCard(p,"citizen")).join("");
-  } catch(e) { toast("Error loading: " + (e.reason||e.message), "error"); }
+function setCitizenFilter(f, btn) {
+  citizenFilter = f;
+  document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderCitizenCards();
+}
+
+function renderCitizenCards() {
+  // Status map: 0=Pending,1=Verified,2=Rejected,3=Disputed,4=UnderReview
+  const filterMap = {all:null,verified:1,pending:0,rejected:2,disputed:3};
+  const filtered = citizenFilter==="all"
+    ? allCitizenProps
+    : allCitizenProps.filter(p=>p.status===filterMap[citizenFilter]);
+  const c = document.getElementById("citizen-cards");
+  c.innerHTML = filtered.length===0
+    ? `<div class="empty-state"><div class="empty-icon">🏡</div><p>No ${citizenFilter==="all"?"properties":citizenFilter+" properties"} found.</p></div>`
+    : filtered.map(p=>buildCard(p,"citizen")).join("");
 }
 
 // ══════════════════════════════════════
@@ -1514,13 +2228,13 @@ async function loadCitizenData() {
 async function loadSurveyorData() {
   try {
     const all     = await getAllProperties();
-    const pending = all.filter(p => p.status === 0 && !p.surveyorApproved);
+    const pending = all.filter(p=>p.status===0&&!p.surveyorApproved);
     document.getElementById("surveyor-queue").textContent = pending.length;
-    const c = document.getElementById("surveyor-cards");
-    c.innerHTML = pending.length === 0
-      ? `<div class="empty-state"><div class="empty-icon">📐</div><p>No properties pending survey. Great job!</p></div>`
-      : pending.map(p => buildCard(p,"surveyor")).join("");
-  } catch(e) { toast("Error: "+(e.reason||e.message),"error"); }
+    document.getElementById("surveyor-cards").innerHTML = pending.length===0
+      ? `<div class="empty-state"><div class="empty-icon">📐</div><p>No pending surveys.</p></div>`
+      : pending.map(p=>buildCard(p,"surveyor")).join("");
+    setSynced(true);
+  } catch(e) { toast("Error: "+(e.reason||e.message),"error"); setSynced(false); }
 }
 
 // ══════════════════════════════════════
@@ -1528,25 +2242,18 @@ async function loadSurveyorData() {
 // ══════════════════════════════════════
 async function loadRegistrarData() {
   try {
-    const all = await getAllProperties();
-
-    // Registrations pending (surveyor done, registrar not yet)
-    const pending = all.filter(p => p.status === 0 && p.surveyorApproved && !p.registrarApproved);
-    // Transfers pending registrar approval
-    const transfers = all.filter(p =>
-      p.transferPendingRegistrar && !p.registrarApprovedTransfer
-    );
-
-    document.getElementById("registrar-queue").textContent = pending.length + transfers.length;
-
-    document.getElementById("registrar-cards").innerHTML = pending.length === 0
+    const all       = await getAllProperties();
+    const pending   = all.filter(p=>p.status===0&&p.surveyorApproved&&!p.registrarApproved);
+    const transfers = all.filter(p=>p.transferPendingRegistrar&&!p.registrarApprovedTransfer);
+    document.getElementById("registrar-queue").textContent = pending.length+transfers.length;
+    document.getElementById("registrar-cards").innerHTML = pending.length===0
       ? `<div class="empty-state"><div class="empty-icon">📋</div><p>No pending registrations.</p></div>`
-      : pending.map(p => buildCard(p,"registrar")).join("");
-
-    document.getElementById("registrar-transfer-cards").innerHTML = transfers.length === 0
+      : pending.map(p=>buildCard(p,"registrar")).join("");
+    document.getElementById("registrar-transfer-cards").innerHTML = transfers.length===0
       ? `<div class="empty-state"><div class="empty-icon">🔄</div><p>No pending transfers.</p></div>`
-      : transfers.map(p => buildCard(p,"registrar-transfer")).join("");
-  } catch(e) { toast("Error: "+(e.reason||e.message),"error"); }
+      : transfers.map(p=>buildCard(p,"registrar-transfer")).join("");
+    setSynced(true);
+  } catch(e) { toast("Error: "+(e.reason||e.message),"error"); setSynced(false); }
 }
 
 // ══════════════════════════════════════
@@ -1555,13 +2262,14 @@ async function loadRegistrarData() {
 async function loadDisputeData() {
   try {
     const all      = await getAllProperties();
-    const disputed = all.filter(p => p.status === 3);
+    // [Fix #3] Show both Disputed (3) and UnderReview (4)
+    const disputed = all.filter(p=>p.status===3||p.status===4);
     document.getElementById("dispute-queue").textContent = disputed.length;
-    const c = document.getElementById("dispute-cards");
-    c.innerHTML = disputed.length === 0
-      ? `<div class="empty-state"><div class="empty-icon">⚖️</div><p>No active disputes. All clear!</p></div>`
-      : disputed.map(p => buildCard(p,"dispute")).join("");
-  } catch(e) { toast("Error: "+(e.reason||e.message),"error"); }
+    document.getElementById("dispute-cards").innerHTML = disputed.length===0
+      ? `<div class="empty-state"><div class="empty-icon">⚖️</div><p>No active disputes.</p></div>`
+      : disputed.map(p=>buildCard(p,"dispute")).join("");
+    setSynced(true);
+  } catch(e) { toast("Error: "+(e.reason||e.message),"error"); setSynced(false); }
 }
 
 // ══════════════════════════════════════
@@ -1569,31 +2277,59 @@ async function loadDisputeData() {
 // ══════════════════════════════════════
 async function loadAdminData() {
   try {
-    const [reg, surv, disp] = await Promise.all([
-      contract.registrar(), contract.surveyor(), contract.disputeOfficer()
+    const [reg,surv,disp,proposal] = await Promise.all([
+      contract.registrar(), contract.surveyor(), contract.disputeOfficer(),
+      contract.getPendingRoleProposal()
     ]);
     document.getElementById("admin-curr-registrar").textContent = reg;
     document.getElementById("admin-curr-surveyor").textContent  = surv;
     document.getElementById("admin-curr-dispute").textContent   = disp;
+
+    // Timelock notice
+    const notice = document.getElementById("admin-timelock-notice");
+    if (proposal[5]) { // exists
+      notice.style.display = "block";
+      const executeAfter = proposal[4].toNumber() * 1000;
+      const updateCountdown = () => {
+        const remaining = executeAfter - Date.now();
+        if (remaining <= 0) {
+          document.getElementById("tl-countdown").textContent = "✅ Timelock elapsed — ready to confirm";
+          document.getElementById("btn-confirm-roles").disabled = false;
+        } else {
+          const h = Math.floor(remaining/3600000);
+          const m = Math.floor((remaining%3600000)/60000);
+          document.getElementById("tl-countdown").textContent = `⏳ ${h}h ${m}m remaining`;
+          document.getElementById("btn-confirm-roles").disabled = true;
+        }
+      };
+      updateCountdown();
+      setInterval(updateCountdown, 30000);
+    } else {
+      notice.style.display = "none";
+    }
+
     const all = await getAllProperties();
-    document.getElementById("admin-cards").innerHTML = all.length === 0
+    document.getElementById("admin-cards").innerHTML = all.length===0
       ? `<div class="empty-state"><div class="empty-icon">📊</div><p>No properties yet.</p></div>`
-      : all.map(p => buildCard(p,"admin")).join("");
-  } catch(e) { toast("Error: "+e.message,"error"); }
+      : all.map(p=>buildCard(p,"admin")).join("");
+    setSynced(true);
+  } catch(e) { toast("Error: "+e.message,"error"); setSynced(false); }
 }
 
 // ══════════════════════════════════════
 //  CARD BUILDER
 // ══════════════════════════════════════
-const S_LABELS  = ["Pending","Verified","Rejected","Disputed"];
-const S_CLASSES = ["pill-pending","pill-verified","pill-rejected","pill-disputed"];
-const S_ICONS   = ["⏳","✅","❌","⚠️"];
+const S_LABELS  = ["Pending","Verified","Rejected","Disputed","Under Review"];
+const S_CLASSES = ["pill-pending","pill-verified","pill-rejected","pill-disputed","pill-underreview"];
+const S_ICONS   = ["⏳","✅","❌","⚠️","🔍"];
 const DR_LABELS = ["—","Approved ✅","Rejected ❌","Partial Fix ⚠️"];
+const ZERO_ADDR = "0x0000000000000000000000000000000000000000";
 
 function buildCard(p, ctx) {
   const sLabel = S_LABELS[p.status]  || "Unknown";
   const sCls   = S_CLASSES[p.status] || "pill-pending";
   const sIcon  = S_ICONS[p.status]   || "❓";
+  const isRejected = p.status === 2;
 
   const survStep = `<div class="approval-step ${p.surveyorApproved?'done':'pending'}">
     <div class="step-label">Surveyor</div><span class="step-icon">${p.surveyorApproved?'✅':'⏳'}</span></div>`;
@@ -1604,69 +2340,109 @@ function buildCard(p, ctx) {
     ? `<a class="ipfs-link" href="https://ipfs.io/ipfs/${p.ipfsHash}" target="_blank">${p.ipfsHash.slice(0,16)}...${p.ipfsHash.slice(-6)}</a>`
     : '<span style="color:var(--muted)">None</span>';
 
-  const hasPendingBuyer = p.pendingBuyer && p.pendingBuyer !== "0x0000000000000000000000000000000000000000";
+  const hasPendingBuyer = p.pendingBuyer && p.pendingBuyer !== ZERO_ADDR;
 
   let extraBlocks = "";
 
+  // [Fix #11] Rejection reason banner — prominent, with resubmit CTA
+  if (isRejected && p.rejectionReason) {
+    const resubmitBtn = ctx==="citizen"
+      ? `<div class="rej-actions"><button class="btn-outline btn-sm" onclick="prefillResubmit(${p.id})">🔁 Resubmit with fixes</button></div>`
+      : "";
+    extraBlocks += `<div class="rejection-banner">
+      <div class="rej-label">Rejection reason</div>
+      <div class="rej-reason">${escHtml(p.rejectionReason)}</div>
+      ${resubmitBtn}
+    </div>`;
+  }
+
+  // [Fix #9] Unit / parent info
+  if (p.unitIdentifier) {
+    extraBlocks += `<div style="font-size:.75rem;color:var(--muted2);background:var(--surface2);padding:6px 10px;border-radius:8px;border:1px solid var(--border)">🏢 Unit: ${escHtml(p.unitIdentifier)}${p.parentPropertyId?` | Parent #${p.parentPropertyId}`:""}</div>`;
+  }
+
+  // [Fix #10] Resubmission link
+  if (p.resubmittedFrom > 0) {
+    extraBlocks += `<div style="font-size:.75rem;color:var(--muted2);background:var(--surface2);padding:6px 10px;border-radius:8px;border:1px solid var(--border)">🔁 Resubmission of rejected property #${p.resubmittedFrom}</div>`;
+  }
+
+  // Declared value [Fix #17]
+  const valueDisplay = p.declaredValue > 0
+    ? `<div class="meta-item"><div class="meta-key">Declared Value</div><div class="meta-val">₹${p.declaredValue.toLocaleString('en-IN')}</div></div>`
+    : "";
+
   // Transfer state
   if (hasPendingBuyer) {
+    const now = Math.floor(Date.now()/1000);
+    const expiry = p.transferExpiry;
+    const expiryDate = expiry > 0 ? new Date(expiry*1000).toLocaleDateString() : "—";
+    const isExpired = expiry > 0 && now > expiry;
     const regStatus = p.registrarApprovedTransfer ? "✅ Registrar approved" : "⏳ Awaiting registrar";
-    extraBlocks += `<div class="transfer-notice">🔄 Transfer → <span style="font-family:'DM Mono',monospace;margin:0 6px">${p.pendingBuyer.slice(0,8)}...${p.pendingBuyer.slice(-4)}</span> | ${regStatus}</div>`;
+    extraBlocks += `<div class="${isExpired?'expiry-warning':'transfer-notice'}">
+      ${isExpired?"⚠️ Transfer EXPIRED":"🔄 Transfer"} → <span style="font-family:'DM Mono',monospace;margin:0 6px">${p.pendingBuyer.slice(0,8)}...${p.pendingBuyer.slice(-4)}</span> | ${regStatus}
+      ${expiry>0?`<span style="margin-left:auto;font-size:.72rem">Expires: ${expiryDate}</span>`:""}
+    </div>`;
   }
 
   // Geo
-  if (p.latitude !== 0 || p.longitude !== 0) {
+  if (p.latitude!==0||p.longitude!==0) {
     extraBlocks += `<div style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace;background:var(--surface2);padding:6px 10px;border-radius:8px;border:1px solid var(--border)">📍 ${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</div>`;
   }
 
   // Dispute notes
-  if (p.status === 2 && p.disputeNotes) {
-    extraBlocks += `<div class="dispute-notes-box">⚖️ Resolution: ${DR_LABELS[p.disputeResult]} — ${p.disputeNotes}</div>`;
-  }
-  if (p.status === 3 && p.disputeNotes) {
-    extraBlocks += `<div class="dispute-notes-box">⚖️ Notes: ${p.disputeNotes}</div>`;
+  if ((p.status===2||p.status===3||p.status===4) && p.disputeNotes) {
+    extraBlocks += `<div class="dispute-notes-box">⚖️ ${DR_LABELS[p.disputeResult]}: ${escHtml(p.disputeNotes)}</div>`;
   }
 
   // Actions
   let actions = "";
-  if (ctx === "surveyor") {
+  if (ctx==="surveyor") {
     actions = `<div class="card-actions">
-      <button class="btn-green" onclick="surveyorApprove(${p.id})">✅ Approve Survey</button>
-      <button class="btn-red"   onclick="surveyorReject(${p.id})">❌ Reject</button>
+      <button class="btn-green" onclick="surveyorApprove(${p.id})">✅ Approve</button>
+      <button class="btn-red"   onclick="openRejectModal(${p.id},'surveyor')">❌ Reject</button>
       <button class="btn-outline btn-sm" onclick="openSurveyorMap(${p.id},${p.latitude},${p.longitude},'${escHtml(p.location)}',${p.area})">🗺️ Map</button>
     </div>`;
-  } else if (ctx === "registrar") {
+  } else if (ctx==="registrar") {
     actions = `<div class="card-actions">
-      <button class="btn-green" onclick="registrarApprove(${p.id})">✅ Approve Registration</button>
-      <button class="btn-red"   onclick="registrarReject(${p.id})">❌ Reject</button>
+      <button class="btn-green" onclick="registrarApprove(${p.id})">✅ Approve</button>
+      <button class="btn-red"   onclick="openRejectModal(${p.id},'registrar')">❌ Reject</button>
     </div>`;
-  } else if (ctx === "registrar-transfer") {
+  } else if (ctx==="registrar-transfer") {
     actions = `<div class="card-actions">
       <button class="btn-cyan" onclick="approveTransfer(${p.id})">✅ Approve Transfer</button>
       <button class="btn-red"  onclick="rejectTransfer(${p.id})">❌ Reject Transfer</button>
     </div>`;
-  } else if (ctx === "incoming") {
+  } else if (ctx==="incoming") {
     actions = `<div class="card-actions">
       <button class="btn-cyan" onclick="acceptTransfer(${p.id})">🤝 Accept Transfer</button>
     </div>`;
-  } else if (ctx === "citizen" && p.status === 1 && !hasPendingBuyer) {
+  } else if (ctx==="citizen") {
+    let citizenBtns = "";
+    if (p.status===1&&!hasPendingBuyer) {
+      // Verified — can raise dispute
+      citizenBtns += `<button class="btn-orange" onclick="raiseDispute(${p.id})">⚠️ Raise Dispute</button>`;
+    }
+    if (hasPendingBuyer && p.owner===currentAccount) {
+      // [Fix #6] Can cancel own transfer
+      citizenBtns += `<button class="btn-red" onclick="cancelTransfer(${p.id})">✖ Cancel Transfer</button>`;
+    }
+    if (p.transferExpiry>0 && Math.floor(Date.now()/1000)>p.transferExpiry) {
+      citizenBtns += `<button class="btn-ghost" onclick="expireTransfer(${p.id})">🧹 Clean Up Expired Transfer</button>`;
+    }
+    if (citizenBtns) actions = `<div class="card-actions">${citizenBtns}</div>`;
+  } else if (ctx==="dispute") {
     actions = `<div class="card-actions">
-      <button class="btn-orange" onclick="raiseDispute(${p.id})">⚠️ Raise Dispute</button>
-    </div>`;
-  } else if (ctx === "dispute") {
-    actions = `<div class="card-actions">
-      <button class="btn-purple" onclick="openDisputeModal(${p.id})">⚖️ Resolve Dispute</button>
+      <button class="btn-purple" onclick="openDisputeModal(${p.id})">⚖️ Resolve</button>
       <button class="btn-outline btn-sm" onclick="showHistory(${p.id})">📜 History</button>
     </div>`;
   }
 
-  // History button for surveyor + admin
   let histBtn = "";
-  if (ctx === "admin" || ctx === "surveyor") {
+  if (ctx==="admin"||ctx==="surveyor") {
     histBtn = `<button class="btn-outline btn-sm" style="margin-top:8px;width:100%" onclick="showHistory(${p.id})">📜 Ownership History</button>`;
   }
 
-  return `<div class="prop-card">
+  return `<div class="prop-card${isRejected?' rejected-card':''}">
     <div class="card-head">
       <div>
         <div class="card-id">ID #${p.id}</div>
@@ -1677,6 +2453,7 @@ function buildCard(p, ctx) {
     <div class="card-meta">
       <div class="meta-item"><div class="meta-key">Area</div><div class="meta-val">${p.area.toLocaleString()} sq ft</div></div>
       <div class="meta-item"><div class="meta-key">Owner</div><div class="meta-val">${p.owner.slice(0,8)}...${p.owner.slice(-4)}</div></div>
+      ${valueDisplay}
       <div class="meta-item" style="grid-column:1/-1"><div class="meta-key">IPFS Document</div><div class="meta-val">${ipfsDisplay}</div></div>
     </div>
     <div>
@@ -1692,34 +2469,51 @@ function buildCard(p, ctx) {
 function escHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
 // ══════════════════════════════════════
-//  REGISTER MAP (Leaflet)
+//  [Fix #11] PRE-FILL RESUBMIT FORM
+// ══════════════════════════════════════
+function prefillResubmit(rejectedId) {
+  enableResubmitMode();
+  document.getElementById("reg-resubmit-from").value = rejectedId;
+  document.getElementById("view-citizen").querySelector(".section").scrollIntoView({behavior:"smooth"});
+  toast(`Pre-filling resubmission for rejected property #${rejectedId}`, "info");
+}
+
+function enableResubmitMode() {
+  document.getElementById("resubmit-field").style.display = "block";
+}
+
+// ══════════════════════════════════════
+//  [Fix #9] UNIT FIELD TOGGLE
+// ══════════════════════════════════════
+function toggleUnitFields() {
+  const isUnit = document.getElementById("reg-type").value === "unit";
+  document.getElementById("unit-id-field").style.display   = isUnit ? "block" : "none";
+  document.getElementById("parent-id-field").style.display = isUnit ? "block" : "none";
+}
+
+// ══════════════════════════════════════
+//  MAP
 // ══════════════════════════════════════
 function initRegMap() {
   if (leafletMap) return;
-  leafletMap = L.map("property-map").setView([18.9712, 72.8955], 13);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors", maxZoom: 19
-  }).addTo(leafletMap);
-  leafletMap.on("click", onMapClick);
-  setTimeout(() => leafletMap.invalidateSize(), 200);
+  leafletMap = L.map("property-map").setView([18.9712,72.8955],13);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap",maxZoom:19}).addTo(leafletMap);
+  leafletMap.on("click",onMapClick);
+  setTimeout(()=>leafletMap.invalidateSize(),200);
 }
 
 function onMapClick(e) {
-  if (mapMode === "pin") {
-    // Just drop a pin, set lat/lng
+  if (mapMode==="pin") {
     if (pinMarker) leafletMap.removeLayer(pinMarker);
     pinMarker = L.marker(e.latlng).addTo(leafletMap);
     document.getElementById("reg-lat").value = e.latlng.lat.toFixed(6);
     document.getElementById("reg-lng").value = e.latlng.lng.toFixed(6);
-    document.getElementById("map-info").textContent = `📍 Pin set: ${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}`;
+    document.getElementById("map-info").textContent = `📍 Pin: ${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}`;
     return;
   }
-  // Draw mode
-  drawingPoints.push([e.latlng.lat, e.latlng.lng]);
+  drawingPoints.push([e.latlng.lat,e.latlng.lng]);
   refreshPolygon();
-  document.getElementById("map-info").textContent =
-    `Points: ${drawingPoints.length} — ${drawingPoints.length >= 3 ? "Click 'Close Polygon' or add more points" : "Need at least 3 points"}`;
-  if (drawingPoints.length === 1) {
+  if (drawingPoints.length===1) {
     document.getElementById("reg-lat").value = e.latlng.lat.toFixed(6);
     document.getElementById("reg-lng").value = e.latlng.lng.toFixed(6);
   }
@@ -1727,324 +2521,447 @@ function onMapClick(e) {
 
 function refreshPolygon() {
   if (polygonLayer) leafletMap.removeLayer(polygonLayer);
-  if (drawingPoints.length < 2) return;
-  polygonLayer = L.polygon(drawingPoints, {
-    color: "#3b82f6", fillColor: "#3b82f6", fillOpacity: 0.15, weight: 2
-  }).addTo(leafletMap);
-
-  if (drawingPoints.length >= 3) {
-    // Calculate area using Turf
-    const coords = drawingPoints.map(p => [p[1], p[0]]); // Turf uses [lng, lat]
-    coords.push(coords[0]); // close
+  if (drawingPoints.length<2) return;
+  polygonLayer = L.polygon(drawingPoints,{color:"#3b82f6",fillColor:"#3b82f6",fillOpacity:.15,weight:2}).addTo(leafletMap);
+  if (drawingPoints.length>=3) {
+    const coords = drawingPoints.map(p=>[p[1],p[0]]);
+    coords.push(coords[0]);
     try {
-      const poly   = turf.polygon([coords]);
-      const areaSqM = turf.area(poly);
-      const areaSqFt = Math.round(areaSqM * 10.7639);
-      calculatedArea = areaSqFt;
+      const poly      = turf.polygon([coords]);
+      const areaSqM   = turf.area(poly);
+      const areaSqFt  = Math.round(areaSqM*10.7639);
+      calculatedArea  = areaSqFt;
       document.getElementById("reg-area").value = areaSqFt;
-      document.getElementById("calc-area-note").textContent = `(auto-calculated: ${areaSqFt.toLocaleString()} sq ft)`;
-      document.getElementById("map-info").textContent = `✅ Polygon area: ${areaSqFt.toLocaleString()} sq ft (${Math.round(areaSqM)} m²) — ${drawingPoints.length} points`;
+      document.getElementById("calc-area-note").textContent = `(auto: ${areaSqFt.toLocaleString()} sq ft)`;
+      document.getElementById("map-info").textContent = `✅ Polygon: ${areaSqFt.toLocaleString()} sq ft — ${drawingPoints.length} points`;
+      checkAreaMismatch();
     } catch(_) {}
+  }
+}
+
+// [Fix #13] Area mismatch check
+function checkAreaMismatch() {
+  const warn = document.getElementById("area-mismatch-warn");
+  if (!calculatedArea) { warn.style.display="none"; return; }
+  const userVal = parseInt(document.getElementById("reg-area").value);
+  if (!userVal) { warn.style.display="none"; return; }
+  const diff = Math.abs(userVal - calculatedArea) / calculatedArea * 100;
+  if (diff > 10) {
+    document.getElementById("mismatch-user").textContent = userVal.toLocaleString();
+    document.getElementById("mismatch-calc").textContent = calculatedArea.toLocaleString();
+    document.getElementById("mismatch-pct").textContent  = diff.toFixed(1);
+    warn.style.display = "block";
+  } else {
+    warn.style.display = "none";
   }
 }
 
 function setMapMode(mode) {
   mapMode = mode;
-  document.getElementById("btn-draw").classList.toggle("active", mode === "draw");
-  document.getElementById("btn-pin").classList.toggle("active",  mode === "pin");
-  document.getElementById("map-info").textContent = mode === "draw"
-    ? "Click on map to draw your property boundary polygon."
+  document.getElementById("btn-draw").classList.toggle("active",mode==="draw");
+  document.getElementById("btn-pin").classList.toggle("active",mode==="pin");
+  document.getElementById("map-info").textContent = mode==="draw"
+    ? "Click on map to draw boundary polygon."
     : "Click on map to drop a location pin.";
 }
 
 function clearMapDrawing() {
-  drawingPoints = [];
-  if (polygonLayer) { leafletMap.removeLayer(polygonLayer); polygonLayer = null; }
-  if (pinMarker)    { leafletMap.removeLayer(pinMarker);    pinMarker = null; }
-  document.getElementById("calc-area-note").textContent = "";
-  document.getElementById("map-info").textContent = "Drawing cleared. Click on map to start again.";
+  drawingPoints=[];
+  if (polygonLayer){leafletMap.removeLayer(polygonLayer);polygonLayer=null;}
+  if (pinMarker)   {leafletMap.removeLayer(pinMarker);pinMarker=null;}
+  calculatedArea=null;
+  document.getElementById("calc-area-note").textContent="";
+  document.getElementById("area-mismatch-warn").style.display="none";
+  document.getElementById("map-info").textContent="Drawing cleared.";
 }
 
 async function locateMe() {
-  if (!navigator.geolocation) { toast("Geolocation not supported", "error"); return; }
-  navigator.geolocation.getCurrentPosition(pos => {
-    const {latitude: lat, longitude: lng} = pos.coords;
-    leafletMap.setView([lat, lng], 16);
-    document.getElementById("reg-lat").value = lat.toFixed(6);
-    document.getElementById("reg-lng").value = lng.toFixed(6);
-    toast(`📍 Centred to your location (${lat.toFixed(4)}, ${lng.toFixed(4)})`, "info");
-  }, () => toast("Could not get location", "error"));
+  if (!navigator.geolocation){toast("Geolocation not supported","error");return;}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:lat,longitude:lng}=pos.coords;
+    leafletMap.setView([lat,lng],16);
+    document.getElementById("reg-lat").value=lat.toFixed(6);
+    document.getElementById("reg-lng").value=lng.toFixed(6);
+    toast(`📍 Centred to your location`,"info");
+  },()=>toast("Could not get location","error"));
 }
 
-// Surveyor map modal
-let surveyorMapInst = null;
-function openSurveyorMap(id, lat, lng, loc, area) {
-  document.getElementById("map-modal-id").textContent = id;
-  document.getElementById("map-modal-info").textContent = `📍 ${lat.toFixed(6)}, ${lng.toFixed(6)} | ${loc} | ${area.toLocaleString()} sq ft`;
-  document.getElementById("map-modal").style.display = "flex";
-  setTimeout(() => {
-    if (surveyorMapInst) { surveyorMapInst.remove(); surveyorMapInst = null; }
-    const centre = (lat !== 0 || lng !== 0) ? [lat, lng] : [18.9712, 72.8955];
-    surveyorMapInst = L.map("surveyor-map").setView(centre, 15);
+// [Fix #14] Surveyor map modal with overlap detection
+let surveyorMapInst=null;
+async function openSurveyorMap(id,lat,lng,loc,area) {
+  document.getElementById("map-modal-id").textContent=id;
+  document.getElementById("map-modal-info").textContent=`📍 ${lat.toFixed(6)}, ${lng.toFixed(6)} | ${loc} | ${area.toLocaleString()} sq ft`;
+  document.getElementById("map-modal").style.display="flex";
+  setTimeout(async()=>{
+    if (surveyorMapInst){surveyorMapInst.remove();surveyorMapInst=null;}
+    const centre=(lat!==0||lng!==0)?[lat,lng]:[18.9712,72.8955];
+    surveyorMapInst=L.map("surveyor-map").setView(centre,15);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap",maxZoom:19}).addTo(surveyorMapInst);
-    if (lat !== 0 || lng !== 0) {
-      L.marker([lat, lng]).addTo(surveyorMapInst)
-        .bindPopup(`<b>#${id}</b><br>${loc}`).openPopup();
+    if (lat!==0||lng!==0) {
+      L.marker([lat,lng]).addTo(surveyorMapInst).bindPopup(`<b>#${id}</b><br>${loc}`).openPopup();
     }
+
+    // [Fix #14] Overlap detection — check verified properties within ~500m
+    try {
+      const all = await getAllProperties();
+      const verified = all.filter(p=>p.status===1&&p.id!==id&&(p.latitude!==0||p.longitude!==0));
+      let overlapFound = false;
+      verified.forEach(vp=>{
+        const dist = Math.sqrt(Math.pow(vp.latitude-lat,2)+Math.pow(vp.longitude-lng,2));
+        if (dist<0.005) { // ~500m bounding box
+          L.circleMarker([vp.latitude,vp.longitude],{color:"#ef4444",radius:10,fillColor:"#ef4444",fillOpacity:.3,weight:2})
+           .addTo(surveyorMapInst)
+           .bindPopup(`⚠️ Nearby: #${vp.id} — ${vp.location}`);
+          overlapFound=true;
+        }
+      });
+      document.getElementById("overlap-alert").style.display = overlapFound ? "block" : "none";
+    } catch(_) {}
+
     surveyorMapInst.invalidateSize();
-  }, 100);
+  },100);
 }
+
 function closeMapModal() {
-  document.getElementById("map-modal").style.display = "none";
-  if (surveyorMapInst) { surveyorMapInst.remove(); surveyorMapInst = null; }
+  document.getElementById("map-modal").style.display="none";
+  if (surveyorMapInst){surveyorMapInst.remove();surveyorMapInst=null;}
 }
 
 // ══════════════════════════════════════
-//  IPFS UPLOAD (Pinata)
+//  IPFS UPLOAD [Fix #12 — proxy-aware]
 // ══════════════════════════════════════
-function handleDragOver(e) {
-  e.preventDefault();
-  document.getElementById("upload-zone").classList.add("dragover");
-}
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById("upload-zone").classList.remove("dragover");
-  if (e.dataTransfer.files.length) uploadToPinata(e.dataTransfer.files[0]);
-}
-function handleFileSelect(e) {
-  if (e.target.files.length) uploadToPinata(e.target.files[0]);
-}
+function handleDragOver(e){e.preventDefault();document.getElementById("upload-zone").classList.add("dragover")}
+function handleDrop(e){e.preventDefault();document.getElementById("upload-zone").classList.remove("dragover");if(e.dataTransfer.files.length)uploadFile(e.dataTransfer.files[0])}
+function handleFileSelect(e){if(e.target.files.length)uploadFile(e.target.files[0])}
 
-async function uploadToPinata(file) {
-  // If no JWT set, use a simulated hash for demo/prototype
-  if (!PINATA_JWT || PINATA_JWT === "YOUR_PINATA_JWT_HERE") {
+async function uploadFile(file) {
+  if (PINATA_PROXY_URL) {
+    await uploadViaProxy(file);
+  } else if (PINATA_JWT_DEV) {
+    await uploadDirectPinata(file);
+  } else {
     simulateIPFSUpload(file);
-    return;
   }
+}
 
-  const progress = document.getElementById("upload-progress");
-  const bar      = document.getElementById("progress-bar");
-  const label    = document.getElementById("progress-label");
-  const result   = document.getElementById("ipfs-result");
-
-  progress.style.display = "block";
-  result.style.display   = "none";
-  label.textContent = `Uploading ${file.name}...`;
-  bar.style.width = "30%";
-
+async function uploadViaProxy(file) {
+  // [Fix #12] Call your backend proxy — JWT never exposed to browser
+  const progress=document.getElementById("upload-progress");
+  const bar=document.getElementById("progress-bar");
+  const result=document.getElementById("ipfs-result");
+  progress.style.display="block"; result.style.display="none";
+  document.getElementById("progress-label").textContent=`Uploading ${file.name}...`;
+  bar.style.width="30%";
   try {
-    const fd = new FormData();
-    fd.append("file", file);
-    fd.append("pinataMetadata", JSON.stringify({ name: file.name }));
+    const fd=new FormData(); fd.append("file",file);
+    bar.style.width="60%";
+    const res=await fetch(PINATA_PROXY_URL,{method:"POST",body:fd});
+    bar.style.width="90%";
+    if (!res.ok) throw new Error(await res.text());
+    const data=await res.json();
+    finishUpload(data.IpfsHash||data.hash,progress,bar,result);
+  } catch(e) { progress.style.display="none"; toast("Upload failed: "+e.message,"error"); simulateIPFSUpload(file); }
+}
 
-    bar.style.width = "60%";
-    const res = await fetch(PINATA_API, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${PINATA_JWT}` },
-      body: fd
-    });
-    bar.style.width = "90%";
-    if (!res.ok) throw new Error("Upload failed: " + res.statusText);
-    const data = await res.json();
-    const hash = data.IpfsHash;
+async function uploadDirectPinata(file) {
+  const progress=document.getElementById("upload-progress");
+  const bar=document.getElementById("progress-bar");
+  const result=document.getElementById("ipfs-result");
+  progress.style.display="block"; result.style.display="none";
+  document.getElementById("progress-label").textContent=`Uploading ${file.name}...`;
+  bar.style.width="30%";
+  try {
+    const fd=new FormData(); fd.append("file",file); fd.append("pinataMetadata",JSON.stringify({name:file.name}));
+    bar.style.width="60%";
+    const res=await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS",{method:"POST",headers:{Authorization:`Bearer ${PINATA_JWT_DEV}`},body:fd});
+    bar.style.width="90%";
+    if (!res.ok) throw new Error(res.statusText);
+    const data=await res.json();
+    finishUpload(data.IpfsHash,progress,bar,result);
+  } catch(e) { progress.style.display="none"; toast("Pinata upload failed — using demo hash","error"); simulateIPFSUpload(file); }
+}
 
-    bar.style.width = "100%";
-    setTimeout(() => {
-      progress.style.display = "none";
-      bar.style.width = "0%";
-      result.style.display = "block";
-      document.getElementById("ipfs-hash-display").textContent = hash;
-      document.getElementById("reg-ipfs").value = hash;
-      toast("📁 File uploaded to IPFS!", "success");
-    }, 400);
-  } catch(e) {
-    progress.style.display = "none";
-    toast("IPFS upload failed: " + e.message + " — using demo hash", "error");
-    simulateIPFSUpload(file);
-  }
+function finishUpload(hash,progress,bar,result) {
+  bar.style.width="100%";
+  setTimeout(()=>{
+    progress.style.display="none"; bar.style.width="0%"; result.style.display="block";
+    document.getElementById("ipfs-hash-display").textContent=hash;
+    document.getElementById("reg-ipfs").value=hash;
+    toast("📁 File uploaded to IPFS!","success");
+  },400);
 }
 
 function simulateIPFSUpload(file) {
-  // Generate a plausible-looking IPFS CIDv0 for demo
-  const fakeHash = "Qm" + btoa(file.name + Date.now()).replace(/[^a-zA-Z0-9]/g,"").slice(0,44);
-  const result = document.getElementById("ipfs-result");
-  result.style.display = "block";
-  document.getElementById("ipfs-hash-display").textContent = fakeHash + " (demo)";
-  document.getElementById("reg-ipfs").value = fakeHash;
-  toast("📁 Demo IPFS hash generated (set Pinata JWT for real upload)", "info");
+  const fakeHash="Qm"+btoa(file.name+Date.now()).replace(/[^a-zA-Z0-9]/g,"").slice(0,44);
+  const result=document.getElementById("ipfs-result");
+  result.style.display="block";
+  document.getElementById("ipfs-hash-display").textContent=fakeHash+" (demo)";
+  document.getElementById("reg-ipfs").value=fakeHash;
+  toast("📁 Demo IPFS hash generated","info");
 }
 
 // ══════════════════════════════════════
 //  CONTRACT ACTIONS
 // ══════════════════════════════════════
 async function registerProperty() {
-  const loc  = document.getElementById("reg-location").value.trim();
-  const area = parseInt(document.getElementById("reg-area").value);
-  const ipfs = document.getElementById("reg-ipfs").value.trim();
-  const lat  = parseFloat(document.getElementById("reg-lat").value) || 0;
-  const lng  = parseFloat(document.getElementById("reg-lng").value) || 0;
+  const loc        = document.getElementById("reg-location").value.trim();
+  const unitId     = document.getElementById("reg-unit-id").value.trim();
+  const area       = parseInt(document.getElementById("reg-area").value);
+  const ipfs       = document.getElementById("reg-ipfs").value.trim();
+  const lat        = parseFloat(document.getElementById("reg-lat").value)||0;
+  const lng        = parseFloat(document.getElementById("reg-lng").value)||0;
+  const value      = parseInt(document.getElementById("reg-value").value)||0;
+  const type       = document.getElementById("reg-type").value;
+  const parentId   = type==="unit" ? (parseInt(document.getElementById("reg-parent-id").value)||0) : 0;
+  const resubFrom  = parseInt(document.getElementById("reg-resubmit-from").value)||0;
 
-  if (!loc)         { toast("Location is required.", "error"); return; }
-  if (!area || area <= 0) { toast("Area must be > 0.", "error"); return; }
-  if (!ipfs)        { toast("IPFS hash is required.", "error"); return; }
+  if (!loc)            { toast("Location is required.","error"); return; }
+  if (!area||area<=0)  { toast("Area must be > 0.","error"); return; }
+  if (!ipfs)           { toast("IPFS hash is required.","error"); return; }
+  if (!value||value<=0){ toast("Declared value is required.","error"); return; }
 
-  // Convert to int256 * 1e6
-  const latInt = Math.round(lat * 1e6);
-  const lngInt = Math.round(lng * 1e6);
+  // [Fix #13] Block if area mismatch > 10%
+  if (calculatedArea && Math.abs(area-calculatedArea)/calculatedArea*100 > 10) {
+    toast("❌ Area mismatch too large. Reconcile the area before submitting.","error"); return;
+  }
+
+  if (type==="unit" && !unitId) { toast("Unit identifier is required for flats/units.","error"); return; }
+
+  const latInt = Math.round(lat*1e6);
+  const lngInt = Math.round(lng*1e6);
 
   await txWrapper(
-    () => contract.registerProperty(loc, area, ipfs, latInt, lngInt),
-    "Property registered! Awaiting approval.",
-    () => { clearRegForm(); loadCitizenData(); }
+    ()=>contract.registerProperty(loc,unitId,area,ipfs,latInt,lngInt,parentId,resubFrom,value),
+    "Property registered! Awaiting surveyor approval.",
+    ()=>{ clearRegForm(); loadCitizenData(); }
   );
 }
 
 function clearRegForm() {
-  ["reg-location","reg-area","reg-ipfs","reg-lat","reg-lng"].forEach(id => {
-    document.getElementById(id).value = "";
+  ["reg-location","reg-area","reg-ipfs","reg-lat","reg-lng","reg-value","reg-unit-id","reg-parent-id","reg-resubmit-from"].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value="";
   });
-  document.getElementById("ipfs-result").style.display = "none";
-  document.getElementById("calc-area-note").textContent = "";
+  document.getElementById("ipfs-result").style.display="none";
+  document.getElementById("calc-area-note").textContent="";
+  document.getElementById("resubmit-field").style.display="none";
+  document.getElementById("reg-type").value="land";
+  toggleUnitFields();
   clearMapDrawing();
 }
 
-async function initiateTransfer() {
+// [Fix #18] Commit-reveal transfer
+async function commitTransferStep() {
   const id    = parseInt(document.getElementById("tx-id").value);
   const buyer = document.getElementById("tx-buyer").value.trim();
-  if (!id || !buyer || !ethers.utils.isAddress(buyer)) {
-    toast("Valid property ID and buyer address required.", "error"); return;
+  if (!id||!buyer||!ethers.utils.isAddress(buyer)) {
+    toast("Valid property ID and buyer address required.","error"); return;
   }
-  await txWrapper(
-    () => contract.initiateTransfer(id, buyer),
-    "Transfer initiated! Awaiting Registrar approval.",
-    () => { document.getElementById("tx-id").value=""; document.getElementById("tx-buyer").value=""; loadCitizenData(); }
+  // Generate random nonce
+  const nonceBytes = ethers.utils.randomBytes(32);
+  const nonce      = ethers.utils.hexlify(nonceBytes);
+  const commitHash = ethers.utils.keccak256(
+    ethers.utils.defaultAbiCoder.encode(["uint256","address","bytes32"],[id,buyer,nonce])
   );
+
+  await txWrapper(
+    ()=>contract.commitTransfer(id,commitHash),
+    "Step 1 committed! Wait for next block, then click Step 2.",
+    ()=>{
+      pendingCommitId    = id;
+      pendingCommitNonce = nonce;
+      document.getElementById("tx-nonce-display").style.display="block";
+      document.getElementById("tx-nonce-val").textContent=nonce;
+      document.getElementById("cr-step1-num").classList.add("done");
+      document.getElementById("btn-reveal-transfer").disabled=false;
+      document.getElementById("btn-commit-transfer").disabled=true;
+    }
+  );
+}
+
+async function revealTransferStep() {
+  const id    = pendingCommitId || parseInt(document.getElementById("tx-id").value);
+  const buyer = document.getElementById("tx-buyer").value.trim();
+  const nonce = pendingCommitNonce;
+  if (!id||!buyer||!nonce) { toast("Complete Step 1 first.","error"); return; }
+  await txWrapper(
+    ()=>contract.initiateTransfer(id,buyer,nonce),
+    "Transfer initiated! Awaiting Registrar approval.",
+    ()=>{
+      pendingCommitId=null; pendingCommitNonce=null;
+      document.getElementById("tx-id").value="";
+      document.getElementById("tx-buyer").value="";
+      document.getElementById("tx-nonce-display").style.display="none";
+      document.getElementById("cr-step1-num").classList.remove("done");
+      document.getElementById("cr-step2-num").classList.remove("done");
+      document.getElementById("btn-reveal-transfer").disabled=true;
+      document.getElementById("btn-commit-transfer").disabled=false;
+      loadCitizenData();
+    }
+  );
+}
+
+async function cancelTransfer(id) {
+  await txWrapper(()=>contract.cancelTransfer(id),`Transfer #${id} cancelled.`,()=>loadCitizenData());
+}
+
+async function expireTransfer(id) {
+  await txWrapper(()=>contract.expireTransfer(id),`Expired transfer on #${id} cleaned up.`,()=>loadCitizenData());
 }
 
 async function approveTransfer(id) {
-  await txWrapper(() => contract.approveTransferByRegistrar(id), `Transfer #${id} approved! Buyer can now accept.`, () => loadRegistrarData());
+  await txWrapper(()=>contract.approveTransferByRegistrar(id),`Transfer #${id} approved.`,()=>loadRegistrarData());
 }
 async function rejectTransfer(id) {
-  await txWrapper(() => contract.rejectTransferByRegistrar(id), `Transfer #${id} rejected.`, () => loadRegistrarData());
+  await txWrapper(()=>contract.rejectTransferByRegistrar(id),`Transfer #${id} rejected.`,()=>loadRegistrarData());
 }
 async function acceptTransfer(id) {
-  await txWrapper(() => contract.acceptTransfer(id), "Transfer accepted! You are now the owner. 🎉", () => loadCitizenData());
+  await txWrapper(()=>contract.acceptTransfer(id),"Transfer accepted! You are now the owner. 🎉",()=>loadCitizenData());
 }
 async function raiseDispute(id) {
-  await txWrapper(() => contract.raiseDispute(id), `Dispute raised for property #${id}.`, () => loadCitizenData());
+  await txWrapper(()=>contract.raiseDispute(id),`Dispute raised for property #${id}.`,()=>loadCitizenData());
 }
 async function surveyorApprove(id) {
-  await txWrapper(() => contract.approveBySurveyor(id), `Property #${id} survey approved!`, () => loadSurveyorData());
-}
-async function surveyorReject(id) {
-  await txWrapper(() => contract.rejectBySurveyor(id), `Property #${id} rejected by surveyor.`, () => loadSurveyorData());
+  await txWrapper(()=>contract.approveBySurveyor(id),`Property #${id} survey approved!`,()=>loadSurveyorData());
 }
 async function registrarApprove(id) {
-  await txWrapper(() => contract.approveByRegistrar(id), `Property #${id} fully registered! ✅`, () => loadRegistrarData());
+  await txWrapper(()=>contract.approveByRegistrar(id),`Property #${id} fully registered! ✅`,()=>loadRegistrarData());
 }
-async function registrarReject(id) {
-  await txWrapper(() => contract.rejectByRegistrar(id), `Property #${id} rejected.`, () => loadRegistrarData());
+
+// [Fix #8] Rejection with reason modal
+let _pendingRejectFn = null;
+function openRejectModal(id, role) {
+  rejectModalPropId = id;
+  rejectModalRole   = role;
+  document.getElementById("reject-modal-id").textContent = id;
+  document.getElementById("reject-reason-input").value   = "";
+  document.getElementById("reject-modal").style.display  = "flex";
 }
-async function setRoles() {
+function closeRejectModal() {
+  document.getElementById("reject-modal").style.display = "none";
+}
+async function submitRejection() {
+  const reason = document.getElementById("reject-reason-input").value.trim();
+  if (!reason) { toast("Please enter a rejection reason.","error"); return; }
+  closeRejectModal();
+  if (rejectModalRole==="surveyor") {
+    await txWrapper(
+      ()=>contract.rejectBySurveyor(rejectModalPropId,reason),
+      `Property #${rejectModalPropId} rejected by surveyor.`,
+      ()=>loadSurveyorData()
+    );
+  } else {
+    await txWrapper(
+      ()=>contract.rejectByRegistrar(rejectModalPropId,reason),
+      `Property #${rejectModalPropId} rejected by registrar.`,
+      ()=>loadRegistrarData()
+    );
+  }
+}
+
+// Admin — Timelock [Fix #4]
+async function proposeRoles() {
   const reg  = document.getElementById("admin-registrar").value.trim();
   const surv = document.getElementById("admin-surveyor").value.trim();
   const disp = document.getElementById("admin-dispute").value.trim();
-  if (!ethers.utils.isAddress(reg) || !ethers.utils.isAddress(surv) || !ethers.utils.isAddress(disp)) {
-    toast("All three must be valid Ethereum addresses.", "error"); return;
+  if (!ethers.utils.isAddress(reg)||!ethers.utils.isAddress(surv)||!ethers.utils.isAddress(disp)) {
+    toast("All three must be valid Ethereum addresses.","error"); return;
   }
-  await txWrapper(() => contract.setRoles(reg, surv, disp), "Roles updated! ✅", () => loadAdminData());
+  await txWrapper(()=>contract.proposeRoles(reg,surv,disp),"Role change proposed! Confirm after 48 hours.",()=>loadAdminData());
+}
+async function confirmRoles() {
+  await txWrapper(()=>contract.confirmRoles(),"Roles updated! ✅",()=>loadAdminData());
+}
+async function cancelRoleProposal() {
+  await txWrapper(()=>contract.cancelRoleProposal(),"Role proposal cancelled.",()=>loadAdminData());
 }
 
-// ══════════════════════════════════════
-//  DISPUTE MODAL
-// ══════════════════════════════════════
+// Dispute modal
 function openDisputeModal(id) {
-  disputeModalPropId = id;
-  document.getElementById("dispute-modal-id").textContent = id;
-  document.getElementById("dispute-decision").value = "";
-  document.getElementById("dispute-notes-input").value = "";
-  document.getElementById("dispute-modal").style.display = "flex";
+  disputeModalPropId=id;
+  document.getElementById("dispute-modal-id").textContent=id;
+  document.getElementById("dispute-decision").value="";
+  document.getElementById("dispute-notes-input").value="";
+  document.getElementById("dispute-modal").style.display="flex";
 }
-function closeDisputeModal() {
-  document.getElementById("dispute-modal").style.display = "none";
-  disputeModalPropId = null;
-}
+function closeDisputeModal() { document.getElementById("dispute-modal").style.display="none"; }
 async function submitDisputeResolution() {
-  const decision = parseInt(document.getElementById("dispute-decision").value);
-  const notes    = document.getElementById("dispute-notes-input").value.trim();
-  if (!decision) { toast("Please select a decision.", "error"); return; }
-  if (!notes)    { toast("Notes are required for the record.", "error"); return; }
+  const decision=parseInt(document.getElementById("dispute-decision").value);
+  const notes=document.getElementById("dispute-notes-input").value.trim();
+  if (!decision){toast("Please select a decision.","error");return;}
+  if (!notes){toast("Notes are required.","error");return;}
   closeDisputeModal();
   await txWrapper(
-    () => contract.resolveDispute(disputeModalPropId, decision, notes),
-    `Dispute for property #${disputeModalPropId} resolved. Decision recorded on-chain.`,
-    () => loadDisputeData()
+    ()=>contract.resolveDispute(disputeModalPropId,decision,notes),
+    `Dispute for #${disputeModalPropId} resolved.`,
+    ()=>loadDisputeData()
   );
 }
 
-// ══════════════════════════════════════
-//  OWNERSHIP HISTORY MODAL
-// ══════════════════════════════════════
+// History modal
 async function showHistory(id) {
-  document.getElementById("history-modal-id").textContent = id;
-  document.getElementById("history-modal-content").innerHTML = `<div style="text-align:center;padding:1rem;color:var(--muted)"><span class="spinner"></span> Loading...</div>`;
-  document.getElementById("history-modal").style.display = "flex";
+  document.getElementById("history-modal-id").textContent=id;
+  document.getElementById("history-modal-content").innerHTML=`<div style="text-align:center;padding:1rem;color:var(--muted)"><span class="spinner"></span> Loading...</div>`;
+  document.getElementById("history-modal").style.display="flex";
   try {
-    const history = await contract.getOwnershipHistory(id);
-    if (!history.length) {
-      document.getElementById("history-modal-content").innerHTML = `<p style="color:var(--muted);font-size:.9rem">No history found.</p>`;
-      return;
-    }
-    const labels = ["Original Owner", ...history.slice(1).map((_,i) => `Transfer #${i+1}`)];
-    document.getElementById("history-modal-content").innerHTML = `
+    const history=await contract.getOwnershipHistory(id);
+    if (!history.length) { document.getElementById("history-modal-content").innerHTML=`<p style="color:var(--muted)">No history.</p>`; return; }
+    const labels=["Original Owner",...history.slice(1).map((_,i)=>`Transfer #${i+1}`)];
+    document.getElementById("history-modal-content").innerHTML=`
       <div style="display:flex;flex-direction:column;gap:4px">
-        ${history.map((addr, i) => `
-          <div class="history-item">
-            <div class="history-dot" style="${i===0?'background:var(--gold)':i===history.length-1?'background:var(--green)':''}"></div>
-            <div class="history-addr">${addr}</div>
-            <div class="history-badge">${labels[i]}</div>
-          </div>`).join("")}
+        ${history.map((addr,i)=>`<div class="history-item">
+          <div class="history-dot" style="${i===0?'background:var(--gold)':i===history.length-1?'background:var(--green)':''}"></div>
+          <div class="history-addr">${addr}</div>
+          <div class="history-badge">${labels[i]}</div>
+        </div>`).join("")}
       </div>
-      <p style="font-size:.75rem;color:var(--muted);margin-top:12px">Total transfers: ${history.length - 1}</p>`;
-  } catch(e) {
-    document.getElementById("history-modal-content").innerHTML = `<p style="color:var(--red)">Error: ${e.message}</p>`;
-  }
+      <p style="font-size:.75rem;color:var(--muted);margin-top:12px">Total transfers: ${history.length-1}</p>`;
+  } catch(e) { document.getElementById("history-modal-content").innerHTML=`<p style="color:var(--red)">Error: ${e.message}</p>`; }
 }
-function closeHistoryModal() {
-  document.getElementById("history-modal").style.display = "none";
-}
+function closeHistoryModal() { document.getElementById("history-modal").style.display="none"; }
 
 // ══════════════════════════════════════
-//  TX WRAPPER
+//  TX WRAPPER [Fix #15 — sets stale on fail]
 // ══════════════════════════════════════
-async function txWrapper(fn, successMsg, callback) {
-  const t = toast("Sending transaction...", "info", 0);
+async function txWrapper(fn,successMsg,callback) {
+  const t=toast("Sending transaction...","info",0);
+  setSynced(false); // mark stale while tx in flight
   try {
-    const tx = await fn();
+    const tx=await fn();
     t.remove();
-    const t2 = toast("Waiting for confirmation...", "info", 0);
+    const t2=toast("Waiting for confirmation...","info",0);
     await tx.wait();
     t2.remove();
-    toast(successMsg, "success");
+    toast(successMsg,"success");
+    setSynced(true);
     if (callback) callback();
   } catch(e) {
-    try { t.remove(); } catch(_) {}
-    const msg = e?.data?.message || e?.reason || e?.message || "Transaction failed";
-    toast(msg, "error");
+    try{t.remove();}catch(_){}
+    // [Fix #15] On failure, re-query chain to sync UI
+    setSynced(false);
+    const msg=e?.data?.message||e?.reason||e?.message||"Transaction failed";
+    toast(msg,"error");
     console.error(e);
+    toast("Re-syncing UI with chain state...","info",2000);
+    try {
+      if (role==="citizen")    await loadCitizenData();
+      else if (role==="surveyor")  await loadSurveyorData();
+      else if (role==="registrar") await loadRegistrarData();
+      else if (role==="dispute")   await loadDisputeData();
+      else if (role==="admin")     await loadAdminData();
+    } catch(_) {}
   }
 }
 
 // ══════════════════════════════════════
 //  TOAST
 // ══════════════════════════════════════
-function toast(msg, type = "info", duration = 4000) {
-  const icons = {success:"✅", error:"❌", info:"ℹ️"};
-  const el = document.createElement("div");
-  el.className = `toast ${type}`;
-  el.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+function toast(msg,type="info",duration=4000) {
+  const icons={success:"✅",error:"❌",info:"ℹ️"};
+  const el=document.createElement("div");
+  el.className=`toast ${type}`;
+  el.innerHTML=`<span>${icons[type]}</span><span>${msg}</span>`;
   document.getElementById("toast-container").appendChild(el);
-  if (duration > 0) setTimeout(() => el.remove(), duration);
+  if (duration>0) setTimeout(()=>el.remove(),duration);
   return el;
 }
 </script>

@@ -1,0 +1,11 @@
+# Environment files — never commit these
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
