@@ -1699,7 +1699,7 @@ async function populateParentDropdown() {
   sel.innerHTML = '<option value="">— loading verified properties… —</option>';
   badge.textContent = "⏳ Loading…";
   try {
-    const all = await getAllProperties();
+    const all = await getAllProperties(false);
     const parents = all.filter(p => p.status === 1 && p.parentPropertyId === 0);
     badge.textContent = "";
     if (!parents.length) {
@@ -1742,8 +1742,9 @@ async function onParentPropertySelected() {
       if (!leafletMap) await new Promise(r => setTimeout(r, 300));
 
       parentPolygonLayer = L.polygon(pts, {
-        color: "#e8611a", fillColor: "#e8611a", fillOpacity: 0.1,
-        weight: 2.5, dashArray: "7 5"
+          color: "#e8611a", fillColor: "#e8611a", fillOpacity: 0.1,
+          weight: 2.5, dashArray: "7 5",
+          interactive: false   // ← FIX: clicks/hover pass through to the map
       }).addTo(leafletMap);
 
       parentPolygonLayer.bindPopup(
