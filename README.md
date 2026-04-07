@@ -9,7 +9,7 @@
 
 ### Home Page / Landing
 <!-- INSERT SCREENSHOT: Home page hero section with Maharashtara govt branding -->
-![Home Page]("./Screenshots/HomePage.png")
+![Home Page](./Screenshots/HomePage.png)
 
 ### Citizen Dashboard
 <!-- INSERT SCREENSHOT: Citizen overview tab showing property cards and stats -->
