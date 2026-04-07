@@ -8,44 +8,44 @@
 ## 📸 Screenshots
 
 ### Home Page / Landing
-<!-- INSERT SCREENSHOT: Home page hero section with Maharashtra govt branding -->
-![Home Page](./screenshots/home.png)
+<!-- INSERT SCREENSHOT: Home page hero section with Maharashtara govt branding -->
+![Home Page]("./Screenshots/HomePage.png")
 
 ### Citizen Dashboard
 <!-- INSERT SCREENSHOT: Citizen overview tab showing property cards and stats -->
-![Citizen Dashboard](./screenshots/citizen-dashboard.png)
+![Citizen Dashboard](./Screenshots/CitizenOverview.jpeg)
 
 ### Property Registration Form
 <!-- INSERT SCREENSHOT: Register property tab with map polygon drawing -->
-![Property Registration](./screenshots/register-property.png)
+![Property Registration](./Screenshots/CitizenRegistration.jpeg)
 
 ### Map — Polygon Drawing
 <!-- INSERT SCREENSHOT: Leaflet map with drawn polygon and area auto-calculation -->
-![Map Drawing](./screenshots/map-polygon.png)
+![Map Drawing](./Screenshots/CitizenMapPlot.jpeg)
 
 ### Surveyor Dashboard
 <!-- INSERT SCREENSHOT: Surveyor queue with pending property cards -->
-![Surveyor Dashboard](./screenshots/surveyor-dashboard.png)
+![Surveyor Dashboard](./Screenshots/SurveyorDashboard.jpeg)
 
 ### Surveyor Map — Overlap Detection
 <!-- INSERT SCREENSHOT: Boundary verification modal with conflict detection -->
-![Overlap Detection](./screenshots/surveyor-map-overlap.png)
+![Overlap Detection](./Screenshots/SurveyorBoundaryVerification.jpeg)
 
 ### Registrar Dashboard
 <!-- INSERT SCREENSHOT: Registrar queue with document review panel -->
-![Registrar Dashboard](./screenshots/registrar-dashboard.png)
+![Registrar Dashboard](./Screenshots/RegistrarDashboard.jpeg)
 
 ### Dispute Officer Dashboard
 <!-- INSERT SCREENSHOT: Active disputes with resolution modal -->
-![Dispute Dashboard](./screenshots/dispute-dashboard.png)
+![Dispute Dashboard](./Screenshots/DisputeDashboard.jpeg)
 
 ### Admin Panel — Role Management
 <!-- INSERT SCREENSHOT: Admin role proposal with timelock countdown -->
-![Admin Panel](./screenshots/admin-roles.png)
+![Admin Panel](./Screenshots/Admin.jpeg)
 
 ### Public Blockchain Ledger
 <!-- INSERT SCREENSHOT: Public verified property ledger with search -->
-![Public Ledger](./screenshots/public-ledger.png)
+![Public Ledger](./Screenshots/PublicLedger.jpeg)
 
 ---
 
@@ -113,7 +113,7 @@ cleartitle/
 ### 1 · Clone & Install Backend
 
 ```bash
-git clone https://github.com/your-repo/cleartitle.git
+git clone https://github.com/YashK435/Clear-Title.git
 cd cleartitle/backend
 npm install
 cp env.example .env
@@ -253,8 +253,3 @@ Each property's IPFS hash points to a JSON manifest:
 
 Pull requests are welcome. For major changes, open an issue first.
 
----
-
-## 📜 License
-
-MIT — © 2025 ClearTitle Project
