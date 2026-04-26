@@ -4,20 +4,22 @@ let provider, signer, contract;
 let currentAccount = "";
 let role = "citizen";
 
-// FIX: Read-only provider using CORS-friendly endpoints
-// rpc.sepolia.org blocks CORS — these alternatives work from browsers
+// Read-only provider using CORS-friendly endpoints
+const SEPOLIA_RPC_URLS = [
+  "https://ethereum-sepolia-rpc.publicnode.com",
+  "https://sepolia.drpc.org",
+  "https://rpc2.sepolia.org",
+];
+
 function getReadProvider() {
-  // Try MetaMask's provider first (no CORS issue, always preferred)
   if (window.ethereum) {
     return new ethers.providers.Web3Provider(window.ethereum);
   }
-  // Fallback to CORS-friendly public endpoints
   for (const url of SEPOLIA_RPC_URLS) {
     try {
       return new ethers.providers.JsonRpcProvider(url);
     } catch(e) { continue; }
   }
-  // Last resort
   return new ethers.providers.JsonRpcProvider(SEPOLIA_RPC_URLS[0]);
 }
 
@@ -28,7 +30,6 @@ async function connectWallet() {
   }
   try {
     await window.ethereum.request({ method: "eth_requestAccounts" });
-    // FIX: Use MetaMask's built-in provider — no CORS issues
     provider = new ethers.providers.Web3Provider(window.ethereum);
     signer   = provider.getSigner();
     contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
