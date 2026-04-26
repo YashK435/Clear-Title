@@ -1544,6 +1544,31 @@ function getLedgerSearchId(containerId) {
     "admin-ledger-cards": "admin-ledger-search"
   })[containerId] || "ledger-search-input";
 }
+async function renderOwnershipChain(id) {
+  const el = document.getElementById("lchain-" + id);
+  if (!el) return;
+  try {
+    const c = contract || new ethers.Contract(CONTRACT_ADDRESS, ABI, getReadProvider());
+    const history = await c.getOwnershipHistory(id);
+    el.innerHTML = history.length
+      ? history.map((addr, i) => `
+          <div class="chain-item">
+            <span class="chain-dot"></span>
+            <span title="${addr}">${addr.slice(0,8)}...${addr.slice(-4)}
+              ${i === history.length - 1 ? " (current)" : ""}
+            </span>
+          </div>`).join("")
+      : `<div class="chain-item">
+           <span class="chain-dot"></span>
+           <span style="color:var(--text3)">No history found</span>
+         </div>`;
+  } catch(e) {
+    el.innerHTML = `<div class="chain-item">
+      <span class="chain-dot"></span>
+      <span style="color:var(--red-gov)">History unavailable</span>
+    </div>`;
+  }
+}
 function filterLedger(containerId = "ledger-cards", searchId = "ledger-search-input") { renderLedger(containerId, searchId); }
 function renderLedger(containerId = "ledger-cards", searchId = "ledger-search-input") {
   const c = document.getElementById(containerId);
@@ -1913,21 +1938,36 @@ function onMapClick(e) {
 function refreshPolygon() {
   if (polygonLayer) leafletMap.removeLayer(polygonLayer);
   if (drawingPoints.length < 2) return;
-  polygonLayer = L.polygon(drawingPoints, {color:"#0d3b8e",fillColor:"#0d3b8e",fillOpacity:.15,weight:2}).addTo(leafletMap);
+  polygonLayer = L.polygon(drawingPoints, {
+    color:"#0d3b8e", fillColor:"#0d3b8e", fillOpacity:.15, weight:2
+  }).addTo(leafletMap);
   if (drawingPoints.length >= 3) {
-    const coords = drawingPoints.map(p => [p[1],p[0]]); coords.push(coords[0]);
+    const coords = drawingPoints.map(p => [p[1], p[0]]);
+    coords.push(coords[0]);
     try {
       const poly = turf.polygon([coords]);
-      const areaSqFt = Math.round(turf.area(poly) * 10.7639);
-      calculatedArea = areaSqFt;
-      if (document.getElementById("reg-type").value === "unit") {
-        document.getElementById("reg-area-sqft").value = areaSqFt;
+      const areaSqM = turf.area(poly);
+      const isUnit = document.getElementById("reg-type").value === "unit";
+      if (isUnit) {
+        const sqft = Math.round(areaSqM * 10.7639);
+        calculatedArea = sqft;
+        document.getElementById("reg-area-sqft").value = sqft;
+        document.getElementById("calc-area-note").textContent = `(auto: ${sqft.toLocaleString()} sq ft)`;
+        document.getElementById("map-info").textContent = `✅ Polygon: ${sqft.toLocaleString()} sq ft — ${drawingPoints.length} points`;
+      } else {
+        // 1 Gunta = 101.171 sq m (Maharashtra standard)
+        const totalGuntas = Math.round(areaSqM / 101.171);
+        calculatedArea = totalGuntas;
+        const acres = Math.floor(totalGuntas / 40);
+        const guntas = totalGuntas % 40;
+        document.getElementById("reg-area-acres").value = acres;
+        document.getElementById("reg-area-guntas").value = guntas;
+        document.getElementById("calc-area-note").textContent = `(auto: ${acres}A ${guntas}G)`;
+        document.getElementById("map-info").textContent = `✅ Polygon: ${acres}A ${guntas}G (${totalGuntas} guntas) — ${drawingPoints.length} points`;
       }
-      document.getElementById("calc-area-note").textContent = `(auto: ${areaSqFt.toLocaleString()} sq ft)`;
-      document.getElementById("map-info").textContent = `✅ Polygon: ${areaSqFt.toLocaleString()} sq ft — ${drawingPoints.length} points`;
       checkAreaMismatch();
+      checkSubplotContainment();
     } catch(_) {}
-    checkSubplotContainment();
   }
 }
 function checkAreaMismatch() {

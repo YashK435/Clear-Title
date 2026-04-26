@@ -136,6 +136,13 @@ function buildCard(p, ctx) {
     extra += `<div class="dispute-notes-box">⚖️ ${DR_LABELS[p.disputeResult]}: ${escHtml(p.disputeNotes)}</div>`;
   }
 
+  // Who raised the dispute (useful context for dispute officer)
+  if (ctx === "dispute" && p.status === 3) {
+    extra += `<div style="font-size:.72rem;color:var(--text2);background:#f3e8ff;padding:5px 9px;border-radius:3px;border:1px solid #c4b5fd;word-break:break-word">
+      ⚖️ Dispute raised — boundary &amp; ownership verification required
+    </div>`;
+  }
+
   // Document panel (Registrar + Dispute Officer)
   let docPanel = "";
   if ((ctx === "registrar" || ctx === "registrar-transfer" || ctx === "dispute") && p.ipfsHash) {
@@ -208,12 +215,13 @@ function buildCard(p, ctx) {
     if (btns) actions = `<div class="card-actions">${btns}</div>`;
 
   } else if (ctx === "dispute") {
-    // Dispute Officer gets map access + resolve + history
+    // Dispute Officer: full map view (all verified properties) + resolve + history
+    // Pass `true` as the 7th arg to openSurveyorMap to skip proximity filter
     actions = `<div class="card-actions">
       <button class="btn-purple"
         onclick="openDisputeModal(${p.id})">⚖️ Resolve Dispute</button>
       <button class="btn-ghost"
-        onclick="openSurveyorMap(${p.id},${p.latitude},${p.longitude},'${escAttr(p.location)}',${p.area},'${escAttr(p.ipfsHash)}')">🗺️ View Map</button>
+        onclick="openSurveyorMap(${p.id},${p.latitude},${p.longitude},'${escAttr(p.location)}',${p.area},'${escAttr(p.ipfsHash)}',true)">🗺️ View Map</button>
       <button class="btn-outline btn-sm"
         onclick="showHistory(${p.id})">📜 History</button>
     </div>`;

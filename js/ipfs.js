@@ -193,4 +193,4 @@ async function fetchAndRenderManifest(propId, ipfsHash, panelId) {
       </a>
     </div>`;
   }
-}
+}     

@@ -299,8 +299,22 @@ async function populateParentDropdown() {
 }
 
 // ── Surveyor / Dispute Officer boundary verification modal ────
-async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
+// showAll = true  → used by Dispute Officer: scans ALL verified properties
+//                   regardless of geographic proximity (disputes may have
+//                   coordinates at 0,0 or be in a different area entirely)
+// showAll = false → used by Surveyor: only scans nearby verified properties
+//                   (within ~5 km lat/lng delta) for performance
+async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash, showAll = false) {
   document.getElementById("map-modal-id").textContent  = id;
+
+  // Modal title: differentiate dispute vs survey review
+  const modalTitle = document.querySelector("#map-modal .modal-title");
+  if (modalTitle) {
+    modalTitle.textContent = showAll
+      ? `⚖️ Dispute Boundary Review — Ref #${id}`
+      : `🗺️ Boundary Verification — Ref #${id}`;
+  }
+
   document.getElementById("map-modal-info").textContent =
     `📍 ${Number(lat).toFixed(6)}, ${Number(lng).toFixed(6)} | ${loc} | Area: ${area}`;
   document.getElementById("overlap-alert").style.display = "none";
@@ -311,7 +325,7 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
   if (surveyorMapInst) { surveyorMapInst.remove(); surveyorMapInst = null; }
 
   const centre = (lat !== 0 || lng !== 0) ? [lat, lng] : [18.9712, 72.8955];
-  surveyorMapInst = L.map("surveyor-map").setView(centre, 16);
+  surveyorMapInst = L.map("surveyor-map").setView(centre, showAll ? 12 : 16);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors", maxZoom: 19
   }).addTo(surveyorMapInst);
@@ -324,10 +338,12 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
       const manifest = await fetchFromIPFS(ipfsHash, 6000);
       if (manifest.polygonPoints && manifest.polygonPoints.length >= 3) {
         const pts = manifest.polygonPoints;
-        L.polygon(pts, { color:"#0d3b8e", fillColor:"#0d3b8e", fillOpacity:.2, weight:2.5 })
+        // Use purple border for disputed properties, navy for pending survey
+        const colour = showAll ? "#7c3aed" : "#0d3b8e";
+        L.polygon(pts, { color: colour, fillColor: colour, fillOpacity: .2, weight: 2.5 })
           .addTo(surveyorMapInst)
-          .bindPopup(`<b>Ref ${formatRef(id)}</b> — Application`);
-        surveyorMapInst.fitBounds(L.polygon(pts).getBounds(), { padding:[30,30] });
+          .bindPopup(`<b>Ref ${formatRef(id)}</b> — ${showAll ? "Disputed Property" : "Application"}`);
+        surveyorMapInst.fitBounds(L.polygon(pts).getBounds(), { padding: [30, 30] });
         try {
           const c = pts.map(p => [p[1], p[0]]);
           c.push(c[0]);
@@ -338,19 +354,26 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
   }
 
   if (!subjectTurf && (lat !== 0 || lng !== 0)) {
+    const colour = showAll ? "#7c3aed" : "#0d3b8e";
     L.marker([lat, lng]).addTo(surveyorMapInst)
       .bindPopup(`<b>${formatRef(id)}</b>`).openPopup();
   }
 
-  // Scan nearby verified properties for overlap
+  // ── Scan verified properties for overlap ─────────────────────
+  // Dispute Officer (showAll=true):  fetch ALL verified properties — no proximity filter.
+  // Surveyor        (showAll=false): only fetch properties within ~5 km delta for speed.
   const conflicts = [];
   try {
     const all = await getAllProperties();
-    for (const vp of all.filter(p =>
-      p.status === 1 &&
-      p.id !== id &&
-      (Math.abs(p.latitude - lat) < 0.05 || Math.abs(p.longitude - lng) < 0.05)
-    )) {
+    const candidates = all.filter(p => {
+      if (p.status !== 1) return false;  // only verified
+      if (p.id === id)    return false;  // skip self
+      if (showAll)        return true;   // dispute officer: no filter
+      // Surveyor: nearby only (roughly ≤ 5 km via lat/lng delta ≈ 0.05°)
+      return (Math.abs(p.latitude - lat) < 0.05 || Math.abs(p.longitude - lng) < 0.05);
+    });
+
+    for (const vp of candidates) {
       let vpTurf = null, vpPts = null;
       if (vp.ipfsHash && vp.ipfsHash.length > 10) {
         try {
@@ -371,11 +394,12 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
         try {
           const inter = turf.intersect(subjectTurf, vpTurf);
           if (inter) {
-            intersects   = true;
-            overlapSqFt  = Math.round(turf.area(inter) * 10.7639);
+            intersects  = true;
+            overlapSqFt = Math.round(turf.area(inter) * 10.7639);
           }
         } catch(_) {}
       } else if (vp.latitude !== 0 || vp.longitude !== 0) {
+        // Fallback: point proximity check
         if (Math.sqrt(Math.pow(vp.latitude - lat, 2) + Math.pow(vp.longitude - lng, 2)) < 0.002)
           intersects = true;
       }
@@ -383,7 +407,7 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
       const color = intersects ? "#b91c1c" : "#1b7a34";
 
       if (vpPts?.length >= 3) {
-        L.polygon(vpPts, { color, fillColor:color, fillOpacity:.15, weight:2 })
+        L.polygon(vpPts, { color, fillColor: color, fillOpacity: .15, weight: 2 })
           .addTo(surveyorMapInst)
           .bindPopup(`<b>${formatRef(vp.id)}</b>${
             intersects
@@ -397,19 +421,19 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
             if (inter) {
               const oc = inter.geometry.coordinates[0].map(c => [c[1], c[0]]);
               L.polygon(oc, {
-                color:"#e8611a", fillColor:"#e8611a",
-                fillOpacity:.5, weight:1.5, dashArray:"4 4"
+                color: "#e8611a", fillColor: "#e8611a",
+                fillOpacity: .5, weight: 1.5, dashArray: "4 4"
               }).addTo(surveyorMapInst);
             }
           } catch(_) {}
         }
       } else if (vp.latitude !== 0 || vp.longitude !== 0) {
         L.circleMarker([vp.latitude, vp.longitude], {
-          color, radius:10, fillColor:color, fillOpacity:.3, weight:2
+          color, radius: 10, fillColor: color, fillOpacity: .3, weight: 2
         }).addTo(surveyorMapInst).bindPopup(`<b>${formatRef(vp.id)}</b>`);
       }
 
-      if (intersects) conflicts.push({ id:vp.id, location:vp.location, owner:vp.owner, overlapSqFt });
+      if (intersects) conflicts.push({ id: vp.id, location: vp.location, owner: vp.owner, overlapSqFt });
     }
   } catch(_) {}
 
@@ -428,6 +452,12 @@ async function openSurveyorMap(id, lat, lng, loc, area, ipfsHash) {
          </span>
        </div>`
     ).join("");
+  } else if (showAll) {
+    // Reassure dispute officer when no conflicts are found
+    const cl = document.getElementById("conflict-list");
+    cl.innerHTML = `<div style="font-size:.78rem;color:var(--green-gov);padding:7px 11px;background:var(--green-pale);border:1px solid #16a34a;border-radius:4px;margin-top:6px">
+      ✅ No boundary conflicts detected against any verified property.
+    </div>`;
   }
 
   surveyorMapInst.invalidateSize();
