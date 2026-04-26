@@ -690,17 +690,17 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
               <label style="font-size:.78rem;color:var(--navy);font-weight:700">📄 Property Documents <span style="color:var(--text3);font-weight:400;text-transform:none">(Upload required documents before submitting)</span></label>
             </div>
             <div class="doc-slots">
-              <div class="doc-slot" id="slot-saleDeed">
-                <div class="doc-slot-label">Sale Deed / Ownership Doc <span class="req-star">★</span></div>
-                <button class="doc-slot-btn" onclick="triggerDocUpload('saleDeed')">📁 Upload PDF / Image</button>
-                <input type="file" id="file-saleDeed" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('saleDeed',this)">
-                <div class="doc-slot-hash" id="hash-saleDeed" style="display:none"></div>
+              <div class="doc-slot" id="slot-satbara">
+                <div class="doc-slot-label">7/12 Extract (Satbara Utara) <span class="req-star">★</span></div>
+                <button class="doc-slot-btn" onclick="triggerDocUpload('satbara')">📁 Upload PDF / Image</button>
+                <input type="file" id="file-satbara" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('satbara',this)">
+                <div class="doc-slot-hash" id="hash-satbara" style="display:none"></div>
               </div>
-              <div class="doc-slot" id="slot-idProof">
-                <div class="doc-slot-label">Identity Proof (Aadhaar/PAN) <span class="req-star">★</span></div>
-                <button class="doc-slot-btn" onclick="triggerDocUpload('idProof')">📁 Upload PDF / Image</button>
-                <input type="file" id="file-idProof" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('idProof',this)">
-                <div class="doc-slot-hash" id="hash-idProof" style="display:none"></div>
+              <div class="doc-slot" id="slot-aadhaarPan">
+                <div class="doc-slot-label">Aadhaar / PAN Card <span class="req-star">★</span></div>
+                <button class="doc-slot-btn" onclick="triggerDocUpload('aadhaarPan')">📁 Upload PDF / Image</button>
+                <input type="file" id="file-aadhaarPan" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('aadhaarPan',this)">
+                <div class="doc-slot-hash" id="hash-aadhaarPan" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-taxReceipt">
                 <div class="doc-slot-label">Property Tax Receipt <span class="req-star">★</span></div>
@@ -714,11 +714,11 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
                 <input type="file" id="file-encumbrance" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('encumbrance',this)">
                 <div class="doc-slot-hash" id="hash-encumbrance" style="display:none"></div>
               </div>
-              <div class="doc-slot" id="slot-surveyMap">
-                <div class="doc-slot-label">Survey Map / Layout Plan <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
-                <button class="doc-slot-btn" onclick="triggerDocUpload('surveyMap')">📁 Upload PDF / Image</button>
-                <input type="file" id="file-surveyMap" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('surveyMap',this)">
-                <div class="doc-slot-hash" id="hash-surveyMap" style="display:none"></div>
+              <div class="doc-slot" id="slot-mutation">
+                <div class="doc-slot-label">Mutation Extract (फेरफार उतारा) <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
+                <button class="doc-slot-btn" onclick="triggerDocUpload('mutation')">📁 Upload PDF / Image</button>
+                <input type="file" id="file-mutation" accept=".pdf,image/*" style="display:none" onchange="handleDocUpload('mutation',this)">
+                <div class="doc-slot-hash" id="hash-mutation" style="display:none"></div>
               </div>
               <div class="doc-slot" id="slot-oc">
                 <div class="doc-slot-label">Occupancy Certificate <span style="color:var(--text3);font-size:.62rem;font-weight:400;text-transform:none">Optional</span></div>
@@ -763,6 +763,37 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
                 <option value="unit">Flat / Unit (within a building)</option>
               </select>
             </div>
+            <div class="field">
+              <label>Survey No / CTS No <span class="req-star">★</span></label>
+              <input type="text" id="reg-survey-no" placeholder="e.g. 47/2A or CTS-1234"/>
+              <span class="form-hint">7/12 Survey No (rural) or CTS No (urban)</span>
+            </div>
+            <div class="field">
+              <label>District <span class="req-star">★</span></label>
+              <select id="reg-district">
+                <option value="">— select district —</option>
+                <option>Mumbai City</option><option>Mumbai Suburban</option>
+                <option>Pune</option><option>Thane</option><option>Nashik</option>
+                <option>Aurangabad</option><option>Nagpur</option><option>Kolhapur</option>
+                <option>Solapur</option><option>Satara</option><option>Sangli</option>
+                <option>Raigad</option><option>Ratnagiri</option><option>Sindhudurg</option>
+                <option>Ahmednagar</option><option>Jalgaon</option><option>Dhule</option>
+                <option>Nandurbar</option><option>Beed</option><option>Latur</option>
+                <option>Osmanabad</option><option>Nanded</option><option>Parbhani</option>
+                <option>Hingoli</option><option>Jalna</option><option>Buldhana</option>
+                <option>Akola</option><option>Washim</option><option>Amravati</option>
+                <option>Yavatmal</option><option>Wardha</option><option>Bhandara</option>
+                <option>Gondia</option><option>Chandrapur</option><option>Gadchiroli</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Taluka <span class="req-star">★</span></label>
+              <input type="text" id="reg-taluka" placeholder="e.g. Haveli"/>
+            </div>
+            <div class="field">
+              <label>Village / Ward</label>
+              <input type="text" id="reg-village" placeholder="e.g. Kothrud"/>
+            </div>
             <div class="field" id="unit-id-field" style="display:none">
               <label>Unit Identifier</label>
               <input type="text" id="reg-unit-id" placeholder="e.g. Flat 4B, Floor 2"/>
@@ -780,12 +811,23 @@ footer{background:var(--navy-deeper);color:#fff;margin-top:3rem;padding:2rem 0 1
               <span class="form-hint">Select the verified parent property this unit belongs to. Its boundary will appear on the map below.</span>
             </div>
 
-            <div class="field">
-              <label>Area (sq ft) <span class="req-star">★</span> <span id="calc-area-note" style="color:var(--navy);font-style:italic;font-size:.68rem;font-weight:400"></span></label>
-              <input type="number" id="reg-area" placeholder="e.g. 1200" min="1" oninput="checkAreaMismatch()"/>
-              <div class="area-mismatch-warn" id="area-mismatch-warn">
-                ⚠️ Area mismatch: entered <strong id="mismatch-user">—</strong> sq ft but polygon measures <strong id="mismatch-calc">—</strong> sq ft (<span id="mismatch-pct">—</span>% difference). Please reconcile before submitting.
+            <div id="area-fields-land" style="display:flex;gap:.75rem;grid-column:1/-1;align-items:flex-end;flex-wrap:wrap">
+              <div class="field" style="flex:1;min-width:120px">
+                <label>Acres <span class="req-star">★</span> <span id="calc-area-note" style="color:var(--navy);font-style:italic;font-size:.68rem;font-weight:400"></span></label>
+                <input type="number" id="reg-area-acres" placeholder="e.g. 2" min="0" oninput="checkAreaMismatch()"/>
               </div>
+              <div class="field" style="flex:1;min-width:120px">
+                <label>Guntas <span class="req-star">★</span></label>
+                <input type="number" id="reg-area-guntas" placeholder="0–39" min="0" max="39" oninput="checkAreaMismatch()"/>
+                <span class="form-hint">1 Acre = 40 Guntas</span>
+              </div>
+            </div>
+            <div class="field" id="area-fields-unit" style="display:none;grid-column:1/-1">
+              <label>Area (sq ft) <span class="req-star">★</span></label>
+              <input type="number" id="reg-area-sqft" placeholder="e.g. 950" min="1" oninput="checkAreaMismatch()"/>
+            </div>
+            <div class="area-mismatch-warn" id="area-mismatch-warn" style="display:none;grid-column:1/-1">
+              ⚠️ Area entered differs from polygon by more than 10%. Please reconcile before submitting.
             </div>
             <div class="field">
               <label>Declared Value (₹ INR) <span class="req-star">★</span></label>
@@ -1131,8 +1173,16 @@ let parentTurfPolygon  = null;
 let parentPropertyData = null;
 
 // ── READ-ONLY PROVIDER ─────────────────────
+const SEPOLIA_RPC_URLS = [
+  "https://ethereum-sepolia-rpc.publicnode.com",
+  "https://sepolia.drpc.org",
+  "https://rpc2.sepolia.org"
+];
+
 function getReadProvider() {
-  return new ethers.providers.JsonRpcProvider("https://rpc.sepolia.org");
+  return new ethers.providers.FallbackProvider(
+    SEPOLIA_RPC_URLS.map(url => new ethers.providers.JsonRpcProvider(url))
+  );
 }
 
 // ── IPFS FETCH ─────────────────────────────
@@ -1224,6 +1274,16 @@ function setSynced(ok) {
 
 function formatRef(id) {
   return `MH/KLY/${new Date().getFullYear()}/${String(id).padStart(5,"0")}`;
+}
+
+function formatArea(area, isUnit) {
+  if (!area && area !== 0) return "—";
+  if (isUnit) return `${Number(area).toLocaleString()} sq ft`;
+  const acres = Math.floor(Number(area) / 40);
+  const guntas = Number(area) % 40;
+  if (acres === 0) return `${guntas}G`;
+  if (guntas === 0) return `${acres}A`;
+  return `${acres}A ${guntas}G`;
 }
 
 // ── TAB SWITCHERS ─────────────────────────
@@ -1471,9 +1531,18 @@ async function loadLedger(containerId = "ledger-cards") {
   try {
     const all = await getAllProperties();
     allLedgerProps = all.filter(p => p.status === 1);
-    renderLedger(containerId);
+    renderLedger(containerId, getLedgerSearchId(containerId));
     setSynced(true);
   } catch(e) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Error loading ledger.</p></div>`; }
+}
+function getLedgerSearchId(containerId) {
+  return ({
+    "ledger-cards": "ledger-search-input",
+    "surveyor-ledger-cards": "surveyor-ledger-search",
+    "registrar-ledger-cards": "registrar-ledger-search",
+    "dispute-ledger-cards": "dispute-ledger-search",
+    "admin-ledger-cards": "admin-ledger-search"
+  })[containerId] || "ledger-search-input";
 }
 function filterLedger(containerId = "ledger-cards", searchId = "ledger-search-input") { renderLedger(containerId, searchId); }
 function renderLedger(containerId = "ledger-cards", searchId = "ledger-search-input") {
@@ -1484,8 +1553,10 @@ function renderLedger(containerId = "ledger-cards", searchId = "ledger-search-in
   c.innerHTML = filtered.length === 0
     ? `<div class="empty-state"><div class="empty-icon">🔍</div><p>No verified properties found.</p></div>`
     : filtered.map(p => buildLedgerCard(p)).join("");
+  filtered.forEach(p => renderOwnershipChain(p.id));
 }
 function buildLedgerCard(p) {
+  const isUnit = !!p.unitIdentifier;
   return `<div class="ledger-card">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;min-width:0">
       <div style="min-width:0;flex:1">
@@ -1495,7 +1566,7 @@ function buildLedgerCard(p) {
       <div class="status-stamp stamp-verified" style="flex-shrink:0">✅ Verified</div>
     </div>
     <div class="card-meta">
-      <div class="meta-item"><div class="meta-key">Area</div><div class="meta-val">${p.area.toLocaleString()} sq ft</div></div>
+      <div class="meta-item"><div class="meta-key">Area</div><div class="meta-val">${formatArea(p.area, isUnit)}</div></div>
       <div class="meta-item"><div class="meta-key">Value</div><div class="meta-val">₹${p.declaredValue.toLocaleString("en-IN")}</div></div>
     </div>
     ${p.latitude!==0||p.longitude!==0?`<div class="coords-pill">📍 ${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</div>`:""}
@@ -1504,6 +1575,23 @@ function buildLedgerCard(p) {
       <div id="lchain-${p.id}"><div class="chain-item"><span class="chain-dot"></span><span style="color:var(--text3)">Loading…</span></div></div>
     </div>
   </div>`;
+}
+
+async function renderOwnershipChain(id) {
+  const el = document.getElementById("lchain-" + id);
+  if (!el) return;
+  try {
+    const c = contract || new ethers.Contract(CONTRACT_ADDRESS, ABI, getReadProvider());
+    const history = await c.getOwnershipHistory(id);
+    el.innerHTML = history.length
+      ? history.map((addr, i) => `<div class="chain-item">
+          <span class="chain-dot"></span>
+          <span title="${addr}">${addr.slice(0,8)}...${addr.slice(-4)}${i === history.length - 1 ? " (current)" : ""}</span>
+        </div>`).join("")
+      : `<div class="chain-item"><span class="chain-dot"></span><span style="color:var(--text3)">No history found</span></div>`;
+  } catch(e) {
+    el.innerHTML = `<div class="chain-item"><span class="chain-dot"></span><span style="color:var(--red-gov)">History unavailable</span></div>`;
+  }
 }
 
 // ── CARD BUILDER ──────────────────────────
@@ -1642,11 +1730,11 @@ async function fetchAndRenderManifest(propId, ipfsHash, panelId) {
   try {
     const manifest = await fetchFromIPFS(ipfsHash);
     const slots = [
-      {key:"saleDeed",label:"Sale Deed",req:true},
-      {key:"idProof",label:"Identity Proof",req:true},
+      {key:"satbara",label:"7/12 Extract (Satbara Utara)",req:true},
+      {key:"aadhaarPan",label:"Aadhaar / PAN Card",req:true},
       {key:"taxReceipt",label:"Tax Receipt",req:true},
       {key:"encumbrance",label:"Encumbrance Cert.",req:false},
-      {key:"surveyMap",label:"Survey Map",req:false},
+      {key:"mutation",label:"Mutation Extract (फेरफार उतारा)",req:false},
       {key:"oc",label:"Occupancy Cert.",req:false},
       {key:"noc",label:"NOC from Society",req:false},
     ];
@@ -1683,13 +1771,11 @@ function toggleUnitFields() {
   const isUnit = document.getElementById("reg-type").value === "unit";
   document.getElementById("unit-id-field").style.display   = isUnit ? "block" : "none";
   document.getElementById("parent-id-field").style.display = isUnit ? "block" : "none";
-  if (isUnit) {
-    populateParentDropdown();
-    if (!leafletMap) { setTimeout(initRegMap, 150); }
-    else             { setTimeout(() => leafletMap.invalidateSize(), 100); }
-  } else {
-    clearParentPolygon();
-  }
+  const alf = document.getElementById("area-fields-land");
+  const auf = document.getElementById("area-fields-unit");
+  if (alf) alf.style.display = isUnit ? "none"  : "flex";
+  if (auf) auf.style.display = isUnit ? "block" : "none";
+  if (isUnit) populateParentDropdown();
 }
 
 // ── PARENT DROPDOWN ───────────────────────
@@ -1710,7 +1796,7 @@ async function populateParentDropdown() {
       '<option value="">— select parent property —</option>' +
       parents.map(p =>
         `<option value="${p.id}" data-area="${p.area}" data-location="${escAttr(p.location)}" data-ipfs="${escAttr(p.ipfsHash)}">
-          ${formatRef(p.id)} — ${p.location.slice(0,55)}${p.location.length>55?"…":""} (${p.area.toLocaleString()} sq ft)
+          ${formatRef(p.id)} — ${p.location.slice(0,55)}${p.location.length>55?"…":""} (${formatArea(p.area, !!p.unitIdentifier)})
         </option>`
       ).join("");
   } catch(e) {
@@ -1834,7 +1920,9 @@ function refreshPolygon() {
       const poly = turf.polygon([coords]);
       const areaSqFt = Math.round(turf.area(poly) * 10.7639);
       calculatedArea = areaSqFt;
-      document.getElementById("reg-area").value = areaSqFt;
+      if (document.getElementById("reg-type").value === "unit") {
+        document.getElementById("reg-area-sqft").value = areaSqFt;
+      }
       document.getElementById("calc-area-note").textContent = `(auto: ${areaSqFt.toLocaleString()} sq ft)`;
       document.getElementById("map-info").textContent = `✅ Polygon: ${areaSqFt.toLocaleString()} sq ft — ${drawingPoints.length} points`;
       checkAreaMismatch();
@@ -1845,13 +1933,18 @@ function refreshPolygon() {
 function checkAreaMismatch() {
   const warn = document.getElementById("area-mismatch-warn");
   if (!calculatedArea) { warn.style.display="none"; return; }
-  const userVal = parseInt(document.getElementById("reg-area").value);
+  const isUnit = document.getElementById("reg-type").value === "unit";
+  let userVal = 0;
+  if (isUnit) {
+    userVal = parseInt(document.getElementById("reg-area-sqft")?.value) || 0;
+  } else {
+    const acres  = parseInt(document.getElementById("reg-area-acres")?.value)  || 0;
+    const guntas = parseInt(document.getElementById("reg-area-guntas")?.value) || 0;
+    userVal = (acres * 40) + guntas;
+  }
   if (!userVal) { warn.style.display="none"; return; }
   const diff = Math.abs(userVal-calculatedArea)/calculatedArea*100;
   if (diff > 10) {
-    document.getElementById("mismatch-user").textContent = userVal.toLocaleString();
-    document.getElementById("mismatch-calc").textContent = calculatedArea.toLocaleString();
-    document.getElementById("mismatch-pct").textContent  = diff.toFixed(1);
     warn.style.display = "block";
   } else { warn.style.display = "none"; }
 }
@@ -1994,14 +2087,14 @@ async function uploadFileToIPFS(file) {
   }
 }
 async function buildAndUploadManifest() {
-  const missing = ["saleDeed","idProof","taxReceipt"].filter(k => !docHashes[k]);
+  const missing = ["satbara","aadhaarPan","taxReceipt"].filter(k => !docHashes[k]);
   if (missing.length) { toast(`Missing required documents: ${missing.join(", ")}`, "error"); return null; }
   const manifest = {
-    saleDeed:    docHashes.saleDeed    || null,
-    idProof:     docHashes.idProof     || null,
+    satbara:     docHashes.satbara     || null,
+    aadhaarPan:  docHashes.aadhaarPan  || null,
     taxReceipt:  docHashes.taxReceipt  || null,
     encumbrance: docHashes.encumbrance || null,
-    surveyMap:   docHashes.surveyMap   || null,
+    mutation:    docHashes.mutation    || null,
     oc:          docHashes.oc          || null,
     noc:         docHashes.noc         || null,
     polygonPoints:  drawingPoints.length >= 3 ? drawingPoints : null,
@@ -2022,33 +2115,71 @@ async function buildAndUploadManifest() {
 // ── CONTRACT ACTIONS ──────────────────────
 async function registerProperty() {
   const loc      = document.getElementById("reg-location").value.trim();
+  const surveyNo = document.getElementById("reg-survey-no")?.value.trim();
+  const district = document.getElementById("reg-district")?.value.trim();
+  const taluka   = document.getElementById("reg-taluka")?.value.trim();
+  const village  = document.getElementById("reg-village")?.value.trim();
   const unitId   = document.getElementById("reg-unit-id").value.trim();
-  const area     = parseInt(document.getElementById("reg-area").value);
   const lat      = parseFloat(document.getElementById("reg-lat").value) || 0;
   const lng      = parseFloat(document.getElementById("reg-lng").value) || 0;
   const value    = parseInt(document.getElementById("reg-value").value) || 0;
   const type     = document.getElementById("reg-type").value;
   const parentSel = document.getElementById("reg-parent-id");
-  const parentId = type==="unit" ? (parseInt(parentSel.value)||0) : 0;
-  const resubFrom= parseInt(document.getElementById("reg-resubmit-from").value)||0;
-  if (!loc)           { toast("Location is required.","error"); return; }
-  if (!area||area<=0) { toast("Area must be greater than 0.","error"); return; }
-  if (!value||value<=0){ toast("Declared value is required.","error"); return; }
-  if (type==="unit"&&!unitId) { toast("Unit identifier required for flat/unit.","error"); return; }
-  if (type==="unit"&&!parentId) { toast("Please select a parent property.","error"); return; }
-  if (calculatedArea && Math.abs(area-calculatedArea)/calculatedArea*100 > 10) { toast("Area mismatch too large. Reconcile before submitting.","error"); return; }
+  const parentId = type === "unit" ? (parseInt(parentSel.value) || 0) : 0;
+  const resubFrom = parseInt(document.getElementById("reg-resubmit-from").value) || 0;
+
+  let area = 0;
+  if (type === "unit") {
+    area = parseInt(document.getElementById("reg-area-sqft")?.value) || 0;
+  } else {
+    const acres  = parseInt(document.getElementById("reg-area-acres")?.value)  || 0;
+    const guntas = parseInt(document.getElementById("reg-area-guntas")?.value) || 0;
+    area = (acres * 40) + guntas;
+  }
+
+  if (!loc)              { toast("Location is required.", "error"); return; }
+  if (!area || area <= 0){ toast(type === "unit" ? "Area (sq ft) required." : "Area (Acres/Guntas) required.", "error"); return; }
+  if (!value || value <= 0){ toast("Declared value is required.", "error"); return; }
+  if (type === "unit" && !unitId) { toast("Unit identifier required.", "error"); return; }
+  if (type === "unit" && !parentId) { toast("Please select a parent property.", "error"); return; }
+  if (!surveyNo) { toast("Survey No / CTS No is required.", "error"); return; }
+  if (!district) { toast("Please select a district.", "error"); return; }
+  if (drawingPoints.length < 3) { toast("Draw the property boundary polygon with at least 3 points.", "error"); return; }
+  const witnessValues = [
+    document.getElementById("wit1-name").value.trim(),
+    document.getElementById("wit1-addr").value.trim(),
+    document.getElementById("wit2-name").value.trim(),
+    document.getElementById("wit2-addr").value.trim()
+  ];
+  if (witnessValues.some(v => !v)) { toast("Both witness names and wallet addresses are required.", "error"); return; }
+  if (!ethers.utils.isAddress(witnessValues[1]) || !ethers.utils.isAddress(witnessValues[3])) {
+    toast("Witness wallet addresses must be valid Ethereum addresses.", "error"); return;
+  }
+  if (calculatedArea && Math.abs(area - calculatedArea) / calculatedArea * 100 > 10) {
+    toast("Area mismatch too large. Reconcile before submitting.", "error"); return;
+  }
+
+  const parts = [loc];
+  if (surveyNo) parts.push("Survey/CTS: " + surveyNo);
+  if (village)  parts.push(village);
+  if (taluka)   parts.push(taluka);
+  if (district) parts.push(district);
+  const fullLoc = parts.join(", ");
+
   const manifestHash = await buildAndUploadManifest();
   if (!manifestHash) return;
+
   await txWrapper(
-    () => contract.registerProperty(loc,unitId,area,manifestHash,Math.round(lat*1e6),Math.round(lng*1e6),parentId,resubFrom,value),
+    () => contract.registerProperty(fullLoc, unitId, area, manifestHash,
+      Math.round(lat * 1e6), Math.round(lng * 1e6), parentId, resubFrom, value),
     "Property registration submitted! Awaiting Surveyor verification.",
     () => { clearRegForm(); loadCitizenData(); }
   );
 }
 function clearRegForm() {
-  ["reg-location","reg-area","reg-lat","reg-lng","reg-value","reg-unit-id","reg-resubmit-from","wit1-name","wit1-addr","wit2-name","wit2-addr"].forEach(id => { const el=document.getElementById(id); if(el) el.value=""; });
+  ["reg-location","reg-survey-no","reg-taluka","reg-village","reg-area-acres","reg-area-guntas","reg-area-sqft","reg-lat","reg-lng","reg-value","reg-unit-id","reg-resubmit-from","wit1-name","wit1-addr","wit2-name","wit2-addr"].forEach(id => { const el=document.getElementById(id); if(el) el.value=""; });
   Object.keys(docHashes).forEach(k => delete docHashes[k]);
-  ["saleDeed","idProof","taxReceipt","encumbrance","surveyMap","oc","noc"].forEach(k => {
+  ["satbara","aadhaarPan","taxReceipt","encumbrance","mutation","oc","noc"].forEach(k => {
     const s=document.getElementById("slot-"+k); const h=document.getElementById("hash-"+k);
     if(s) s.classList.remove("uploaded"); if(h){h.style.display="none";h.textContent="";}
   });
